@@ -29,3 +29,8 @@ alter role <user> in database <db> set search_path to public,dbo,dbv,new,map;
 su -l <user>
 psql -d <db> < <script.sql>
 ```
+
+## TODO
+1. user registration
+2. email verification (nyit)
+3. require token to push data
