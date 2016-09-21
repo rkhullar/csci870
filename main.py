@@ -3,13 +3,14 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  09/08/16
+@updated :  09/15/16
 """
 
 #from functools import wraps
 from flask import Flask, abort, request, session, render_template, redirect, url_for
 
 app = Flask(__name__)
+
 
 # Error Handlers
 @app.errorhandler(404)
@@ -18,7 +19,8 @@ def page_not_found(e):
 
 data = []
 
-@app.route('/api/v1.0/test', methods=['GET', 'POST'])
+
+@app.route('/api/test', methods=['GET', 'POST'])
 def hello():
     if request.method == 'GET':
         return ':'.join(data)
@@ -27,6 +29,7 @@ def hello():
         x = str(request.form['data'])
         data.append(x)
         return x
+
 
 if __name__ == '__main__':
     app.run(debug=True)
