@@ -3,14 +3,14 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  09/15/16
+@updated :  09/21/16
 """
 
 #from functools import wraps
 from flask import Flask, abort, request, session, render_template, redirect, url_for
+from config import MAIL
 
 app = Flask(__name__)
-
 
 # Error Handlers
 @app.errorhandler(404)
@@ -18,7 +18,6 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 data = []
-
 
 @app.route('/api/test', methods=['GET', 'POST'])
 def hello():
@@ -30,6 +29,9 @@ def hello():
         data.append(x)
         return x
 
+@app.route('/api/mail', methods=['GET'])
+def mail():
+    return MAIL['user']
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,7 +1,4 @@
-/.idea
-/local
-/wsgi.py
-/config.py
-
 __pycache__
 *.pyc
+local
+.idea

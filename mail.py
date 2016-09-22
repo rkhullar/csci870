@@ -3,12 +3,11 @@
 """
 @author  :  Rajan Khullar
 @created :  09/13/16
-@updated :  09/16/16
+@updated :  09/21/16
 """
 
 from smtplib import SMTP, SMTP_SSL
 from config import MAIL
-
 
 def send_message(recipients, message, mode='ssl'):
     if mode not in ['ssl', 'tls']:
@@ -47,4 +46,4 @@ def send_html(recipients, subject, template, mode='ssl'):
 
 
 if __name__ == '__main__':
-    send_text(['rkhullar03@gmail.com'], 'nydevteam test', 'this is a string')
+    send_text(MAIL['user'], 'nydevteam test', 'this is a string')
