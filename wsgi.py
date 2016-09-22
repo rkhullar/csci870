@@ -8,7 +8,7 @@ with open(actv) as file_:
 sys.path.append(base)
 
 def application(environ, start_response):
-    for key in ['MAIL_USER', 'MAIL_PSWD']:
+    for key in ['DB_NAME', 'DB_USER', 'DB_PSWD', 'MAIL_USER', 'MAIL_PSWD']:
         os.environ[key] = environ.get(key)
     from app import app
     app.secret_key = environ.get('SECRET')
