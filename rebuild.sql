@@ -16,6 +16,13 @@ create schema dbv;
 create schema new;
 create schema map;
 
+/* Stage 0 */
+create table dbo.item
+(
+  id serial primary key,
+  name varchar(50) not null
+);
+
 /* Stage 1 */
 
 create table dbo.wpa
