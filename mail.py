@@ -6,8 +6,8 @@
 @updated :  09/21/16
 """
 
-from smtplib import SMTP, SMTP_SSL
 from config import MAIL
+from smtplib import SMTP, SMTP_SSL
 
 def send_message(recipients, message, mode='ssl'):
     if mode not in ['ssl', 'tls']:
@@ -25,25 +25,24 @@ def send_message(recipients, message, mode='ssl'):
         server.login(MAIL['user'], MAIL['pswd'])
         server.sendmail(MAIL['user'], recipients, message)
         server.close()
-        print('email sent')
-
+        return True
     except:
-        print('Something went wrong...')
-
+        return False
 
 def send_text(recipients, subject, body, mode='ssl'):
     fmtstr = 'From: %s\nTo: %s\nSubject: %s\n\n%s'
     message = fmtstr % (MAIL['user'], ', '.join(recipients), subject, body)
-    send_message(recipients, message, mode)
-
+    return send_message(recipients, message, mode)
 
 def send_html(recipients, subject, template, mode='ssl'):
     fmtstr = 'From: %s\nTo: %s\nSubject: %s\nMime-Version: 1.0\nContent-Type: text/html\n\n%s'
     with open(template, 'r') as file:
         html = file.read()
     message = fmtstr % (MAIL['user'], ', '.join(recipients), subject, html)
-    send_message(recipients, message, mode)
-
+    return send_message(recipients, message, mode)
 
 if __name__ == '__main__':
-    send_text(MAIL['user'], 'nydevteam test', 'this is a string')
+    from os import environ
+    email = environ['MAIL_TEST']
+    t = send_text([email], 'nydevteam test', 'this is a string')
+    print(t)

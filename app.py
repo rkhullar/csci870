@@ -8,7 +8,7 @@
 
 #from functools import wraps
 from flask import Flask, abort, request, session, render_template, redirect, url_for
-from config import MAIL
+import mail
 
 app = Flask(__name__)
 
@@ -29,9 +29,12 @@ def hello():
         data.append(x)
         return x
 
-@app.route('/api/mail', methods=['GET'])
-def mail():
-    return MAIL['user']
+@app.route('/api/mail/<string:email>', methods=['GET'])
+def api_mail(email):
+    if mail.send_text([email], 'nydevtest', 'this is a string'):
+        return 'email sent'
+    else:
+        return 'something went wrong'
 
 if __name__ == '__main__':
     app.run(debug=True)
