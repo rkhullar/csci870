@@ -1,4 +1,4 @@
-# Project
+# Flask
 
 ## Setup
 * distribution files
@@ -23,7 +23,7 @@ deactivate
 sudo adduser <user>
 sudo su -l postgres
 psql
-create user <user> with superuser password '<pass>'; 
+create user <user> with superuser password '<pass>';
 create database <db> owner <user>;
 alter role <user> in database <db> set search_path to public,dbo,dbv,new,map;
 su -l <user>
@@ -51,3 +51,26 @@ curl -X GET csci870.nydev.local/api/test
 [email]: http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xi-email-support
 [ssl-tls]: https://www.fastmail.com/help/technical/ssltlsstarttls.html
 [wsgi-envvars]: http://software.saao.ac.za/2014/10/29/deploying-a-flask-application-on-apache/
+
+# Android
+
+## TODO
+1. Base
+    * setup website
+    * onclick perform wifi scan and post to api
+    * add floor and room selection
+2. Auto
+    * add continuous scan
+    * add time limit
+3. Safe
+    * store data in local sqlite database
+    * allow data to be posted to api
+
+## References
+1. [wifi]
+2. [service]
+2. [sqlite]
+
+[wifi]: http://www.tutorialspoint.com/android/android_wi_fi.htm
+[service]: https://developer.android.com/training/run-background-service/index.html
+[sqlite]: http://www.tutorialspoint.com/android/android_sqlite_database.htm
