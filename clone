@@ -1,14 +1,13 @@
 #!/bin/bash
 
 remote=git@github.com:rkhullar/csci870.git
-list=(master database flask deploy android)
-branch=0
+list=(database flask deploy)
 
 x=0
 while [ "x${list[x]}" != "x" ]
 do
     branch=${list[$x]}
-    rm -rf $branch
-    git clone -b $branch $remote $branch
+    rm -rf ../$branch
+    git clone -b $branch $remote ../$branch
     x=$(( $x + 1 ))
 done
