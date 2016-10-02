@@ -1,7 +1,7 @@
 <VirtualHost *:80>
 
 	ServerName		{{ ServerName }}
-	ServerAlias	  *.{{ ServerName }}
+	ServerAlias	      *.{{ ServerName }}
 	ServerAdmin		{{ ServerAdmin }}
 
 	SetEnv SECRET		{{ SECRET }}
@@ -15,11 +15,11 @@
 	WSGIScriptAlias / {{ FlaskDir }}/wsgi.py
 
 	<Directory {{ FlaskDir }}>
-		WSGIProcessGroup		{{ DB_NAME }}
+		WSGIProcessGroup	{{ DB_NAME }}
 		WSGIApplicationGroup	%{GLOBAL}
-		#WSGIRestrictStdout		Off
+		# WSGIRestrictStdout	Off
 		WSGIPassAuthorization	On
-		WSGIScriptReloading		On
+		WSGIScriptReloading	On
 		Require all granted
 	</Directory>
 

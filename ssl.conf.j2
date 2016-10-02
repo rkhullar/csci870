@@ -1,5 +1,5 @@
 <VirtualHost *:80>
-	ServerName	  {{ ServerName }}
+	ServerName    {{ ServerName }}
 	ServerAlias *.{{ ServerName }}
 	Redirect permanent / https://{{ ServerName }}
 </VirtualHost>
@@ -21,11 +21,11 @@
 	WSGIScriptAlias / {{ FlaskDir }}/wsgi.py
 
 	<Directory {{ FlaskDir }}>
-		WSGIProcessGroup		{{ DB_NAME }}
+		WSGIProcessGroup	{{ DB_NAME }}
 		WSGIApplicationGroup	%{GLOBAL}
-		#WSGIRestrictStdout		Off
+		# WSGIRestrictStdout	Off
 		WSGIPassAuthorization	On
-		WSGIScriptReloading		On
+		WSGIScriptReloading	On
 		Require all granted
 	</Directory>
 
@@ -38,7 +38,7 @@
 	SSLCipherSuite HIGH:!aNULL:!MD5
 	SSLHonorCipherOrder on
 
-	SSLCertificateFile		{{ SSL_CERT }}
+	SSLCertificateFile	{{ SSL_CERT }}
 	SSLCertificateKeyFile	{{ SSL_KEY }}
 	SSLCertificateChainFile	{{ SSL_CHAIN }}
 
