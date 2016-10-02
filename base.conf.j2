@@ -1,0 +1,35 @@
+<VirtualHost *:80>
+
+	ServerName		{{ ServerName }}
+	ServerAlias	  *.{{ ServerName }}
+	ServerAdmin		{{ ServerAdmin }}
+
+	SetEnv SECRET		{{ SECRET }}
+	SetEnv DB_NAME		{{ DB_NAME }}
+	SetEnv DB_USER		{{ DB_USER }}
+	SetEnv DB_PSWD		{{ DB_PSWD }}
+	SetEnv MAIL_USER	{{ MAIL_USER }}
+	SetEnv MAIL_PSWD	{{ MAIL_PSWD }}
+
+	WSGIDaemonProcess {{ DB_NAME }} user={{ DB_USER }} group=www-data
+	WSGIScriptAlias / {{ FlaskDir }}/wsgi.py
+
+	<Directory {{ FlaskDir }}>
+		WSGIProcessGroup		{{ DB_NAME }}
+		WSGIApplicationGroup	%{GLOBAL}
+		#WSGIRestrictStdout		Off
+		WSGIPassAuthorization	On
+		WSGIScriptReloading		On
+		Require all granted
+	</Directory>
+
+	Alias /static {{ FlaskDir }}/static
+	<Directory {{ FlaskDir }}/static/>
+		Require all granted
+	</Directory>
+
+	LogLevel	warn
+	ErrorLog	${APACHE_LOG_DIR}/error.log
+	CustomLog	${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>

@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+
+"""
+@author  :  Rajan Khullar
+@created :  10/02/16
+@updated :  10/02/16
+"""
+
+import argparse
+from jinja2 import Template
+
+DEFARGS = {'VHostName': 'vhost'}
+
+def input(path):
+    data = {}
+    with open(args.input, 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                t = line.split(' ')
+                data[t[0]] = t[-1]
+    for key in DEFARGS:
+        if key not in data:
+            data[key] = DEFARGS[key]
+    return data
+
+def genconf(mode, data):
+    with open(mode+'.conf.j2', 'r') as f:
+        t = Template(f.read())
+
+    x = '-'+mode if mode == 'ssl' else ''
+    output = data['VHostName']+x+'.conf'
+    with open(output, 'w') as f:
+        f.write(t.render(data))
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='generate apache vhost from template')
+    parser.add_argument('-m', '--mode', choices=['base', 'ssl', 'both'], default='both', help='')
+    parser.add_argument('input', help='')
+    args = parser.parse_args()
+    data = input(args.input)
+    if args.mode=='both':
+        genconf('base', data)
+        genconf('ssl', data)
+    else:
+        genconf(args.mode, data)
