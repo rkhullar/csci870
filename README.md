@@ -1,4 +1,4 @@
-# Flask
+# Indoor Localization via WiFi Fingerprinting Framework
 
 ## Setup
 * distribution files
@@ -38,23 +38,12 @@ curl -X GET csci870.nydev.local/api/test
 ```
 
 ## TODO
+### Flask
 1. user registration
 2. email verification (nyit)
 3. require token to push data
 
-## References
-1. [https]
-2. [email]
-3. [wsgi-envvars]
-
-[https]: https://gethttpsforfree.com/
-[email]: http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xi-email-support
-[ssl-tls]: https://www.fastmail.com/help/technical/ssltlsstarttls.html
-[wsgi-envvars]: http://software.saao.ac.za/2014/10/29/deploying-a-flask-application-on-apache/
-
-# Android
-
-## TODO
+### Android
 1. Base
     * setup website
     * onclick perform wifi scan and post to api
@@ -67,10 +56,18 @@ curl -X GET csci870.nydev.local/api/test
     * allow data to be posted to api
 
 ## References
-1. [wifi]
-2. [service]
-2. [sqlite]
+1. [https]
+2. [email]
+3. [wsgi-envvars]
+4. [wifi]
+5. [service]
+6. [sqlite]
 
+[https]: https://gethttpsforfree.com/
+[email]: http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xi-email-support
+[ssl-tls]: https://www.fastmail.com/help/technical/ssltlsstarttls.html
+[wsgi-envvars]: http://software.saao.ac.za/2014/10/29/deploying-a-flask-application-on-apache/
+[argparse]: https://docs.python.org/3/howto/argparse.html
 [wifi]: http://www.tutorialspoint.com/android/android_wi_fi.htm
 [service]: https://developer.android.com/training/run-background-service/index.html
 [sqlite]: http://www.tutorialspoint.com/android/android_sqlite_database.htm
