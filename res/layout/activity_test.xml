@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="me.nydev.wifituner.MainActivity"
+    tools:context="me.nydev.wifituner.TestActivity"
     android:background="@color/darkgrey">
 
     <Button
@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:textColor="@color/white"
         android:background="@color/red"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:clickable="true"
         android:onClick="work_hello" />
 </RelativeLayout>

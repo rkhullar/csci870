@@ -12,7 +12,9 @@ import android.view.View;
 
 import java.util.List;
 
-public class MainActivity extends Activity
+import me.nydev.wifituner.support.Toaster;
+
+public class TestActivity extends Activity
 {
     protected Context context;
     //protected Intent intent;
@@ -24,7 +26,7 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_test);
         context = getApplicationContext();
         toaster = new Toaster(context);
         wifi=(WifiManager) getSystemService(Context.WIFI_SERVICE);

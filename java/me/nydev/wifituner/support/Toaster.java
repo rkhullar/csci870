@@ -1,4 +1,4 @@
-package me.nydev.wifituner;
+package me.nydev.wifituner.support;
 
 import android.app.Activity;
 import android.content.Context;
