@@ -16,6 +16,9 @@
 ## 2016-09-21
 1. learned how to pass environment variables from apache vhost into flask
 
+## 2016-09-22
+1. finalized mail system
+
 ## 2016-09-25
 1. converted multiple repos into one repo with multiple branches
 2. initialized project page
@@ -25,3 +28,11 @@
 
 ## 2016-10-03
 1. initialized history
+
+## 2016-10-09
+1. initialized android sqlite database
+
+## 2016-10-10
+1. learned how to read request headers
+2. created default location and actor in database to use for stage 1
+3. added sql functions to aid data reconstruction from csv files
