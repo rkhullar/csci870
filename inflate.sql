@@ -4,15 +4,8 @@
  * @updated : 10/10/16
  */
 
-insert into dbo.item(name) values ('apple'), ('banana');
-
+select new.actor('nydevteam', '', 'nydevteam@gmail.com');
 select new.actor('Rajan', 'Khullar', 'rkhullar@nyit.edu');
 
-select new.scan(1473328800, '00:00:00:00:00:00'::macaddr, -100::smallint);
-
-/*insert into dbo.scan(select now()::timestamp, '00:00:00:00:00:00'::macaddr, -100);*/
-/*select new.scan(1473328800, '00:00:00:00:00:01'::macaddr, -100::smallint);*/
-
-/*
-select '00:00:00:00:00:01'::macaddr;
-*/
+insert into dbo.building(abbr) values ('ANY'), ('EGGC'), ('MC16'), ('MC26');
+select new.location('ANY', 0::smallint, 'ANY')
