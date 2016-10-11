@@ -7,7 +7,7 @@
 """
 
 #from functools import wraps
-from flask import Flask, abort, request, session, render_template, redirect, url_for
+from flask import Flask, json, request, abort, session, render_template, redirect, url_for
 import mail
 
 app = Flask(__name__)
@@ -35,6 +35,13 @@ def api_mail(email):
         return 'email sent'
     else:
         return 'something went wrong'
+
+@app.route('/api/signup', methods=['POST'])
+def api_signup():
+    if request.headers['Content-Type'] == 'text/plain':
+        return 'text ' + request.data
+    if request.headers['Content-Type'] == 'application/json':
+        return 'json ' + json.dumps(request.json)
 
 if __name__ == '__main__':
     app.run(debug=True)
