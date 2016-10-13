@@ -36,3 +36,10 @@
 1. learned how to read request headers
 2. created default location and actor in database to use for stage 1
 3. added sql functions to aid data reconstruction from csv files
+
+## 2016-10-11
+1. learned how to make requests in python in order to test the api
+
+## 2016-10-12
+1. using jsonify for api responses
+2. learned about request authorization 
