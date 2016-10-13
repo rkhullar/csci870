@@ -33,7 +33,7 @@ class core:
 
 if __name__ == '__main__':
     o = core()
-    q = 'select * from dbo.item'
+    q = 'select * from dbo.actor'
     r = o.exe(q)
     core.show(r)
     o.close()
