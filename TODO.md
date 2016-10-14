@@ -1,6 +1,6 @@
 1. registration
-    * concatenate email with secret key, then hash
-    * verification url contains email and hash
+    * concatenate secret key, email, and salt into msg
+    * verification url contains email and hash(msg)
     * two api endpoints for register and verify
     * registration page and verification page
 
