@@ -37,24 +37,6 @@ curl -X POST -d 'data=one' csci870.nydev.local/api/test
 curl -X GET csci870.nydev.local/api/test
 ```
 
-## TODO
-### Flask
-1. user registration
-2. email verification (nyit)
-3. require token to push data
-
-### Android
-1. Base
-    * setup website
-    * onclick perform wifi scan and post to api
-    * add floor and room selection
-2. Auto
-    * add continuous scan
-    * add time limit
-3. Safe
-    * store data in local sqlite database
-    * allow data to be posted to api
-
 ## References
 1. [https]
 2. [email]
