@@ -51,3 +51,4 @@
 
 ## 2016-10-15
 1. initiate model database classes in python
+2. work on person model for registration, login, and search
