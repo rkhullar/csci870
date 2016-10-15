@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  10/12/16
+@updated :  10/14/16
 """
 
 from functools import wraps
@@ -13,10 +13,22 @@ import mail
 app = Flask(__name__)
 
 # Error Handlers
+@app.errorhandler(401)
+def authenticate(e):
+    resp = jsonify({'status':401, 'message':'authenticate'})
+    resp.status_code = 401
+    return resp
+
 @app.errorhandler(404)
 def not_found(e):
-    resp = jsonify({'status':404, 'message':'not found:'+request.url})
+    resp = jsonify({'status':404, 'message':'not found:'+request.ur})
     resp.status_code = 404
+    return resp
+
+@app.errorhandler(415)
+def not_found(e):
+    resp = jsonify({'status':415, 'message':'unsupported media type'})
+    resp.status_code = 415
     return resp
 
 @app.errorhandler(500)
@@ -25,11 +37,6 @@ def error(e):
     resp.status_code = 500
     return resp
 
-@app.errorhandler(401)
-def authenticate(e):
-    resp = jsonify({'status':401, 'message':'authenticate'})
-    resp.status_code = 401
-    return resp
 
 # Decorators
 def requires_auth(f):
@@ -71,22 +78,19 @@ def api_echo():
     abort(415)
 
 
-@app.route('/api/signup', methods=['POST'])
-def api_signup():
-    if request.headers['content-type'] == 'text/plain':
-        return 'text ' + request.data
-    if request.headers['content-type'] == 'application/json':
-        return 'json ' + json.dumps(request.json)
-    abort(415)
+@app.route('/api/register', methods=['POST'])
+def api_register():
+    if request.headers['content-type'] != 'application/json':
+        abort(415)
+    return '|'.join(request.json)
+    #return json.dumps(request.json)
 
 @app.route('/api/scan', methods=['POST'])
 @requires_auth
 def api_scan():
-    if request.headers['content-type'] == 'text/plain':
-        return 'text ' + request.data
-    if request.headers['content-type'] == 'application/json':
-        return 'json ' + json.dumps(request.json)
-    abort(415)
+    if request.headers['content-type'] != 'application/json':
+        abort(415)
+    return json.dumps(request.json)
 
 if __name__ == '__main__':
     app.run(debug=True)
