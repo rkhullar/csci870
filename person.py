@@ -21,9 +21,8 @@ class person:
 
     @staticmethod
     def dump(o):
-        t = o.exe('select id, fname, lname, email from dbo.actor')
         l = []
-        for r in t:
+        for r in o.exe('select id, fname, lname, email from dbo.actor'):
             l.append(person(int(r[0]), r[1], r[2], r[3]))
         return l
 
@@ -34,11 +33,13 @@ class person:
 
     @staticmethod
     def register(o, fname, lname, email, pswd='aaaaaa'):
-        # make sure email is not in use already
         t = o.exe('select new.actor(%s,%s,%s,%s)', fname, lname, email, pswd)
         if(t):
             o.commit()
-            return int(t[0][0])
+            id = t[0][0]
+            o.exe('insert into dbo.signup(id) values (%s)', id)
+            o.commit()
+            return id
         return False
 
     @staticmethod
@@ -51,7 +52,11 @@ class person:
         if not c:
             return None
         q = 'select id from dbo.actor where %s' % c
-        return o.exe(q)
+        t = o.exe(q)
+        if t:
+            return t[0][0]
+        return False
+
 
 def test01(o):
     for p in person.dump(o):
@@ -66,14 +71,14 @@ def test03(o):
     print(t)
 
 def test04(o):
-    #t = person.find(o, email='rkhullar@nyit.edu')
-    t = person.find(o, fname='Rajan', lname='Khullar')
+    t = person.find(o, email='rkhullar@nyit.edu')
+    #t = person.find(o, fname='Rajan', lname='Khullar')
     print(t)
 
 if __name__ == '__main__':
     o = core()
-    #test01(o)
+    test01(o)
     #test02(o)
     #test03(o)
-    test04(o)
+    #test04(o)
     o.close()

@@ -1,13 +1,15 @@
-#!/usr/bin/env python3
+#!local/bin/python
 
 """
 @author  :  Rajan Khullar
 @created :  09/08/16
-@updated :  10/14/16
+@updated :  10/15/16
 """
 
 import time, requests, json
 from subprocess import call
+from core import core
+from person import person
 
 site = 'http://csci870.nydev.local'
 
@@ -29,7 +31,14 @@ def test02():
     r = requests.post(url, data=json.dumps(payload), headers=headers)
     print(r.content)
 
+def test03():
+    o = core()
+    for p in person.dump(o):
+        print(p)
+    o.close()
+
 if __name__ == '__main__':
     call(['./refresh'])
-    test01()
+    #test01()
     #test02()
+    test03()

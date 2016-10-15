@@ -6,10 +6,11 @@
 @updated :  10/15/16
 """
 
+import mail
 from functools import wraps
 from flask import Flask, Response, jsonify, json, request, abort, session, render_template, redirect, url_for
-import mail
-
+from core import core
+from person import person
 
 app = Flask(__name__)
 
@@ -22,12 +23,12 @@ def authenticate(e):
 
 @app.errorhandler(404)
 def not_found(e):
-    resp = jsonify({'status':404, 'message':'not found:'+request.ur})
+    resp = jsonify({'status':404, 'message':'not found:'+request.url})
     resp.status_code = 404
     return resp
 
 @app.errorhandler(415)
-def not_found(e):
+def bad_media(e):
     resp = jsonify({'status':415, 'message':'unsupported media type'})
     resp.status_code = 415
     return resp
@@ -50,8 +51,10 @@ def requires_auth(f):
     return decorated
 
 def check_auth(email, pswd):
-    return true
-
+    o = core()
+    t = person.login(o, email, pswd)
+    o.close()
+    return t
 
 data = []
 @app.route('/api/test', methods=['GET', 'POST'])
@@ -79,7 +82,6 @@ def api_echo():
         return 'json ' + json.dumps(request.json)
     abort(415)
 
-
 @app.route('/api/register', methods=['POST'])
 def api_register():
     if request.headers['content-type'] != 'application/json':
@@ -88,11 +90,15 @@ def api_register():
     #return json.dumps(request.json)
 
 @app.route('/api/scan', methods=['POST'])
-@requires_auth
 def api_scan():
     if request.headers['content-type'] != 'application/json':
         abort(415)
     return json.dumps(request.json)
+
+@app.route('/api/important')
+@requires_auth
+def api_important():
+    return 'this is a sensitive string\n'
 
 if __name__ == '__main__':
     app.run(debug=True)
