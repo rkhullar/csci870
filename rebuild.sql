@@ -1,7 +1,7 @@
 /*
  * @author  : Rajan Khullar
  * @created : 09/08/16
- * @updated : 10/10/16
+ * @updated : 10/15/16
  */
 
 create extension if not exists pgcrypto;
@@ -35,6 +35,11 @@ create table dbo.signup
     id serial references dbo.actor(id),
     primary key (id)
 );
+
+create view dbv.signup as
+    select a.id, fname, lname, email, token, salt, pswd
+    from dbo.actor a, dbo.signup s
+    where a.id = s.id;
 /************************************************/
 
 /************************************************/
