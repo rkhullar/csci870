@@ -3,12 +3,13 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  10/14/16
+@updated :  10/15/16
 """
 
 from functools import wraps
 from flask import Flask, Response, jsonify, json, request, abort, session, render_template, redirect, url_for
 import mail
+
 
 app = Flask(__name__)
 
@@ -50,6 +51,7 @@ def requires_auth(f):
 
 def check_auth(email, pswd):
     return true
+
 
 data = []
 @app.route('/api/test', methods=['GET', 'POST'])
