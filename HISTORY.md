@@ -43,3 +43,11 @@
 ## 2016-10-12
 1. using jsonify for api responses
 2. learned about request authorization 
+
+## 2016-10-14
+1. plan out registration verification url
+2. tried to read environment variables in postgres
+3. decide to only support json media type for post methods
+
+## 2016-10-15
+1. initiate model database classes in python
