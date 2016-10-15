@@ -28,8 +28,23 @@ class core:
                 print(row)
 
     def exe(self, query, *args):
-        self.cur.execute(query, args)
-        return self.cur.fetchall()
+        try:
+            self.cur.execute(query, args)
+            return self.cur.fetchall()
+        except psycopg2.DatabaseError as e:
+            pass
+
+class datalist:
+    def __init__(self, kls):
+        self.kls = kls
+        self.list = []
+
+    def __str__(self):
+        return "\n".join(map(str, self.list))
+
+    def add(self, *args):
+        item = self.kls(*args)
+        self.list.append(item)
 
 if __name__ == '__main__':
     o = core()
