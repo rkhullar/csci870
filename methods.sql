@@ -1,7 +1,7 @@
 /*
  * @author  : Rajan Khullar
  * @created : 09/08/16
- * @updated : 10/10/16
+ * @updated : 10/15/16
  */
 
 create function new.actor(dbo.actor.fname%type, dbo.actor.lname%type, dbo.actor.email%type, ptxt varchar(72) default 'aaaaaa')
@@ -17,6 +17,31 @@ create function new.actor(dbo.actor.fname%type, dbo.actor.lname%type, dbo.actor.
     select encode(digest($3 || gen_salt('bf'), 'sha256'), 'base64') into tval;
     insert into dbo.actor(fname, lname, email, salt, pswd, token) values ($1, $2, $3, sval, pval, tval) returning id into x;
     return x;
+  end;
+$$ language plpgsql;
+
+create function fnd.actor(dbo.actor.email%type, secret text, modeP boolean, modeT boolean)
+  returns integer as $$
+  declare
+    x integer;
+    sval text;
+    pval text;
+  begin
+    select id from dbo.actor where email = $1 into x;
+    if x isnull then
+        return null;
+    end if;
+    if modeT then
+        select id from dbo.actor where email = $1 and token = $2 into x;
+        return x;
+    end if;
+    if modeP then
+        select salt from dbo.actor where email = $1 into sval;
+        select crypt(secret, sval) into pval;
+        select id from dbo.actor where email = $1 and pswd = pval into x;
+        return x;
+    end if;
+    return null;
   end;
 $$ language plpgsql;
 
