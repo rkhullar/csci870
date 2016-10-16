@@ -42,7 +42,7 @@
 
 ## 2016-10-12
 1. using jsonify for api responses
-2. learned about request authorization 
+2. learned about request authorization
 
 ## 2016-10-14
 1. plan out registration verification url
@@ -55,3 +55,8 @@
 3. authorization decorator works
 4. reimplemented error system
 5. added json required decorator
+
+## 2016-10-16
+1. reimplemented authorization with decorators
+2. now api endpoints can easily require password or token based authorization
+3. reimplemented error system again to cover all error codes
