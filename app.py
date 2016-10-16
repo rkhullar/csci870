@@ -7,54 +7,25 @@
 """
 
 import mail
-from functools import wraps
-from flask import Flask, Response, jsonify, json, request, abort, session, render_template, redirect, url_for
+import decor as dec
+
+from flask import Flask, jsonify, json, request
+#from flask import Flask, Response, jsonify, json, request, abort, session, render_template, redirect, url_for
+
 from core import core
 from person import person
+from error import apierror
 
 app = Flask(__name__)
 
+
 # Error Handlers
-@app.errorhandler(401)
-def authenticate(e):
-    resp = jsonify({'status':401, 'message':'authenticate'})
-    resp.status_code = 401
+@app.errorhandler(apierror)
+def noname(error):
+    resp = jsonify(error.pkg())
+    resp.status_code = error.code
     return resp
 
-@app.errorhandler(404)
-def not_found(e):
-    resp = jsonify({'status':404, 'message':'not found:'+request.url})
-    resp.status_code = 404
-    return resp
-
-@app.errorhandler(415)
-def bad_media(e):
-    resp = jsonify({'status':415, 'message':'unsupported media type'})
-    resp.status_code = 415
-    return resp
-
-@app.errorhandler(500)
-def error(e):
-    resp = jsonify({'status':500, 'message':'internal error'})
-    resp.status_code = 500
-    return resp
-
-
-# Decorators
-def requires_auth(f):
-    wraps(f)
-    def decorated(*args, **kwargs):
-        auth = request.authorization
-        if not auth or not check_auth(auth.username, auth.password):
-            abort(401)
-        return f(*args, **kwargs)
-    return decorated
-
-def check_auth(email, pswd):
-    o = core()
-    t = person.login(o, email, pswd)
-    o.close()
-    return t
 
 data = []
 @app.route('/api/test', methods=['GET', 'POST'])
@@ -90,13 +61,12 @@ def api_register():
     #return json.dumps(request.json)
 
 @app.route('/api/scan', methods=['POST'])
+@dec.json
 def api_scan():
-    if request.headers['content-type'] != 'application/json':
-        abort(415)
     return json.dumps(request.json)
 
 @app.route('/api/important')
-@requires_auth
+@dec.auth
 def api_important():
     return 'this is a sensitive string\n'
 
