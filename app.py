@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  10/15/16
+@updated :  10/16/16
 """
 
 import mail
@@ -17,14 +17,11 @@ from person import person
 from error import apierror
 
 app = Flask(__name__)
+apierror.apply(app)
 
-
-# Error Handlers
-@app.errorhandler(apierror)
-def noname(error):
-    resp = jsonify(error.pkg())
-    resp.status_code = error.code
-    return resp
+# Authorization Methods
+pswd = dec.corify(person.pswd)
+token = dec.corify(person.token)
 
 
 data = []
@@ -66,7 +63,7 @@ def api_scan():
     return json.dumps(request.json)
 
 @app.route('/api/important')
-@dec.auth
+@dec.auth(pswd)
 def api_important():
     return 'this is a sensitive string\n'
 

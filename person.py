@@ -32,6 +32,14 @@ class person:
         return t[0][0]
 
     @staticmethod
+    def pswd(o, e, s):
+        return person.login(o, e, s, modeP=True)
+
+    @staticmethod
+    def token(o, e, s):
+        return person.login(o, e, s, modeT=True)
+
+    @staticmethod
     def register(o, fname, lname, email, pswd='aaaaaa'):
         t = o.exe('select new.actor(%s,%s,%s,%s)', fname, lname, email, pswd)
         if(t):
@@ -77,8 +85,8 @@ def test04(o):
 
 if __name__ == '__main__':
     o = core()
-    test01(o)
+    #test01(o)
     #test02(o)
-    #test03(o)
+    test03(o)
     #test04(o)
     o.close()
