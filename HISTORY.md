@@ -53,3 +53,5 @@
 1. initiate model database classes in python
 2. work on person model for registration, login, and search
 3. authorization decorator works
+4. reimplemented error system
+5. added json required decorator
