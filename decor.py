@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  10/15/16
-@updated :  10/16/16
+@updated :  10/17/16
 """
 
 from functools import wraps, update_wrapper
@@ -16,8 +16,7 @@ def auth(checker):
         def decorated(*args, **kwargs):
             auth = request.authorization
             if not auth or not checker(auth.username, auth.password):
-                raise apierror('authenticate', 401)
-                #abort(401)
+                abort(401)
             return fn(*args, **kwargs)
         return update_wrapper(decorated, fn)
     return decorator
@@ -26,7 +25,6 @@ def json(fn):
     @wraps(fn)
     def decorated(*args, **kwargs):
         if request.headers['content-type'] != 'application/json':
-            #raise apierror('unsupported media type', 415)
             abort(415)
         return fn(*args, **kwargs)
     return decorated

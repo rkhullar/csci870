@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  10/16/16
+@updated :  10/17/16
 """
 
 import mail
@@ -23,17 +23,16 @@ apierror.apply(app)
 pswd = dec.corify(person.pswd)
 token = dec.corify(person.token)
 
+# Person Methods
+register = dec.corify(person.register)
 
-data = []
 @app.route('/api/test', methods=['GET', 'POST'])
 def hello():
     if request.method == 'GET':
-        return ':'.join(data)
+        abort(200)
 
     if request.method == 'POST':
-        x = str(request.form['data'])
-        data.append(x)
-        return x
+        return request.form['data']
 
 @app.route('/api/mail/<string:email>', methods=['GET'])
 def api_mail(email):
@@ -42,28 +41,22 @@ def api_mail(email):
     else:
         return 'something went wrong'
 
-@app.route('/api/echo', methods=['POST'])
-def api_echo():
-    if request.headers['content-type'] == 'text/plain':
-        return 'text ' + request.data
-    if request.headers['content-type'] == 'application/json':
-        return 'json ' + json.dumps(request.json)
-    abort(415)
-
 @app.route('/api/register', methods=['POST'])
+@dec.json
 def api_register():
-    if request.headers['content-type'] != 'application/json':
-        abort(415)
-    return '|'.join(request.json)
-    #return json.dumps(request.json)
+    data = request.json
+    t = register(**data)
+    return 'registered'
 
 @app.route('/api/scan', methods=['POST'])
+@dec.auth(pswd)
 @dec.json
 def api_scan():
     return json.dumps(request.json)
 
 @app.route('/api/important')
 @dec.auth(pswd)
+@dec.json
 def api_important():
     return 'this is a sensitive string\n'
 

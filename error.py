@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  10/15/16
-@updated :  10/16/16
+@updated :  10/17/16
 """
 
 from flask import jsonify
@@ -31,10 +31,13 @@ class apierror(Exception):
     @staticmethod
     def fact(code, msg):
         def fn(error):
+            '''
             try:
                 raise apierror(msg, code)
             except apierror as e:
                 return apierror.handle(e)
+            '''
+            return apierror.handle(apierror(msg, code))
         return fn
 
     @staticmethod
