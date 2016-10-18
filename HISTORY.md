@@ -60,3 +60,11 @@
 1. reimplemented authorization with decorators
 2. now api endpoints can easily require password or token based authorization
 3. reimplemented error system again to cover all error codes
+
+## 2016-10-17
+1. added user view to differentiate registered vs signup
+2. initialized verification endpoint
+3. learned how to print request responses properly
+
+## 2016-10-18
+1. created endpoint to persist single scan
