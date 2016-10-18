@@ -78,6 +78,16 @@ create function new.location(dbo.building.abbr%type, dbo.location.floor%type, db
   end;
 $$ language plpgsql;
 
+create function fnd.location(dbo.building.abbr%type, dbo.location.floor%type, dbo.location.room%type)
+  returns integer as $$
+  declare
+    x integer;
+  begin
+    select id from dbv.location where building=$1 and floor=$2 and room=$3 into x;
+    return x;
+  end;
+$$ language plpgsql;
+
 create function new.scan(integer, integer, dbo.wpa.bssid%type, dbo.scan.level%type, integer)
   returns void as $$
   declare

@@ -78,7 +78,7 @@ create view dbv.location as
 /************************************************/
 create table dbo.scan
 (
-    time timestamp not null,
+    time timestamp not null default now(),
     actorID serial references dbo.actor(id) not null,
     wpaID serial references dbo.wpa(id) not null,
     level smallint not null,
@@ -86,7 +86,7 @@ create table dbo.scan
 );
 
 create view dbv.scan as
-    select s.time, a.email, w.bssid, s.level, l.building, l.floor, l.room
+    select extract(epoch from s.time) as uxt, a.email, w.bssid, s.level, l.building, l.floor, l.room
     from dbo.scan s, dbo.actor a, dbo.wpa w, dbv.location l
     where s.actorID = a.id and s.wpaID = w.id and s.locationID = l.id;
 /************************************************/
