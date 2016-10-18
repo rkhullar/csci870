@@ -1,7 +1,7 @@
 /*
  * @author  : Rajan Khullar
  * @created : 09/08/16
- * @updated : 10/17/16
+ * @updated : 10/18/16
  */
 
 create extension if not exists pgcrypto;
@@ -43,6 +43,15 @@ create view dbv.signup as
 
 create view dbv.user as
     select * from dbo.actor where id not in (select id from dbo.signup);
+
+create table dbo.admin
+(
+    id serial references dbo.actor(id) on delete cascade,
+    primary key (id)
+);
+
+create view dbv.admin as
+    select * from dbo.actor where id in (select id from dbo.admin);
 /************************************************/
 
 /************************************************/
