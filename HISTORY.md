@@ -69,3 +69,6 @@
 ## 2016-10-18
 1. modified auth decorator to add userid keyword arg
 2. created endpoint to persist single scan
+3. add dbo.admin and dbv.admin to database
+4. add admin email and password to environment
+

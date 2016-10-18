@@ -1,3 +1,6 @@
+## Immediate
+1. on android wifi scan call api
+
 1. registration
     * concatenate secret key, email, and salt into msg
     * verification url contains email and hash(msg)
