@@ -8,13 +8,15 @@
 
 import time, requests, json
 from subprocess import call
+from config import ADMIN
 
 site = 'http://csci870.nydev.local'
-auth = ('rkhullar@nyit.edu', 'aaaaaa')
+auth = (ADMIN['user'], ADMIN['pswd'])
 
 headers = {'content-type': 'application/json'}
 
 def post(url, payload):
+    print(auth)
     r = requests.post(url, data=json.dumps(payload), headers=headers, auth=auth)
     print(r.content.decode('UTF-8'))
 
