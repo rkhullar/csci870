@@ -16,6 +16,8 @@
 	SetEnv DB_PSWD		{{ DB_PSWD }}
 	SetEnv MAIL_USER	{{ MAIL_USER }}
 	SetEnv MAIL_PSWD	{{ MAIL_PSWD }}
+	SetEnv ADMIN_USER	{{ ADMIN_USER }}
+	SetEnv ADMIN_PSWD	{{ ADMIN_PSWD }}
 
 	WSGIDaemonProcess {{ DB_NAME }} user={{ DB_USER }} group=www-data
 	WSGIScriptAlias / {{ FlaskDir }}/wsgi.py
