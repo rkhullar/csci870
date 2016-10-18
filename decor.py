@@ -15,9 +15,12 @@ def auth(checker):
     def decorator(fn):
         def decorated(*args, **kwargs):
             auth = request.authorization
-            if not auth or not checker(auth.username, auth.password):
-                abort(401)
-            return fn(*args, **kwargs)
+            if auth:
+                t = checker(auth.username, auth.password)
+                if t:
+                    kwargs['userid'] = t
+                    return fn(*args, **kwargs)
+            abort(401)
         return update_wrapper(decorated, fn)
     return decorator
 
@@ -44,6 +47,6 @@ def corify(fn):
 
 if __name__ == '__main__':
     from person import person
-    f = corify(person.login)
-    t = f('rkhullar@nyit.edu', 'aaaaaa', modeP=True)
+    fn = corify(person.login)
+    t = fn('rkhullar@nyit.edu', 'aaaaaa', modeP=True)
     print(t)

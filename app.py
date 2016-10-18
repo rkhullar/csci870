@@ -9,12 +9,14 @@
 import mail
 import decor as dec
 
-from flask import Flask, jsonify, json, request
+from flask import Flask, jsonify, json, request, abort
 #from flask import Flask, Response, jsonify, json, request, abort, session, render_template, redirect, url_for
+
+from error import apierror
 
 from core import core
 from person import person
-from error import apierror
+from scan import scan
 
 app = Flask(__name__)
 apierror.apply(app)
@@ -23,13 +25,14 @@ apierror.apply(app)
 pswd = dec.corify(person.pswd)
 token = dec.corify(person.token)
 
-# Person Methods
+# Model Methods
 register = dec.corify(person.register)
+persist_scan = dec.corify(scan.persist)
 
 @app.route('/api/test', methods=['GET', 'POST'])
 def hello():
     if request.method == 'GET':
-        abort(200)
+        return 'ok'
 
     if request.method == 'POST':
         return request.form['data']
@@ -46,18 +49,27 @@ def api_mail(email):
 def api_register():
     data = request.json
     t = register(**data)
-    return 'registered'
+    # send out email
+    # add verification endpoint
+    return str(t)
+
+@app.route('/api/verify/<string:email>/<string:hash>', methods=['GET'])
+def api_verify(email, hash):
+    return 'ok'
 
 @app.route('/api/scan', methods=['POST'])
 @dec.auth(pswd)
 @dec.json
-def api_scan():
-    return json.dumps(request.json)
+def api_scan(userid):
+    data = request.json
+    data['userID'] = userid
+    t = persist_scan(**data)
+    return str(t)
+    #return json.dumps(data)
 
 @app.route('/api/important')
 @dec.auth(pswd)
-@dec.json
-def api_important():
+def api_important(userid):
     return 'this is a sensitive string\n'
 
 if __name__ == '__main__':

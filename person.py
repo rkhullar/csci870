@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  10/15/16
-@updated :  10/15/16
+@updated :  10/17/16
 """
 
 from core import core, datalist
@@ -20,15 +20,17 @@ class person:
         return '%d %s %s %s' % (self.id, self.fname, self.lname, self.email)
 
     @staticmethod
-    def dump(o):
+    def dump(o, user=True, actor=False):
+        t = 'dbv.user'
+        t = 'dbo.actor' if actor else t
         l = []
-        for r in o.exe('select id, fname, lname, email from dbo.actor'):
+        for r in o.exe('select id, fname, lname, email from '+t):
             l.append(person(int(r[0]), r[1], r[2], r[3]))
         return l
 
     @staticmethod
     def login(o, email, secret, modeP=True, modeT=False):
-        t = o.exe('select fnd.actor(%s, %s, %s, %s)', email, secret, modeP, modeT)
+        t = o.exe('select fnd.user(%s, %s, %s, %s)', email, secret, modeP, modeT)
         return t[0][0]
 
     @staticmethod
@@ -59,7 +61,7 @@ class person:
             c = "fname='%s' and lname='%s'" % (fname, lname)
         if not c:
             return None
-        q = 'select id from dbo.actor where %s' % c
+        q = 'select id from dbv.user where %s' % c
         t = o.exe(q)
         if t:
             return t[0][0]
@@ -79,7 +81,7 @@ def test03(o):
     print(t)
 
 def test04(o):
-    t = person.find(o, email='rkhullar@nyit.edu')
+    t = person.find(o, email='nydevteam@gmail.com')
     #t = person.find(o, fname='Rajan', lname='Khullar')
     print(t)
 
@@ -87,6 +89,6 @@ if __name__ == '__main__':
     o = core()
     #test01(o)
     #test02(o)
-    test03(o)
+    #test03(o)
     #test04(o)
     o.close()
