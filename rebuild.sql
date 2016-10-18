@@ -1,7 +1,7 @@
 /*
  * @author  : Rajan Khullar
  * @created : 09/08/16
- * @updated : 10/15/16
+ * @updated : 10/17/16
  */
 
 create extension if not exists pgcrypto;
@@ -40,6 +40,9 @@ create view dbv.signup as
     select a.id, fname, lname, email, token, salt, pswd
     from dbo.actor a, dbo.signup s
     where a.id = s.id;
+
+create view dbv.user as
+    select * from dbo.actor where id not in (select id from dbo.signup);
 /************************************************/
 
 /************************************************/
