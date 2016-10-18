@@ -67,4 +67,5 @@
 3. learned how to print request responses properly
 
 ## 2016-10-18
-1. created endpoint to persist single scan
+1. modified auth decorator to add userid keyword arg
+2. created endpoint to persist single scan
