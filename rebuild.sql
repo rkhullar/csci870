@@ -32,7 +32,7 @@ create table dbo.actor
 
 create table dbo.signup
 (
-    id serial references dbo.actor(id),
+    id serial references dbo.actor(id) on delete cascade,
     primary key (id)
 );
 
