@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
 
-import me.nydev.wifituner.support.API;
+import com.loopj.android.http.*;
+
+import me.nydev.wifituner.support.RestClientUsage;
 import me.nydev.wifituner.support.Toaster;
 
 public class APITestActivity extends Activity
@@ -15,7 +17,7 @@ public class APITestActivity extends Activity
     protected Toaster  toaster;
     protected Vibrator vibrator;
 
-    protected API api;
+    protected RestClientUsage api;
 
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -24,18 +26,50 @@ public class APITestActivity extends Activity
         context = getApplicationContext();
         toaster = new Toaster(context);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        api = new API();
+        api = new RestClientUsage(toaster);
     }
 
     public void test_api_default(View view)
     {
-        toaster.toast("calling api");
         try {
-            String m = api.test();
-            toaster.toast(m);
+            api.test();
         } catch (Exception e) {
-            //Log.d(MY_APP_TAG, "Error: " + e.getMessage());
-            toaster.toast(e.getMessage());
+            toaster.toast("error");
         }
     }
+
+    /*
+    public void test_api_default(View view)
+    {
+        URL url; HttpsURLConnection c;
+        BufferedReader br; StringBuilder sb; String line;
+        String stage = "null";
+        try {
+            url = new URL(endpoint);
+            stage = "url";
+            c = (HttpsURLConnection) url.openConnection();
+            stage = "con";
+            try {
+                stage = "inner try";
+                br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                stage = "buffered reader";
+                sb = new StringBuilder();
+                stage = "string builder";
+                while( (line = br.readLine()) != null)
+                    sb.append(line).append('\n');
+                br.close();
+                toaster.toast(sb.toString());
+            } finally {
+                c.disconnect();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            //Log.e("ERROR", e.getMessage(), e);
+            //Log.d(MY_APP_TAG, "Error: " + e.getMessage());
+            toaster.toast(stage);
+        }
+    }
+    */
+
 }
