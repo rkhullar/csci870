@@ -72,3 +72,12 @@
 3. add dbo.admin and dbv.admin to database
 4. add admin email and password to environment
 
+## 2016-10-19
+1. look into async task to call rest api from android
+
+## 2016-10-20
+1. add test activities to app
+2. use async http client instead of async task
+3. able to perform get request
+4. able to add authentication to request
+5. create model classes for scan and location
