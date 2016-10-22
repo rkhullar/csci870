@@ -13,6 +13,9 @@ import android.view.View;
 
 import java.util.List;
 
+import me.nydev.wifituner.model.Scan;
+import me.nydev.wifituner.model.ScanBuilder;
+import me.nydev.wifituner.support.RestClientUsage;
 import me.nydev.wifituner.support.Toaster;
 
 public class WiFiTestActivity extends Activity
@@ -24,6 +27,8 @@ public class WiFiTestActivity extends Activity
     protected WifiManager wifi;
     protected WifiScanReceiver wifi_rcvr;
 
+    protected RestClientUsage api;
+
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -33,6 +38,7 @@ public class WiFiTestActivity extends Activity
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         wifi=(WifiManager) getSystemService(Context.WIFI_SERVICE);
         wifi_rcvr = new WifiScanReceiver();
+        api = new RestClientUsage();
     }
 
     protected void onPause()
@@ -74,8 +80,18 @@ public class WiFiTestActivity extends Activity
                 if(sr.SSID.equals("NYIT"))
                 {
                     //String s = api.persist_scan(sr.BSSID, sr.level, "ANY", 0, "ANY");
-                    String s = String.format("%s => %d", sr.BSSID, sr.level);
-                    toaster.toast(s);
+                    //String s = String.format("%s => %d", sr.BSSID, sr.level);
+                    //toaster.toast(s);
+                    ///*
+                    Scan s = new ScanBuilder()
+                            .setScanResult(sr)
+                            .setBuilding("ANY")
+                            .setFloor(0)
+                            .setRoom("ANY")
+                            .build();
+                    api.setToaster(toaster);
+                    api.persist_scan(null, s);
+                    //*/
                 }
             }
             System.out.println("stop");

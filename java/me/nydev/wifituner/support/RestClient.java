@@ -2,6 +2,8 @@ package me.nydev.wifituner.support;
 
 import com.loopj.android.http.*;
 
+import me.nydev.wifituner.model.Auth;
+
 public class RestClient
 {
     private static final String BASE_URL = "https://csci870.nydev.me/api/";
@@ -21,5 +23,15 @@ public class RestClient
     private static String getAbsoluteUrl(String relativeUrl)
     {
         return BASE_URL + relativeUrl;
+    }
+
+    public static void auth(String username, String secret)
+    {
+        client.setBasicAuth(username, secret);
+    }
+
+    public static void auth(Auth a)
+    {
+        client.setBasicAuth(a.getUsername(), a.getSecret());
     }
 }

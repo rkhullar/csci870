@@ -26,16 +26,19 @@ public class APITestActivity extends Activity
         context = getApplicationContext();
         toaster = new Toaster(context);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        api = new RestClientUsage(toaster);
+        api = new RestClientUsage();
     }
 
     public void test_api_default(View view)
     {
-        try {
-            api.test();
-        } catch (Exception e) {
-            toaster.toast("error");
-        }
+        api.setToaster(toaster);
+        api.test();
+    }
+
+    public void test_api_auth(View view)
+    {
+        api.setToaster(toaster);
+        api.test_auth();
     }
 
     /*

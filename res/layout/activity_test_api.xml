@@ -9,8 +9,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Click Me"
-        android:id="@+id/test_api_button"
+        android:text="Test 1"
+        android:id="@+id/test_api_button1"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:textColor="@color/white"
@@ -18,4 +18,23 @@
         android:textSize="20sp"
         android:clickable="true"
         android:onClick="test_api_default" />
+
+    <Space
+        android:id="@+id/test_api_space1"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@+id/test_api_button1" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Test 2"
+        android:id="@+id/test_api_auth"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/test_api_space1"
+        android:textColor="@color/white"
+        android:background="@color/red"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:onClick="test_api_auth" />
 </RelativeLayout>
