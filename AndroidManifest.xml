@@ -26,6 +26,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".APITestActivity" android:label="@string/test_api"
             android:screenOrientation="portrait"/>
+        <activity android:name=".LoginTestActivity" android:label="@string/test_login"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

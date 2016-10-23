@@ -4,43 +4,31 @@
 
 package me.nydev.wifituner;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.view.View;
 
-import me.nydev.wifituner.support.Toaster;
+import me.nydev.wifituner.support.BaseActivity;
 
-public class MainActivity extends Activity
+public class MainActivity extends BaseActivity
 {
-    protected Context  context;
-    protected Intent   intent;
-    protected Toaster  toaster;
-    protected Vibrator vibrator;
-
     protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        context = getApplicationContext();
-        toaster = new Toaster(context);
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        super.onCreate(savedInstanceState, R.layout.activity_main);
     }
 
     public void main_test_wifi(View view)
     {
-        vibrator.vibrate(200);
-        intent = new Intent(this, me.nydev.wifituner.WiFiTestActivity.class);
-        startActivity(intent);
+        handleIntent(me.nydev.wifituner.WiFiTestActivity.class);
     }
 
     public void main_test_api(View view)
     {
-        vibrator.vibrate(200);
-        intent = new Intent(this, me.nydev.wifituner.APITestActivity.class);
-        startActivity(intent);
+        handleIntent(me.nydev.wifituner.APITestActivity.class);
+    }
+
+    public void main_test_login(View view)
+    {
+        handleIntent(me.nydev.wifituner.LoginTestActivity.class);
     }
 
 }

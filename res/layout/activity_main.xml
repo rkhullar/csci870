@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/test_api"
-        android:id="@+id/main_api"
+        android:id="@+id/main_test_api"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:textColor="@color/blue"
@@ -23,19 +23,39 @@
         android:id="@+id/main_space1"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:layout_below="@+id/main_api" />
+        android:layout_below="@+id/main_test_api" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/test_wifi"
-        android:id="@+id/main_wifi"
+        android:id="@+id/main_test_wifi"
         android:textColor="@color/blue"
         android:background="@color/orange"
         android:textSize="20sp"
         android:clickable="true"
         android:onClick="main_test_wifi"
         android:layout_below="@+id/main_space1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Space
+        android:id="@+id/main_space2"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@+id/main_test_wifi" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/test_login"
+        android:id="@+id/main_test_login"
+        android:textColor="@color/blue"
+        android:background="@color/orange"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:onClick="main_test_login"
+        android:layout_below="@+id/main_space2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

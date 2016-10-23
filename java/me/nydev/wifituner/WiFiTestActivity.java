@@ -15,27 +15,18 @@ import java.util.List;
 
 import me.nydev.wifituner.model.Scan;
 import me.nydev.wifituner.model.ScanBuilder;
+import me.nydev.wifituner.support.BaseActivity;
 import me.nydev.wifituner.support.RestClientUsage;
 import me.nydev.wifituner.support.Toaster;
 
-public class WiFiTestActivity extends Activity
+public class WiFiTestActivity extends BaseActivity
 {
-    protected Context  context;
-    protected Toaster  toaster;
-    protected Vibrator vibrator;
-
     protected WifiManager wifi;
     protected WifiScanReceiver wifi_rcvr;
 
-    protected RestClientUsage api;
-
     protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_wifi);
-        context = getApplicationContext();
-        toaster = new Toaster(context);
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        super.onCreate(savedInstanceState, R.layout.activity_test_wifi);
         wifi=(WifiManager) getSystemService(Context.WIFI_SERVICE);
         wifi_rcvr = new WifiScanReceiver();
         api = new RestClientUsage();
@@ -77,7 +68,7 @@ public class WiFiTestActivity extends Activity
             for(int x=0; x<n; x++)
             {
                 ScanResult sr = wifiScanList.get(x);
-                if(sr.SSID.equals("NYIT"))
+                if(sr.SSID.equals("NYIT") || true)
                 {
                     //String s = api.persist_scan(sr.BSSID, sr.level, "ANY", 0, "ANY");
                     //String s = String.format("%s => %d", sr.BSSID, sr.level);

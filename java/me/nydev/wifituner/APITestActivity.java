@@ -1,38 +1,22 @@
 package me.nydev.wifituner;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.view.View;
 
-import com.loopj.android.http.*;
+import me.nydev.wifituner.support.BaseActivity;
 
-import me.nydev.wifituner.support.RestClientUsage;
-import me.nydev.wifituner.support.Toaster;
-
-public class APITestActivity extends Activity
+public class APITestActivity extends BaseActivity
 {
-    protected Context  context;
-    protected Toaster  toaster;
-    protected Vibrator vibrator;
-
-    protected RestClientUsage api;
 
     protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_api);
-        context = getApplicationContext();
-        toaster = new Toaster(context);
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        api = new RestClientUsage();
+        super.onCreate(savedInstanceState, R.layout.activity_test_api);
     }
 
     public void test_api_default(View view)
     {
         api.setToaster(toaster);
-        api.test();
+        api.echo();
     }
 
     public void test_api_auth(View view)

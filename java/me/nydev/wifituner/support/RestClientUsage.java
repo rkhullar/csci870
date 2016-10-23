@@ -17,9 +17,9 @@ public class RestClientUsage
         this.toaster = toaster;
     }
 
-    public void test()
+    public void echo()
     {
-        RestClient.get("test", null, new TextHttpResponseHandler()
+        RestClient.get("echo", null, new TextHttpResponseHandler()
         {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
             {
@@ -34,8 +34,8 @@ public class RestClientUsage
 
     public void test_auth()
     {
-        RestClient.auth("nydevteam@gmail.com", "aaaaaa");
-        RestClient.get("important", null, new TextHttpResponseHandler()
+        RestClient.auth("rkhullar@nyit.edu", "aaaaaa");
+        RestClient.get("authenticate", null, new TextHttpResponseHandler()
         {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
             {
