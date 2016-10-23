@@ -1,20 +1,23 @@
 /*
  * @author  : Rajan Khullar
  * @created : 09/08/16
- * @updated : 10/15/16
+ * @updated : 10/23/16
  */
 
 create function new.actor(dbo.actor.fname%type, dbo.actor.lname%type, dbo.actor.email%type, ptxt varchar(72) default 'aaaaaa')
   returns integer as $$
   declare
+    kval text;
     sval text;
     pval text;
     tval text;
     x integer;
   begin
+    select current_setting('extra.secretkey') into kval;
     select gen_salt('bf') into sval;
-    select crypt(ptxt::text, sval) into pval;
-    select encode(digest($3 || gen_salt('bf'), 'sha256'), 'base64') into tval;
+    /*select crypt(ptxt::text, sval) into pval;*/
+    select encode(digest(kval || sval || ptxt::text, 'sha256'), 'base64') into pval;
+    select encode(digest(kval || gen_salt('bf') || $3, 'sha256'), 'base64') into tval;
     insert into dbo.actor(fname, lname, email, salt, pswd, token) values ($1, $2, $3, sval, pval, tval) returning id into x;
     return x;
   end;
@@ -23,10 +26,12 @@ $$ language plpgsql;
 create function fnd.user(dbo.actor.email%type, secret text, modeP boolean, modeT boolean)
   returns integer as $$
   declare
-    x integer;
+    kval text;
     sval text;
     pval text;
+    x integer;
   begin
+    select current_setting('extra.secretkey') into kval;
     select id from dbv.user where email = $1 into x;
     if x isnull then
         return null;
@@ -37,7 +42,8 @@ create function fnd.user(dbo.actor.email%type, secret text, modeP boolean, modeT
     end if;
     if modeP then
         select salt from dbv.user where email = $1 into sval;
-        select crypt(secret, sval) into pval;
+        /*select crypt(secret, sval) into pval;*/
+        select encode(digest(kval || sval || secret, 'sha256'), 'base64') into pval;
         select id from dbv.user where email = $1 and pswd = pval into x;
         return x;
     end if;
@@ -99,5 +105,15 @@ create function new.scan(integer, integer, dbo.wpa.bssid%type, dbo.scan.level%ty
     end if;
     insert into dbo.scan(time, actorID, wpaID, level, locationID)
         values (to_timestamp($1) at time zone 'UTC', $2, w, $4, $5);
+  end;
+$$ language plpgsql;
+
+create function fnd.secretkey()
+  returns text as $$
+  declare
+    x text;
+  begin
+    select current_setting('extra.secretkey') into x;
+    return x;
   end;
 $$ language plpgsql;
