@@ -83,9 +83,9 @@
 5. create model classes for scan and location
 
 ## 2016-10-22
-1. learn how to add custom parameters to postgres database
+1. learned how to add custom parameters to postgres database
 2. added secret key to database
 
 ## 2016-10-23
-1. updates new.user and fnd.user to include secret key
+1. updated new.user and fnd.user to include secret key
 2. moving database inflation from sql to python
