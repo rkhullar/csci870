@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  10/17/16
+@updated :  10/23/16
 """
 
 import mail
@@ -29,13 +29,14 @@ token = dec.corify(person.token)
 register = dec.corify(person.register)
 persist_scan = dec.corify(scan.persist)
 
-@app.route('/api/test', methods=['GET', 'POST'])
-def hello():
+@app.route('/api/echo', methods=['GET', 'POST'])
+def api_echo():
     if request.method == 'GET':
-        return 'ok'
+        return jsonify('ok')
 
     if request.method == 'POST':
-        return request.form['data']
+        #return request.form['data']
+        return request.json
 
 @app.route('/api/mail/<string:email>', methods=['GET'])
 def api_mail(email):
@@ -67,10 +68,10 @@ def api_scan(userid):
     return str(t)
     #return json.dumps(data)
 
-@app.route('/api/important')
+@app.route('/api/authenticate')
 @dec.auth(pswd)
-def api_important(userid):
-    return 'this is a sensitive string\n'
+def api_authenticate(userid):
+    return jsonify('ok')
 
 if __name__ == '__main__':
     app.run(debug=True)

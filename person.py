@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  10/15/16
-@updated :  10/17/16
+@updated :  10/23/16
 """
 
 from core import core, datalist
@@ -67,6 +67,14 @@ class person:
             return t[0][0]
         return False
 
+    @staticmethod
+    def admin(o, fname, lname, email, pswd):
+        t = o.exe('select new.actor(%s,%s,%s,%s)', fname, lname, email, pswd)
+        if(t):
+            o.commit()
+            id = t[0][0]
+            o.exe('insert into dbo.admin(id) values (%s)', id)
+            o.commit()
 
 def test01(o):
     for p in person.dump(o):
