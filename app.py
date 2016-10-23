@@ -24,6 +24,7 @@ apierror.apply(app)
 # Authorization Methods
 pswd = dec.corify(person.pswd)
 token = dec.corify(person.token)
+admin = dec.corify(person.admin_login)
 
 # Model Methods
 register = dec.corify(person.register)
@@ -71,6 +72,11 @@ def api_scan(userid):
 @app.route('/api/authenticate')
 @dec.auth(pswd)
 def api_authenticate(userid):
+    return jsonify('ok')
+
+@app.route('/api/admin')
+@dec.auth(admin)
+def api_admin(userid):
     return jsonify('ok')
 
 if __name__ == '__main__':

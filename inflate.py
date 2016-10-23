@@ -14,7 +14,7 @@ from person import person
 class inflate:
     @staticmethod
     def admin():
-        f = dec.corify(person.admin)
+        f = dec.corify(person.new_admin)
         f(ADMIN['fname'], ADMIN['lname'], ADMIN['user'], ADMIN['pswd'])
 
 if __name__ == '__main__':

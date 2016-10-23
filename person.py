@@ -68,13 +68,19 @@ class person:
         return False
 
     @staticmethod
-    def admin(o, fname, lname, email, pswd):
+    def new_admin(o, fname, lname, email, pswd):
         t = o.exe('select new.actor(%s,%s,%s,%s)', fname, lname, email, pswd)
         if(t):
             o.commit()
             id = t[0][0]
             o.exe('insert into dbo.admin(id) values (%s)', id)
             o.commit()
+
+    @staticmethod
+    def admin_login(o, email, pswd):
+        t = o.exe('select fnd.admin(%s, %s)', email, pswd)
+        return t[0][0]
+
 
 def test01(o):
     for p in person.dump(o):
@@ -93,10 +99,15 @@ def test04(o):
     #t = person.find(o, fname='Rajan', lname='Khullar')
     print(t)
 
+def test05(o):
+    t = person.admin_login(o, email='rkhullar@nyit.edu', pswd='seNpai27')
+    print(t)
+
 if __name__ == '__main__':
     o = core()
     #test01(o)
     #test02(o)
     #test03(o)
     #test04(o)
+    #test05(o)
     o.close()
