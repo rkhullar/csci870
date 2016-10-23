@@ -26,6 +26,7 @@ psql
 create user <user> with superuser password '<pass>';
 create database <db> owner <user>;
 alter role <user> in database <db> set search_path to public,dbo,dbv,new,map,fnd;
+alter database <db> set extra.secretkey to '<secretkey>';
 su -l <user>
 psql -d <db> < <script.sql>
 ```
