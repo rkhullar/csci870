@@ -51,6 +51,26 @@ create function fnd.user(dbo.actor.email%type, secret text, modeP boolean, modeT
   end;
 $$ language plpgsql;
 
+create function fnd.admin(dbo.actor.email%type, ptex text)
+  returns integer as $$
+  declare
+    kval text;
+    sval text;
+    pval text;
+    x integer;
+  begin
+    select current_setting('extra.secretkey') into kval;
+    select id from dbv.admin where email = $1 into x;
+    if x isnull then
+        return null;
+    end if;
+    select salt from dbv.admin where email = $1 into sval;
+    select encode(digest(kval || sval || ptex, 'sha256'), 'base64') into pval;
+    select id from dbv.admin where email = $1 and pswd = pval into x;
+    return x;
+  end;
+$$ language plpgsql;
+
 create function new.wpa(dbo.wpa.bssid%type) returns integer as $$
   declare
     x integer;
