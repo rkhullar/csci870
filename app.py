@@ -77,7 +77,8 @@ def api_scan(userid):
 @app.route('/api/authenticate')
 @dec.auth(pswd)
 def api_authenticate(userid):
-    return jsonify('ok')
+    resp = {'message': 'ok'}
+    return jsonify(resp)
 
 @app.route('/api/admin')
 @dec.auth(admin)
