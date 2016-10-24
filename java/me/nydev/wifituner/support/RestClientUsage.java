@@ -32,18 +32,32 @@ public class RestClientUsage
         });
     }
 
-    public void test_auth()
+    public void authenticate(Auth auth)
     {
-        RestClient.auth("rkhullar@nyit.edu", "aaaaaa");
+        RestClient.auth(auth);
+        /*
         RestClient.get("authenticate", null, new TextHttpResponseHandler()
         {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
             {
-                toaster.toast(responseString);
+                //toaster.toast(responseString);
+                toaster.toast("login failure");
             }
             public void onSuccess(int statusCode, Header[] headers, String responseString)
             {
-                toaster.toast(responseString);
+                //toaster.toast(responseString);
+                toaster.toast("good");
+            }
+        });*/
+        RestClient.get("authenticate", null, new JsonHttpResponseHandler()
+        {
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
+            {
+                toaster.toast("login failure");
+            }
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response)
+            {
+                toaster.toast(response.toString());
             }
         });
     }

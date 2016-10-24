@@ -11,11 +11,45 @@
         android:layout_height="wrap_content"
         android:text="@string/test_login"
         android:id="@+id/test_login_button"
-        android:layout_centerHorizontal="true"
         android:textColor="@color/white"
         android:background="@color/red"
         android:textSize="20sp"
         android:clickable="true"
-        android:onClick="test_login_default" />
+        android:onClick="test_login_default"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/test_login_email"
+        android:hint="email address"
+        android:maxLines="1"
+        android:textColorLink="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorHighlight="@color/blue"
+        android:textAlignment="center"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:layout_below="@+id/test_login_email"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/test_login_pswd"
+        android:hint="password"
+        android:maxLines="1"
+        android:textColorLink="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorHighlight="@color/blue"
+        android:textAlignment="center"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>
