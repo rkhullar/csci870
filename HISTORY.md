@@ -89,3 +89,7 @@
 ## 2016-10-23
 1. updated new.user and fnd.user to include secret key
 2. moving database inflation from sql to python
+3. added base activity class for android
+
+## 2016-10-24
+1. generate verification url for user registration
