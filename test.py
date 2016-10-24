@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/08/16
-@updated :  10/18/16
+@updated :  10/24/16
 """
 
 import time, requests, json
@@ -16,13 +16,13 @@ auth = (ADMIN['user'], ADMIN['pswd'])
 headers = {'content-type': 'application/json'}
 
 def post(url, payload):
-    print(auth)
     r = requests.post(url, data=json.dumps(payload), headers=headers, auth=auth)
     print(r.content.decode('UTF-8'))
 
 def test01():
     url = '/'.join([site, 'api', 'register'])
-    payload = {'fname': 'John', 'lname': 'Adams', 'email': 'jadams@nyit.edu'}
+    #payload = {'fname': 'John', 'lname': 'Adams', 'email': 'jadams@nyit.edu'}
+    payload = {'fname': 'John', 'lname': 'Adams', 'email': 'rkhullar@nyit.edu'}
     post(url, payload)
 
 def test02():
@@ -34,5 +34,5 @@ def test02():
 
 if __name__ == '__main__':
     call(['./refresh'])
-    #test01()
-    test02()
+    test01()
+    #test02()

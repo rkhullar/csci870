@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  10/23/16
+@updated :  10/24/16
 """
 
 import mail
@@ -28,6 +28,7 @@ admin = dec.corify(person.admin_login)
 
 # Model Methods
 register = dec.corify(person.register)
+verification = dec.corify(person.verification)
 persist_scan = dec.corify(scan.persist)
 
 @app.route('/api/echo', methods=['GET', 'POST'])
@@ -51,13 +52,17 @@ def api_mail(email):
 def api_register():
     data = request.json
     t = register(**data)
-    # send out email
-    # add verification endpoint
+    if(t):
+        e = data['email']
+        h = verification(t)
+        u = 'https://csci870.nydev.me/api/verify/%s/%s' % (e, h)
+        mail.send_text([e], 'nydev verify account', u)
+        return jsonify(t)
     return str(t)
 
 @app.route('/api/verify/<string:email>/<string:hash>', methods=['GET'])
 def api_verify(email, hash):
-    return 'ok'
+    return jsonify('ok')
 
 @app.route('/api/scan', methods=['POST'])
 @dec.auth(pswd)

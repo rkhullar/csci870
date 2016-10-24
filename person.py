@@ -3,10 +3,13 @@
 """
 @author  :  Rajan Khullar
 @created :  10/15/16
-@updated :  10/23/16
+@updated :  10/24/16
 """
 
+from config import SECRET
 from core import core, datalist
+from hashlib import sha256
+from base64 import urlsafe_b64encode as encurl64, urlsafe_b64decode as decurl64
 
 class person:
     def __init__(self, id, fname, lname, email):
@@ -50,6 +53,21 @@ class person:
             o.exe('insert into dbo.signup(id) values (%s)', id)
             o.commit()
             return id
+        return False
+
+    @staticmethod
+    def verification(o, id):
+        t = o.exe('select email, salt from dbv.signup where id=%s', id)
+        if(t):
+            e = t[0][0]
+            s = t[0][1]
+            m = str.encode(SECRET + s + e)
+            h = encurl64(sha256(m).digest()).decode('utf-8')
+            return h
+        return False
+
+    @staticmethod
+    def verify(o, email, hash):
         return False
 
     @staticmethod
@@ -103,6 +121,10 @@ def test05(o):
     t = person.admin_login(o, email='rkhullar@nyit.edu', pswd='seNpai27')
     print(t)
 
+def test06(o):
+    t = person.verification(o, 1)
+    print(t)
+
 if __name__ == '__main__':
     o = core()
     #test01(o)
@@ -110,4 +132,5 @@ if __name__ == '__main__':
     #test03(o)
     #test04(o)
     #test05(o)
+    test06(o)
     o.close()
