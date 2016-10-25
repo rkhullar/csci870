@@ -93,3 +93,6 @@
 
 ## 2016-10-24
 1. generate verification url for user registration
+2. restructured android app
+3. app db create table statements successful
+4. query, insert, and delete accomplished
