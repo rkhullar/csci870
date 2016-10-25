@@ -7,18 +7,18 @@ import android.widget.EditText;
 import me.nydev.wifituner.model.Auth;
 import me.nydev.wifituner.support.BaseActivity;
 
-public class LoginTestActivity extends BaseActivity
+public class SignupActivity extends BaseActivity
 {
     protected EditText et1, et2;
     protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState, R.layout.activity_test_login);
-        et1 = (EditText) findViewById(R.id.test_login_email);
-        et2 = (EditText) findViewById(R.id.test_login_pswd);
-        api.setToaster(toaster);
+        super.onCreate(savedInstanceState, R.layout.activity_signup);
+        et1 = (EditText) findViewById(R.id.signup_email);
+        et2 = (EditText) findViewById(R.id.signup_pswd);
+        api.setup(context);
     }
 
-    public void test_login_default(View view)
+    public void signup_default(View view)
     {
         String email = et1.getText().toString();
         String pswd = et2.getText().toString();

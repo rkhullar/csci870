@@ -11,7 +11,7 @@ public class APITestActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState, R.layout.activity_test_api);
-        api.setToaster(toaster);
+        api.setup(context);
     }
 
     public void test_api_default(View view)

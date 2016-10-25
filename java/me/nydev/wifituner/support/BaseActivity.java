@@ -13,7 +13,7 @@ public class BaseActivity extends Activity
     protected Vibrator vibrator;
     protected Intent   intent;
 
-    protected RestClientUsage api;
+    protected RestClientAdapter api;
 
     protected void onCreate(Bundle savedInstanceState, int layoutResID)
     {
@@ -22,7 +22,7 @@ public class BaseActivity extends Activity
         context = getApplicationContext();
         toaster = new Toaster(context);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        api = new RestClientUsage();
+        api = new RestClientAdapter();
     }
 
     protected void handleIntent(Class<?> cls)

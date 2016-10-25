@@ -4,7 +4,7 @@ import com.loopj.android.http.*;
 
 import me.nydev.wifituner.model.Auth;
 
-public class RestClient
+public class BaseRestClient
 {
     private static final String BASE_URL = "https://csci870.nydev.me/api/";
 

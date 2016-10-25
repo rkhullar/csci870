@@ -1,6 +1,5 @@
 package me.nydev.wifituner;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +7,6 @@ import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.view.View;
 
 import java.util.List;
@@ -16,8 +14,7 @@ import java.util.List;
 import me.nydev.wifituner.model.Scan;
 import me.nydev.wifituner.model.ScanBuilder;
 import me.nydev.wifituner.support.BaseActivity;
-import me.nydev.wifituner.support.RestClientUsage;
-import me.nydev.wifituner.support.Toaster;
+import me.nydev.wifituner.support.RestClientAdapter;
 
 public class WiFiTestActivity extends BaseActivity
 {
@@ -29,7 +26,7 @@ public class WiFiTestActivity extends BaseActivity
         super.onCreate(savedInstanceState, R.layout.activity_test_wifi);
         wifi=(WifiManager) getSystemService(Context.WIFI_SERVICE);
         wifi_rcvr = new WifiScanReceiver();
-        api = new RestClientUsage();
+        api = new RestClientAdapter();
     }
 
     protected void onPause()
@@ -80,7 +77,7 @@ public class WiFiTestActivity extends BaseActivity
                             .setFloor(0)
                             .setRoom("ANY")
                             .build();
-                    api.setToaster(toaster);
+                    api.setup(context);
                     api.persist_scan(null, s);
                     //*/
                 }

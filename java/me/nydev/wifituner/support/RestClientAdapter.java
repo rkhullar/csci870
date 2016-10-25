@@ -1,5 +1,7 @@
 package me.nydev.wifituner.support;
 
+import android.content.Context;
+
 import org.json.*;
 import com.loopj.android.http.*;
 
@@ -8,18 +10,21 @@ import cz.msebera.android.httpclient.Header;
 import me.nydev.wifituner.model.Auth;
 import me.nydev.wifituner.model.Scan;
 
-public class RestClientUsage
+public class RestClientAdapter
 {
+
+    private Context context;
     private Toaster toaster;
 
-    public void setToaster(Toaster toaster)
+    public void setup(Context context)
     {
-        this.toaster = toaster;
+        this.context = context;
+        this.toaster = new Toaster(context);
     }
 
     public void echo()
     {
-        RestClient.get("echo", null, new TextHttpResponseHandler()
+        BaseRestClient.get("echo", null, new TextHttpResponseHandler()
         {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
             {
@@ -34,9 +39,10 @@ public class RestClientUsage
 
     public void authenticate(Auth auth)
     {
-        RestClient.auth(auth);
+        BaseRestClient.auth(auth);
+
         /*
-        RestClient.get("authenticate", null, new TextHttpResponseHandler()
+        BaseRestClient.get("authenticate", null, new TextHttpResponseHandler()
         {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
             {
@@ -48,16 +54,19 @@ public class RestClientUsage
                 //toaster.toast(responseString);
                 toaster.toast("good");
             }
-        });*/
-        RestClient.get("authenticate", null, new JsonHttpResponseHandler()
+        });
+        */
+
+        BaseRestClient.get("authenticate", null, new JsonHttpResponseHandler()
         {
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse)
             {
-                toaster.toast("login failure");
+                toaster.toast("login failed");
             }
+
             public void onSuccess(int statusCode, Header[] headers, JSONObject response)
             {
-                toaster.toast(response.toString());
+                toaster.toast("authenticated");
             }
         });
     }
