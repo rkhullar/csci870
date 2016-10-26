@@ -9,6 +9,7 @@
 import decor as dec
 
 from flask import Flask, jsonify, json, request, abort
+from flask import render_template
 #from flask import Flask, Response, jsonify, json, request, abort, session, render_template, redirect, url_for
 
 from error import apierror
