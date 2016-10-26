@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  10/24/16
+@updated :  10/25/16
 """
 
 import mail
@@ -18,6 +18,8 @@ from core import core
 from person import person
 from scan import scan
 
+BASEURL = 'https://csci870.nydev.me/api'
+
 app = Flask(__name__)
 apierror.apply(app)
 
@@ -26,53 +28,21 @@ pswd = dec.corify(person.pswd)
 token = dec.corify(person.token)
 admin = dec.corify(person.admin_login)
 
-# Model Methods
+# User Methods
 register = dec.corify(person.register)
 verification = dec.corify(person.verification)
+verify = dec.corify(person.verify)
+
+# Scan Methods
 persist_scan = dec.corify(scan.persist)
 
 @app.route('/api/echo', methods=['GET', 'POST'])
 def api_echo():
     if request.method == 'GET':
-        return jsonify('ok')
-
+        return jsonify({'message': 'ok'})
     if request.method == 'POST':
         #return request.form['data']
         return request.json
-
-@app.route('/api/mail/<string:email>', methods=['GET'])
-def api_mail(email):
-    if mail.send_text([email], 'nydevtest', 'this is a string'):
-        return 'email sent'
-    else:
-        return 'something went wrong'
-
-@app.route('/api/register', methods=['POST'])
-@dec.json
-def api_register():
-    data = request.json
-    t = register(**data)
-    if(t):
-        e = data['email']
-        h = verification(t)
-        u = 'https://csci870.nydev.me/api/verify/%s/%s' % (e, h)
-        mail.send_text([e], 'nydev verify account', u)
-        return jsonify(t)
-    return str(t)
-
-@app.route('/api/verify/<string:email>/<string:hash>', methods=['GET'])
-def api_verify(email, hash):
-    return jsonify('ok')
-
-@app.route('/api/scan', methods=['POST'])
-@dec.auth(pswd)
-@dec.json
-def api_scan(userid):
-    data = request.json
-    data['userID'] = userid
-    t = persist_scan(**data)
-    return str(t)
-    #return json.dumps(data)
 
 @app.route('/api/authenticate')
 @dec.auth(pswd)
@@ -83,7 +53,38 @@ def api_authenticate(userid):
 @app.route('/api/admin')
 @dec.auth(admin)
 def api_admin(userid):
-    return jsonify('ok')
+    resp = {'message': 'ok'}
+    return jsonify(resp)
+
+@app.route('/api/register', methods=['POST'])
+@dec.json
+def api_register():
+    resp = {'message': 'not ok'}
+    data = request.json
+    t = register(**data)
+    if(t):
+        e = data['email']
+        h = verification(t)
+        u = '%s/verify/%s/%s' % (BASEURL, e, h)
+        mail.send_text([e], 'nydev verify account', u)
+        resp['message'] = 'ok'
+    return jsonify(resp)
+
+@app.route('/api/verify/<string:email>/<string:hash>', methods=['GET'])
+def api_verify(email, hash):
+    t = verify(email, hash)
+    resp = {'message': 'ok'} if t else {'message': 'not ok'}
+    return jsonify(resp)
+
+@app.route('/api/scan', methods=['POST'])
+@dec.auth(pswd)
+@dec.json
+def api_scan(userid):
+    data = request.json
+    data['userID'] = userid
+    t = persist_scan(**data)
+    resp = {'message': 'ok'} if t else {'message': 'not ok'}
+    return jsonify(resp)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  10/15/16
-@updated :  10/24/16
+@updated :  10/25/16
 """
 
 from config import SECRET
@@ -68,6 +68,14 @@ class person:
 
     @staticmethod
     def verify(o, email, hash):
+        t = o.exe('select id from dbv.signup where email=%s', email)
+        if(t):
+            id = t[0][0]
+            h = person.verification(o, id)
+            if h == hash:
+                o.exe('delete from dbo.signup where id=%s', id)
+                o.commit()
+                return True
         return False
 
     @staticmethod
