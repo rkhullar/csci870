@@ -46,6 +46,9 @@ class person:
 
     @staticmethod
     def register(o, fname, lname, email, pswd='aaaaaa'):
+        a = email.split('@')[1].split('.')
+        if(a[-1] != 'edu'):
+            return False
         t = o.exe('select new.actor(%s,%s,%s,%s)', fname, lname, email, pswd)
         if(t):
             o.commit()
