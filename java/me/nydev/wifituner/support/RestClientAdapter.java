@@ -7,7 +7,6 @@ import com.loopj.android.http.*;
 
 import cz.msebera.android.httpclient.Header;
 
-import cz.msebera.android.httpclient.entity.StringEntity;
 import me.nydev.wifituner.model.Auth;
 import me.nydev.wifituner.model.Scan;
 import me.nydev.wifituner.model.User;
@@ -47,21 +46,8 @@ public class RestClientAdapter
 
     public void register(User user, JsonHttpResponseHandler handler)
     {
-        JSONObject json = new JSONObject();
-        StringEntity entity = null;
-        try {
-            json.put("fname", user.fname());
-            json.put("lname", user.lname());
-            json.put("email", user.email());
-            json.put("pswd", user.token());
-            entity = new StringEntity(json.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        AsyncHttpClient client = BaseRestClient.getClient();
-        client.post(context, "register", entity, "application/json", handler);
+        JSONObject json = User.jsonify(user);
+        BaseRestClient.post("register", json, handler);
     }
 
     public void persist_scan(Auth auth, Scan scan)
