@@ -1,6 +1,5 @@
 ## Immediate
 1. wifi test activity, persist scans with generic user and location
-2. flask email verification
 3. login and signup system
 4. mail in background
 

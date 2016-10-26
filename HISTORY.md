@@ -96,3 +96,9 @@
 2. restructured android app
 3. app db create table statements successful
 4. query, insert, and delete accomplished
+
+## 2016-10-25
+1. email verification endpoint
+2. limited registration to edu domain
+3. login on android app works
+4. working on signup from app
