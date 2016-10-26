@@ -18,7 +18,8 @@ from core import core
 from person import person
 from scan import scan
 
-BASEURL = 'https://csci870.nydev.me/api'
+BASEURL = 'https://csci870.nydev.me'
+BASEAPI = BASEURL + '/api'
 
 app = Flask(__name__)
 apierror.apply(app)
