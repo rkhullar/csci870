@@ -3,11 +3,12 @@
 """
 @author  :  Rajan Khullar
 @created :  09/13/16
-@updated :  09/21/16
+@updated :  09/26/16
 """
 
 from config import MAIL
 from smtplib import SMTP, SMTP_SSL
+from threading import Thread
 
 def send_message(recipients, message, mode='ssl'):
     if mode not in ['ssl', 'tls']:
@@ -41,8 +42,18 @@ def send_html(recipients, subject, template, mode='ssl'):
     message = fmtstr % (MAIL['user'], ', '.join(recipients), subject, html)
     return send_message(recipients, message, mode)
 
+def send_thread_text(recipients, subject, body, mode='ssl'):
+    t = Thread(target=send_text, args=[recipients, subject, body, mode])
+    t.start()
+
+def send_thread_html(recipients, subject, template, mode='ssl'):
+    t = Thread(target=send_html, args=[recipients, subject, template, mode])
+    t.start()
+
+
+def test01(email):
+    send_thread_text([email], 'nydevteam test', 'this is a string')
+
 if __name__ == '__main__':
     from os import environ
     email = environ['MAIL_TEST']
-    t = send_text([email], 'nydevteam test', 'this is a string')
-    print(t)

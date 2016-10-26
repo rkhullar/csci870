@@ -6,13 +6,13 @@
 @updated :  10/25/16
 """
 
-import mail
 import decor as dec
 
 from flask import Flask, jsonify, json, request, abort
 #from flask import Flask, Response, jsonify, json, request, abort, session, render_template, redirect, url_for
 
 from error import apierror
+from mail import send_thread_text
 
 from core import core
 from person import person
@@ -66,7 +66,7 @@ def api_register():
         e = data['email']
         h = verification(t)
         u = '%s/verify/%s/%s' % (BASEURL, e, h)
-        mail.send_text([e], 'nydev verify account', u)
+        send_thread_text([e], 'nydev verify account', u)
         resp['message'] = 'ok'
     return jsonify(resp)
 
@@ -75,6 +75,13 @@ def api_verify(email, hash):
     t = verify(email, hash)
     resp = {'message': 'ok'} if t else {'message': 'not ok'}
     return jsonify(resp)
+
+@app.route('/verify/<string:email>/<string:hash>', methods=['GET'])
+def web_verify(email, hash):
+    t = verify(email, hash)
+    if t:
+        jsonify({'message': 'ok'})
+    abort(404)
 
 @app.route('/api/scan', methods=['POST'])
 @dec.auth(pswd)
