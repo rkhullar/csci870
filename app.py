@@ -81,8 +81,8 @@ def api_verify(email, hash):
 def web_verify(email, hash):
     t = verify(email, hash)
     if t:
-        jsonify({'message': 'ok'})
-    abort(404)
+        return render_template('verify.html')
+    abort(400)
 
 @app.route('/api/scan', methods=['POST'])
 @dec.auth(pswd)
