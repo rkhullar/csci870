@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 
+import me.nydev.wifituner.model.Auth;
+
 public class BaseActivity extends Activity
 {
     protected Context  context;
@@ -13,7 +15,9 @@ public class BaseActivity extends Activity
     protected Vibrator vibrator;
     protected Intent   intent;
 
+    protected Auth auth;
     protected RestClientAdapter api;
+    protected DatabaseAdapter dba;
 
     protected void onCreate(Bundle savedInstanceState, int layoutResID)
     {
@@ -23,6 +27,7 @@ public class BaseActivity extends Activity
         toaster = new Toaster(context);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         api = new RestClientAdapter();
+        dba = new DatabaseAdapter(this);
     }
 
     protected void handleIntent(Class<?> cls)
@@ -31,4 +36,14 @@ public class BaseActivity extends Activity
         intent = new Intent(this, cls);
         startActivity(intent);
     }
+
+    protected void handleNewIntent(Class<?> cls)
+    {
+        vibrator.vibrate(200);
+        intent = new Intent(this, cls);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
 }

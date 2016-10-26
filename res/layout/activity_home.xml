@@ -9,10 +9,23 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:id="@+id/home_logout"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:background="@color/red"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:onClick="home_logout" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/test_api"
         android:id="@+id/home_test_api"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
         android:textColor="@color/blue"
         android:background="@color/orange"
         android:textSize="20sp"

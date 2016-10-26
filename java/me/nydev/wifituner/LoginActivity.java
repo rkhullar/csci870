@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import org.json.JSONObject;
+import cz.msebera.android.httpclient.Header;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
 import me.nydev.wifituner.model.Auth;
 import me.nydev.wifituner.support.BaseActivity;
 
@@ -16,6 +20,13 @@ public class LoginActivity extends BaseActivity
         et1 = (EditText) findViewById(R.id.login_email);
         et2 = (EditText) findViewById(R.id.login_pswd);
         api.setup(context);
+        gate();
+    }
+
+    protected void gate()
+    {
+        if(dba.login())
+            handleNewIntent(HomeActivity.class);
     }
 
     public void login_default(View view)
@@ -28,11 +39,24 @@ public class LoginActivity extends BaseActivity
             return;
         }
         vibrator.vibrate(200);
-        api.authenticate(new Auth(email, pswd));
+        auth = new Auth(email, pswd);
+        api.authenticate(auth, new JsonHttpResponseHandler(){
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse)
+            {
+                toaster.toast("login failed");
+            }
+
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response)
+            {
+                toaster.toast("authenticated");
+                dba.login(auth);
+                handleNewIntent(HomeActivity.class);
+            }
+        });
     }
 
-    public void login_home(View view)
+    public void login_signup(View view)
     {
-        handleIntent(HomeActivity.class);
+        handleIntent(SignupActivity.class);
     }
 }

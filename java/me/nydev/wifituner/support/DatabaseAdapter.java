@@ -14,12 +14,13 @@ public class DatabaseAdapter extends BaseDatabase
         super(context);
     }
 
-    public void login()
+    public void login(Auth auth)
     {
         logout();
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(KEY_EMAIL, "test@nyit.edu");
+        cv.put(KEY_EMAIL, auth.getUsername());
+        cv.put(KEY_TOKEN, auth.getSecret());
         db.insert(TABLE_USER, null, cv);
         db.close();
     }
@@ -31,9 +32,33 @@ public class DatabaseAdapter extends BaseDatabase
         db.close();
     }
 
+    public boolean login()
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("select id from user", null);
+        int x = c.getCount();
+        c.close();
+        db.close();
+        return x > 0;
+    }
+
+    public Auth getAuth()
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("select email, token from user", null);
+        if(c.getCount() < 1)
+            return null;
+        c.moveToFirst();
+        Auth a = new Auth(c.getString(0), c.getString(1));
+        c.close();
+        db.close();
+        return a;
+    }
+
+
     public String[] test()
     {
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery("select email from user", null);
         int n = c.getCount(), x = 0;
         String[] out = new String[n];

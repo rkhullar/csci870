@@ -4,6 +4,12 @@ public class User
 {
     protected String fname, lname, email, token;
 
+    public User()
+    {
+        fname = null; lname = null;
+        email = null; token = null;
+    }
+
     public User(String fname, String lname, String email, String token)
     {
         this.fname = fname; this.lname = lname;

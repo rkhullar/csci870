@@ -34,4 +34,9 @@ public class BaseRestClient
     {
         client.setBasicAuth(a.getUsername(), a.getSecret());
     }
+
+    public static AsyncHttpClient getClient()
+    {
+        return client;
+    }
 }

@@ -16,6 +16,12 @@ public class HomeActivity extends BaseActivity
         super.onCreate(savedInstanceState, R.layout.activity_home);
     }
 
+    public void home_logout(View view)
+    {
+        dba.logout();
+        handleNewIntent(LoginActivity.class);
+    }
+
     public void home_test_wifi(View view)
     {
         handleIntent(WiFiTestActivity.class);

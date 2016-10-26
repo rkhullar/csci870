@@ -7,10 +7,10 @@
     android:background="@color/darkgrey">
 
     <Button
+        android:id="@+id/signup_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/signup"
-        android:id="@+id/signup_button"
         android:textColor="@color/white"
         android:background="@color/red"
         android:textSize="20sp"
@@ -21,13 +21,45 @@
         android:layout_alignParentStart="true" />
 
     <EditText
+        android:id="@+id/signup_fname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/signup_lname"
+        android:ems="10"
+        android:hint="@string/fname"
+        android:maxLines="1"
+        android:textColorLink="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorHighlight="@color/blue"
+        android:textAlignment="center"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/signup_lname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/signup_email"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:hint="@string/lname"
+        android:maxLines="1"
+        android:textColorLink="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorHighlight="@color/blue"
+        android:textAlignment="center"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/signup_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/signup_pswd1"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/signup_email"
         android:hint="@string/email"
         android:maxLines="1"
         android:textColorLink="@color/white"
@@ -37,13 +69,13 @@
         android:textColor="@android:color/white" />
 
     <EditText
+        android:id="@+id/signup_pswd1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:inputType="textPassword"
         android:ems="10"
-        android:layout_below="@+id/signup_email"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/signup_pswd"
         android:hint="@string/pswd"
         android:maxLines="1"
         android:textColorLink="@color/white"
@@ -51,5 +83,38 @@
         android:textColorHighlight="@color/blue"
         android:textAlignment="center"
         android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/signup_pswd2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/signup_pswd1"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:hint="@string/pswd"
+        android:maxLines="1"
+        android:textColorLink="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorHighlight="@color/blue"
+        android:textAlignment="center"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/signup_login"
+        android:text="@string/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/signup_space1"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        android:onClick="signup_login" />
+
+    <Space
+        android:id="@+id/signup_space1"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@+id/signup_pswd2" />
 
 </RelativeLayout>

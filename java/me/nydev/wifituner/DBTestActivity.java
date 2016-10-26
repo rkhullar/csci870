@@ -3,17 +3,15 @@ package me.nydev.wifituner;
 import android.os.Bundle;
 import android.view.View;
 
+import me.nydev.wifituner.model.Auth;
 import me.nydev.wifituner.support.BaseActivity;
-import me.nydev.wifituner.support.DatabaseAdapter;
 
 public class DBTestActivity extends BaseActivity
 {
-    protected DatabaseAdapter dba;
 
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState, R.layout.activity_db_api);
-        dba = new DatabaseAdapter(this);
     }
 
     public void test_db_default(View view)
@@ -27,7 +25,8 @@ public class DBTestActivity extends BaseActivity
 
     public void test_db_login(View view)
     {
-        dba.login();
+        auth = new Auth("test@nyit.edu", "aaaaaa");
+        dba.login(auth);
     }
 
     public void test_db_logout(View view)
