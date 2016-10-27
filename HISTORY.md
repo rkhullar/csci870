@@ -102,3 +102,9 @@
 2. limited registration to edu domain
 3. login on android app works
 4. working on signup from app
+
+## 2016-10-26
+1. signup system works
+2. mailer operates off main thread
+
+## 2016-10-27

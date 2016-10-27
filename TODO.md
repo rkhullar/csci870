@@ -1,7 +1,10 @@
 ## Immediate
-1. wifi test activity, persist scans with generic user and location
-3. login and signup system
-4. mail in background
+1. add endpoint to fetch location list
+2. on login populate location table
+3. add method to persist new wpa
+4. wifi test activity (1)
+5. add method to call /api/scan
+6. wifi test activity (2)
 
 ## Main Activity (Login)
  * if logged in goto home activity
@@ -29,10 +32,11 @@
  * post successful login
    1. call api to get location list, persist to sqlite
 
-## Flask
-1. email verification (nyit)
+## WiFi Test Activity
+ * on generic scan persist results to sqlite
+ * add button to push local scan results to server
 
-## Android
+## Old Milestones
 1. Base
     * onclick perform wifi scan and post to api
     * add floor and room selection
