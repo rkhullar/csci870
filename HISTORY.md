@@ -110,3 +110,4 @@
 ## 2016-10-28
 1. starting location csv inflation
 2. modified new.location sql method to automatically add buildings
+3. added api endpoint to fetch location list
