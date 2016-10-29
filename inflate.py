@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  10/22/16
-@updated :  10/23/16
+@updated :  10/28/16
 """
 
 import decor as dec
@@ -17,5 +17,11 @@ class inflate:
         f = dec.corify(person.new_admin)
         f(ADMIN['fname'], ADMIN['lname'], ADMIN['user'], ADMIN['pswd'])
 
+    @staticmethod
+    def location():
+        #select new.location('ANY', 0::smallint, 'ANY')
+        pass
+
 if __name__ == '__main__':
-    inflate.admin();
+    inflate.admin()
+    inflate.location()
