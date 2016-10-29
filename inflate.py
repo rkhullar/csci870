@@ -6,21 +6,27 @@
 @updated :  10/28/16
 """
 
+import csv
 import decor as dec
 from config import ADMIN
 from core import core
 from person import person
+from location import location
 
 class inflate:
     @staticmethod
     def admin():
-        f = dec.corify(person.new_admin)
-        f(ADMIN['fname'], ADMIN['lname'], ADMIN['user'], ADMIN['pswd'])
+        fn = dec.corify(person.new_admin)
+        fn(ADMIN['fname'], ADMIN['lname'], ADMIN['user'], ADMIN['pswd'])
 
     @staticmethod
     def location():
-        #select new.location('ANY', 0::smallint, 'ANY')
-        pass
+        fn = dec.corify(location.persist)
+        with open('data/location.csv') as csvfile:
+            reader = csv.DictReader(csvfile, delimiter=';')
+            for row in reader:
+                fn(row['abbr'], int(row['floor']), row['room'])
+
 
 if __name__ == '__main__':
     inflate.admin()

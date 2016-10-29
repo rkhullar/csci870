@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  10/25/16
+@updated :  10/28/16
 """
 
 import decor as dec
@@ -17,6 +17,7 @@ from mail import send_thread_text
 
 from core import core
 from person import person
+from location import location
 from scan import scan
 
 BASEURL = 'https://csci870.nydev.me'
@@ -36,6 +37,7 @@ verification = dec.corify(person.verification)
 verify = dec.corify(person.verify)
 
 # Scan Methods
+fetch_locations = dec.corify(location.dump)
 persist_scan = dec.corify(scan.persist)
 
 @app.route('/api/echo', methods=['GET', 'POST'])
@@ -84,6 +86,16 @@ def web_verify(email, hash):
     if t:
         return render_template('verify.html')
     abort(400)
+
+@app.route('/api/locations', methods=['GET'])
+@dec.auth(pswd)
+def api_locations(userid):
+    resp = {'message': 'ok', 'building': [], 'floor': [], 'room':[]}
+    for l in fetch_locations():
+        resp['building'].append(l.building)
+        resp['floor'].append(l.floor)
+        resp['room'].append(l.room)
+    return jsonify(resp)
 
 @app.route('/api/scan', methods=['POST'])
 @dec.auth(pswd)

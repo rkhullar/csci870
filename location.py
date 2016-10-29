@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  10/18/16
-@updated :  10/18/16
+@updated :  10/28/16
 """
 
 from core import core, datalist
@@ -32,16 +32,28 @@ class location:
             return t[0][0]
         return False
 
+    @staticmethod
+    def persist(o, building, floor, room):
+        t = o.exe('select new.location(%s,%s::smallint,%s)', building, floor, room)
+        o.commit()
+        if t:
+            return t[0][0]
+        return False
+
 def test01(o):
+    location.persist(o, 'ANY', 0, 'ANY')
+
+def test02(o):
     for x in location.dump(o):
         print(x)
 
-def test02(o):
+def test03(o):
     t = location.find(o, building='ANY', floor=0, room='ANY')
     print(t)
 
 if __name__ == '__main__':
     o = core()
-    test01(o)
-    test02(o)
+    #test01(o)
+    #test02(o)
+    #test03(o);
     o.close()
