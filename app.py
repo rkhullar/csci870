@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  10/28/16
+@updated :  10/29/16
 """
 
 import decor as dec
@@ -90,11 +90,14 @@ def web_verify(email, hash):
 @app.route('/api/locations', methods=['GET'])
 @dec.auth(pswd)
 def api_locations(userid):
+    n = 0
     resp = {'message': 'ok', 'building': [], 'floor': [], 'room':[]}
     for l in fetch_locations():
         resp['building'].append(l.building)
         resp['floor'].append(l.floor)
         resp['room'].append(l.room)
+        n += 1
+    resp['size'] = n
     return jsonify(resp)
 
 @app.route('/api/scan', methods=['POST'])
