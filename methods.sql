@@ -1,7 +1,7 @@
 /*
  * @author  : Rajan Khullar
  * @created : 09/08/16
- * @updated : 10/23/16
+ * @updated : 10/28/16
  */
 
 create function new.actor(dbo.actor.fname%type, dbo.actor.lname%type, dbo.actor.email%type, ptxt varchar(72) default 'aaaaaa')
@@ -96,11 +96,11 @@ create function new.location(dbo.building.abbr%type, dbo.location.floor%type, db
     x integer;
   begin
     select id from dbo.building where abbr = $1 into t;
-    if t notnull then
-        insert into dbo.location(buildingID, floor, room) values(t, $2, $3) returning id into x;
-        return x;
+    if t isnull then
+        insert into dbo.building(abbr) values($1) returning id into t;
     end if;
-    return null;
+    insert into dbo.location(buildingID, floor, room) values(t, $2, $3) returning id into x;
+    return x;
   end;
 $$ language plpgsql;
 
