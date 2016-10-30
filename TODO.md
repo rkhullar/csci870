@@ -1,10 +1,9 @@
 ## Immediate
-1. add endpoint to fetch location list
-2. on login populate location table
-3. add method to persist new wpa
-4. wifi test activity (1)
-5. add method to call /api/scan
-6. wifi test activity (2)
+1. add method to persist new wpa
+2. learn how to use spinner or listview
+3. wifi test activity (1)
+4. add method to call /api/scan
+5. wifi test activity (2)
 
 ## Main Activity (Login)
  * if logged in goto home activity
