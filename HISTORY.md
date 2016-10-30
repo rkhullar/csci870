@@ -111,3 +111,12 @@
 1. starting location csv inflation
 2. modified new.location sql method to automatically add buildings
 3. added api endpoint to fetch location list
+
+## 2016-10-29
+1. added a few locations to the list
+2. changed android login system
+3. authentication and fetch locations can be done in single request
+4. flashed and rooted nexus 5 m4b30x
+5. able to to debug sqlite on android by downloading directly
+6. created fetch location system for app
+7. fixed primary key typo in sqlite
