@@ -81,7 +81,7 @@ public class SignupActivity extends BaseActivity
 
             public void onSuccess(int statusCode, Header[] headers, JSONObject response)
             {
-                toaster.toast(response.toString());
+                toaster.toast("email sent");
             }
         });
     }
