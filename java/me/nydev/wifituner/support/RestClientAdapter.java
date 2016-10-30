@@ -5,6 +5,8 @@ import android.content.Context;
 import org.json.*;
 import com.loopj.android.http.*;
 
+import java.util.Locale;
+
 import cz.msebera.android.httpclient.Header;
 
 import me.nydev.wifituner.model.Auth;
@@ -50,9 +52,15 @@ public class RestClientAdapter
         BaseRestClient.post("register", json, handler);
     }
 
+    public void fetch_locations(Auth auth, JsonHttpResponseHandler handler)
+    {
+        BaseRestClient.auth(auth);
+        BaseRestClient.get("locations", null, handler);
+    }
+
     public void persist_scan(Auth auth, Scan scan)
     {
-        String m = String.format("NYIT: %s => %d", scan.getBSSID(), scan.getLevel());
-        toaster.toast(m+ "hello");
+        String m = String.format(Locale.US, "%s => %d", scan.getBSSID(), scan.getLevel());
+        toaster.toast(m);
     }
 }

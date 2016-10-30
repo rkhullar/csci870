@@ -18,7 +18,7 @@ class BaseDatabase extends SQLiteOpenHelper
     protected static final String INT = "integer";
     protected static final String STR = "text";
     protected static final String TIME = "datetime";
-    protected static final String PK  = INT + "primary key";
+    protected static final String PK  = INT + " primary key";
 
     protected static final String KEY_ID   = "id";
     protected static final String KEY_TIME = "timestamp";

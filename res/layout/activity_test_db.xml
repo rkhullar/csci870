@@ -9,7 +9,20 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="query"
+        android:text="query location"
+        android:id="@+id/test_db_button4"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/white"
+        android:background="@color/red"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:onClick="test_db_location" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="query user"
         android:id="@+id/test_db_button1"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
@@ -22,7 +35,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="insert"
+        android:text="insert user"
         android:id="@+id/test_db_button2"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/test_db_space1"
@@ -35,7 +48,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="delete"
+        android:text="delete user"
         android:id="@+id/test_db_button3"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/test_db_space2"

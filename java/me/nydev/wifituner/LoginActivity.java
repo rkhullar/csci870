@@ -9,6 +9,7 @@ import cz.msebera.android.httpclient.Header;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import me.nydev.wifituner.model.Auth;
+import me.nydev.wifituner.model.Location;
 import me.nydev.wifituner.support.BaseActivity;
 
 public class LoginActivity extends BaseActivity
@@ -40,7 +41,7 @@ public class LoginActivity extends BaseActivity
         }
         vibrator.vibrate(200);
         auth = new Auth(email, pswd);
-        api.authenticate(auth, new JsonHttpResponseHandler(){
+        api.fetch_locations(auth, new JsonHttpResponseHandler(){
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse)
             {
                 toaster.toast("login failed");
@@ -50,6 +51,8 @@ public class LoginActivity extends BaseActivity
             {
                 toaster.toast("authenticated");
                 dba.login(auth);
+                Location[] a = Location.parseArray(response);
+                dba.locations(a);
                 handleNewIntent(HomeActivity.class);
             }
         });

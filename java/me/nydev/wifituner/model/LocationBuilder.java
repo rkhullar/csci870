@@ -2,6 +2,8 @@ package me.nydev.wifituner.model;
 
 public class LocationBuilder extends Location
 {
+    public LocationBuilder() {}
+
     public LocationBuilder(Location location)
     {
         this.building = location.building;

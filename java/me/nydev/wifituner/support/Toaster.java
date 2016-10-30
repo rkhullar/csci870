@@ -21,9 +21,9 @@ public class Toaster
         context = c;
     }
 
-    public void toast(String message)
+    public void toast(Object object)
     {
-        toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+        toast = Toast.makeText(context, object.toString(), Toast.LENGTH_SHORT);
         toast.show();
     }
 }
