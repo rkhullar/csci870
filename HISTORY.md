@@ -98,6 +98,7 @@
 4. query, insert, and delete accomplished
 
 ## 2016-10-25
+
 1. email verification endpoint
 2. limited registration to edu domain
 3. login on android app works
@@ -120,3 +121,11 @@
 5. able to to debug sqlite on android by downloading directly
 6. created fetch location system for app
 7. fixed primary key typo in sqlite
+
+## 2016-10-30
+1. researching listview, spinner, and array adapter for android
+2. tried converting wifi test scan to use listview instead of toast
+3. wifi scan failed on marshmallow
+
+## 2016-10-31
+1. researching marshmallow permission system in order to fix wifi scan
