@@ -129,3 +129,7 @@
 
 ## 2016-10-31
 1. researching marshmallow permission system in order to fix wifi scan
+
+## 2016-11-04
+1. wifi scan working again, enabling wifi and calling disconnect before starting
+2. listview for wifi scan works 
