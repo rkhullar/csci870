@@ -6,16 +6,25 @@
     tools:context="me.nydev.wifituner.WiFiTestActivity"
     android:background="@color/darkgrey">
 
+    <ListView
+        android:id="@+id/test_wifi_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/test_wifi_scan" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Scan"
         android:id="@+id/test_wifi_scan"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
         android:textColor="@color/white"
         android:background="@color/red"
         android:textSize="20sp"
         android:clickable="true"
-        android:onClick="test_wifi_scan" />
+        android:onClick="test_wifi_scan"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
