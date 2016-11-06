@@ -1,14 +1,14 @@
 package me.nydev.wifituner.support;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v7.app.AppCompatActivity;
 
 import me.nydev.wifituner.model.Auth;
 
-public class BaseActivity extends Activity
+public class BaseActivity extends AppCompatActivity
 {
     protected Context  context;
     protected Toaster  toaster;

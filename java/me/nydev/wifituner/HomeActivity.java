@@ -1,10 +1,9 @@
-/**
- * https://github.com/obaro/SimpleWebAPI/blob/master/app/src/main/java/com/sample/foo/simplewebapi/MainActivity.java
- */
-
 package me.nydev.wifituner;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import me.nydev.wifituner.support.BaseActivity;
@@ -22,18 +21,28 @@ public class HomeActivity extends BaseActivity
         handleNewIntent(LoginActivity.class);
     }
 
-    public void home_test_wifi(View view)
+    public boolean onCreateOptionsMenu(Menu menu)
     {
-        handleIntent(WiFiTestActivity.class);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.tests, menu);
+        return true;
     }
 
-    public void home_test_api(View view)
+    public boolean onOptionsItemSelected(MenuItem item)
     {
-        handleIntent(APITestActivity.class);
-    }
-
-    public void home_test_db(View view)
-    {
-        handleIntent(DBTestActivity.class);
+        switch (item.getItemId())
+        {
+            case R.id.menu_test_wifi:
+                handleIntent(WiFiTestActivity.class);
+                return true;
+            case R.id.menu_test_api:
+                handleIntent(APITestActivity.class);
+                return true;
+            case R.id.menu_test_db:
+                handleIntent(DBTestActivity.class);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
