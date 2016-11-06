@@ -132,4 +132,8 @@
 
 ## 2016-11-04
 1. wifi scan working again, enabling wifi and calling disconnect before starting
-2. listview for wifi scan works 
+2. listview for wifi scan works
+
+## 2016-11-05
+1. moved wifi scan receiver class outside of test
+2. converted test buttons to home menu
