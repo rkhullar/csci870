@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  10/29/16
+@updated :  11/06/16
 """
 
 import decor as dec
@@ -106,8 +106,12 @@ def api_locations(userid):
 def api_scan(userid):
     data = request.json
     data['userID'] = userid
+    resp = {'message': 'not ok'}
     t = persist_scan(**data)
-    resp = {'message': 'ok'} if t else {'message': 'not ok'}
+    if t:
+        resp['message'] = 'ok'
+        for k in data:
+            resp[k] = data[k]
     return jsonify(resp)
 
 if __name__ == '__main__':

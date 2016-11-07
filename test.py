@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/08/16
-@updated :  10/24/16
+@updated :  11/06/16
 """
 
 import time, requests, json
@@ -34,5 +34,5 @@ def test02():
 
 if __name__ == '__main__':
     call(['./refresh'])
-    test01()
-    #test02()
+    #test01()
+    test02()
