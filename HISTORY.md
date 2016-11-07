@@ -137,3 +137,8 @@
 ## 2016-11-05
 1. moved wifi scan receiver class outside of test
 2. converted test buttons to home menu
+
+## 2016-11-06
+1. design user map for configuring and pushing scans
+2. reimplemented home activity with fragments
+3. update flask scan endpoint to return post data on success
