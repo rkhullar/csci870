@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkgrey">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:id="@+id/home_logout"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:background="@color/red"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:onClick="home_logout" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/scan_view"
+        android:id="@+id/home_view_scans"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/home_space1"
+        android:textColor="@color/white"
+        android:background="@color/red"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:onClick="home_scan_push" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/scan_conf"
+        android:id="@+id/home_conf_scan"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/home_space2"
+        android:textColor="@color/white"
+        android:background="@color/red"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:onClick="home_scan_conf" />
+
+    <Space
+        android:id="@+id/home_space1"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_above="@+id/home_logout" />
+
+    <Space
+        android:id="@+id/home_space2"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_above="@+id/home_view_scans" />
+
+</RelativeLayout>

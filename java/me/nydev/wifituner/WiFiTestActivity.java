@@ -12,13 +12,12 @@ import android.widget.ListView;
 import me.nydev.wifituner.model.Scan;
 import me.nydev.wifituner.support.BaseActivity;
 import me.nydev.wifituner.support.PermissionManager;
-import me.nydev.wifituner.support.RestClientAdapter;
-import me.nydev.wifituner.support.WifiScanReceiver;
+import me.nydev.wifituner.support.WifiScanTestReceiver;
 
 public class WiFiTestActivity extends BaseActivity
 {
     protected WifiManager wm;
-    protected WifiScanReceiver wsr;
+    protected WifiScanTestReceiver wsr;
     protected ListView lv;
     protected String[] a;
 
@@ -28,9 +27,8 @@ public class WiFiTestActivity extends BaseActivity
     {
         super.onCreate(savedInstanceState, R.layout.activity_test_wifi);
         wm = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        wsr = new WifiScanReceiver();
-        api = new RestClientAdapter();
         lv = (ListView) findViewById(R.id.test_wifi_list);
+        wsr = new WifiScanTestReceiver(wm, lv);
     }
 
     protected void onPause()
@@ -65,7 +63,6 @@ public class WiFiTestActivity extends BaseActivity
         vibrator.vibrate(200);
         wm.setWifiEnabled(true);
         wm.disconnect();
-        wsr.setup(wm, lv);
         Scan.disableFilter();
         toaster.toast("scanning");
         PermissionManager.check(this, Manifest.permission.ACCESS_COARSE_LOCATION, ACCESS_COARSE_LOCATION);

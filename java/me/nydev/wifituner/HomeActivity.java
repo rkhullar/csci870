@@ -1,6 +1,9 @@
 package me.nydev.wifituner;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,12 +16,19 @@ public class HomeActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState, R.layout.activity_home);
+        setFragment(false);
     }
 
-    public void home_logout(View view)
+    private void setFragment(boolean scanning)
     {
-        dba.logout();
-        handleNewIntent(LoginActivity.class);
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment fragment;
+        if(scanning)
+            fragment = new HomeScanPushFragment();
+        else
+            fragment = new HomeScanConfigFragment();
+        fragmentTransaction.add(R.id.fragment_container, fragment).commit();
     }
 
     public boolean onCreateOptionsMenu(Menu menu)
@@ -44,5 +54,21 @@ public class HomeActivity extends BaseActivity
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void home_logout(View view)
+    {
+        dba.logout();
+        handleNewIntent(LoginActivity.class);
+    }
+
+    public void home_scan_conf(View view)
+    {
+        handleIntent(ScanConfActivity.class);
+    }
+
+    public void home_scan_push(View view)
+    {
+        handleIntent(ScanPushActivity.class);
     }
 }

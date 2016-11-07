@@ -4,6 +4,14 @@
     <string name="signup">Signup</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
+    <string name="cancel">Cancel</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+
+    <string name="scan_conf">Setup Scan</string>
+    <string name="scan_start">Start Scan</string>
+    <string name="scan_push">Push Scans</string>
+    <string name="scan_view">View Scans</string>
 
     <string name="fname">first name</string>
     <string name="lname">last name</string>

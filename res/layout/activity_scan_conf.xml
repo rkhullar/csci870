@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="me.nydev.wifituner.ScanConfActivity"
+    android:background="@color/darkgrey">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/scan_start"
+        android:id="@+id/scan_start"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:background="@color/red"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:onClick="start_scan" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/scan_start"
+        android:layout_centerHorizontal="true">
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:id="@+id/scan_conf_building" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:id="@+id/scan_conf_floor" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:id="@+id/scan_conf_room" />
+
+    </LinearLayout>
+
+</RelativeLayout>

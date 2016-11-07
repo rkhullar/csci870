@@ -33,6 +33,12 @@
         <activity android:name=".HomeActivity" android:label="@string/app_name"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".ScanConfActivity" android:label="@string/app_name"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ScanPushActivity" android:label="@string/app_name"
+            android:screenOrientation="portrait"/>
+
         <activity android:name=".WiFiTestActivity" android:label="@string/test_wifi"
             android:screenOrientation="portrait"/>
 
