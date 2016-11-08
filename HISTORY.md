@@ -142,3 +142,7 @@
 1. design user map for configuring and pushing scans
 2. reimplemented home activity with fragments
 3. update flask scan endpoint to return post data on success
+4. created custom launcher icon
+
+## 2016-11-07
+1. test login and register endpoints for sql injection vulnerability
