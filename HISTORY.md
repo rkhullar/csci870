@@ -148,5 +148,6 @@
 1. test login and register endpoints for sql injection vulnerability
 
 ## 2016-11-08
-1. add building, floor, and room queries to database adapter
-2. working on spinners for scan configuration
+1. reimplemented fragment classes to avoid extra files
+2. add building, floor, and room queries to database adapter
+3. working on spinners for scan configuration
