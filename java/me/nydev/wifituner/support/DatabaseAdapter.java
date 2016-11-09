@@ -83,10 +83,7 @@ public class DatabaseAdapter extends BaseDatabase
     public Location[] locations()
     {
         SQLiteDatabase db = getReadableDatabase();
-        String project = "abbr, floor, room";
-        String table = "location inner join building";
-        String cond = "location.buildingID = building.id";
-        String sql = String.format(Locale.US, "select %s from %s on %s", project, table, cond);
+        String sql = "select abbr, floor, room from location l inner join building b on l.buildingID = b.id";
         Cursor c = db.rawQuery(sql, null);
         int n = c.getCount();
         c.moveToFirst();
@@ -98,6 +95,62 @@ public class DatabaseAdapter extends BaseDatabase
                     .setFloor(c.getInt(1))
                     .setRoom(c.getString(2))
                     .build();
+            c.moveToNext();
+        }
+        c.close();
+        return a;
+    }
+
+    public String[] buildings()
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = "select abbr from building";
+        Cursor c = db.rawQuery(sql, null);
+        int n = c.getCount();
+        c.moveToFirst();
+        String[] a = new String[n];
+        for(int x = 0; x < n; x++)
+        {
+            a[x] = c.getString(0);
+            c.moveToNext();
+        }
+        c.close();
+        db.close();
+        return a;
+    }
+
+    public int[] floors(String abbr)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = "select floor "
+                + "from location l inner join building b on l.buildingID = b.id "
+                + "where b.abbr=?";
+        Cursor c = db.rawQuery(sql, new String[]{abbr});
+        int n = c.getCount();
+        c.moveToFirst();
+        int[] a = new int[n];
+        for(int x = 0; x < n; x++)
+        {
+            a[x] = c.getInt(0);
+            c.moveToNext();
+        }
+        c.close();
+        return a;
+    }
+
+    public String[] rooms(String abbr, int floor)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = "select room "
+                + "from location l inner join building b on l.buildingID = b.id "
+                + "where b.abbr=? and l.floor=?";
+        Cursor c = db.rawQuery(sql, new String[]{abbr, floor+""});
+        int n = c.getCount();
+        c.moveToFirst();
+        String[] a = new String[n];
+        for(int x = 0; x < n; x++)
+        {
+            a[x] = c.getString(0);
             c.moveToNext();
         }
         c.close();
@@ -149,4 +202,6 @@ public class DatabaseAdapter extends BaseDatabase
         db.close();
         return out;
     }
+
+    //==============================================================================================
 }

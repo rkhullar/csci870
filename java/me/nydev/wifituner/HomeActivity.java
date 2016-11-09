@@ -4,30 +4,40 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import me.nydev.wifituner.support.BaseActivity;
 
 public class HomeActivity extends BaseActivity
 {
+    protected boolean status;
+
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState, R.layout.activity_home);
-        setFragment(false);
+        updateStatus();
+        updateFragment();
     }
 
-    private void setFragment(boolean scanning)
+    private void updateStatus()
+    {
+        status = false;
+    }
+
+    private void updateFragment()
     {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment fragment;
-        if(scanning)
-            fragment = new HomeScanPushFragment();
+        if(status)
+            fragment = new ScanPushFragment();
         else
-            fragment = new HomeScanConfigFragment();
+            fragment = new ScanConfigFragment();
         fragmentTransaction.add(R.id.fragment_container, fragment).commit();
     }
 
@@ -70,5 +80,21 @@ public class HomeActivity extends BaseActivity
     public void home_scan_push(View view)
     {
         handleIntent(ScanPushActivity.class);
+    }
+
+    public static class ScanConfigFragment extends Fragment
+    {
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            return inflater.inflate(R.layout.fragment_home_sf, container, false);
+        }
+    }
+
+    public static class ScanPushFragment extends Fragment
+    {
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            return inflater.inflate(R.layout.fragment_home_st, container, false);
+        }
     }
 }
