@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -16,10 +17,12 @@ public class ScanConfActivity extends BaseActivity implements AdapterView.OnItem
 {
     private static final int SPINLAYOUT = R.layout.support_simple_spinner_dropdown_item;
     private static final int[] SPINIDS = {R.id.scan_conf_building, R.id.scan_conf_floor, R.id.scan_conf_room};
-    private static final String PROMPT = "<select>";
+    private static final String PROMPT = "[select]";
 
     protected DatabaseAdapter da;
     protected Spinner[] spinners;
+
+    protected NumberPicker hourPicker, minutePicker;
 
     protected String[] buildings, rooms; Integer[] floors;
     LocationBuilder location;
@@ -29,12 +32,8 @@ public class ScanConfActivity extends BaseActivity implements AdapterView.OnItem
         super.onCreate(savedInstanceState, R.layout.activity_scan_conf);
         da = new DatabaseAdapter(context);
         location = new LocationBuilder();
-    }
-
-    protected void onResume()
-    {
-        super.onResume();
         initSpinners();
+        initNumberPickers();
     }
 
     private void initSpinners()
@@ -70,6 +69,21 @@ public class ScanConfActivity extends BaseActivity implements AdapterView.OnItem
         spinners[x].setVisibility(View.VISIBLE);
     }
 
+    private void initNumberPickers()
+    {
+        hourPicker = (NumberPicker) findViewById(R.id.scan_conf_hour);
+        minutePicker = (NumberPicker) findViewById(R.id.scan_conf_minute);
+        hourPicker.setMinValue(0); hourPicker.setMaxValue(3);
+        minutePicker.setMinValue(0); minutePicker.setMaxValue(59);
+        hourPicker.setWrapSelectorWheel(true);
+        minutePicker.setWrapSelectorWheel(true);
+    }
+
+    private int duration()
+    {
+        return hourPicker.getValue() * 60 + minutePicker.getValue();
+    }
+
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
     {
         if (pos == 0) return;
@@ -103,6 +117,7 @@ public class ScanConfActivity extends BaseActivity implements AdapterView.OnItem
     public void start_scan(View view)
     {
         toaster.toast(location);
+        toaster.toast(duration());
         //toaster.toast("starting scan");
     }
 }
