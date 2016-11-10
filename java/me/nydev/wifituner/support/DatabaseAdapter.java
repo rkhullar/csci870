@@ -2,6 +2,7 @@ package me.nydev.wifituner.support;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -119,16 +120,17 @@ public class DatabaseAdapter extends BaseDatabase
         return a;
     }
 
-    public int[] floors(String abbr)
+    public Integer[] floors(String abbr)
     {
         SQLiteDatabase db = getReadableDatabase();
-        String sql = "select floor "
+        String sql = "select distinct floor "
                 + "from location l inner join building b on l.buildingID = b.id "
-                + "where b.abbr=?";
+                + "where b.abbr=? "
+                + "order by floor";
         Cursor c = db.rawQuery(sql, new String[]{abbr});
         int n = c.getCount();
         c.moveToFirst();
-        int[] a = new int[n];
+        Integer[] a = new Integer[n];
         for(int x = 0; x < n; x++)
         {
             a[x] = c.getInt(0);

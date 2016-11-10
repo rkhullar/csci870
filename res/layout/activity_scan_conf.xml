@@ -26,12 +26,18 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
-        <!--<Space
-            android:id="@+id/scan_conf_space1"
+        <TextView
+            android:text="@string/building"
             android:layout_width="match_parent"
-            android:layout_height="20dp" />-->
+            android:layout_height="wrap_content"
+            android:id="@+id/scan_conf_tv1"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:gravity="center" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -40,12 +46,30 @@
             android:spinnerMode="dialog"
             android:visibility="invisible" />
 
+        <TextView
+            android:text="@string/floor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scan_conf_tv2"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:gravity="center" />
+
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/scan_conf_floor"
             android:spinnerMode="dialog"
             android:visibility="invisible" />
+
+        <TextView
+            android:text="@string/room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scan_conf_tv3"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:gravity="center" />
 
         <Spinner
             android:layout_width="match_parent"
