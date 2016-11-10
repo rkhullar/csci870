@@ -151,3 +151,7 @@
 1. reimplemented fragment classes to avoid extra files
 2. add building, floor, and room queries to database adapter
 3. working on spinners for scan configuration
+
+## 2016-11-09
+1. scan config location spinners work
+2. updated database adapter floors method with 'distinct' and 'order by'
