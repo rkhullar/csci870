@@ -155,3 +155,4 @@
 ## 2016-11-09
 1. scan config location spinners work
 2. updated database adapter floors method with 'distinct' and 'order by'
+3. using number picker to select scan duration
