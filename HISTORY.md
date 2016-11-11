@@ -153,6 +153,13 @@
 3. working on spinners for scan configuration
 
 ## 2016-11-09
-1. scan config location spinners work
+1. scan config location spinners works
 2. updated database adapter floors method with 'distinct' and 'order by'
 3. using number picker to select scan duration
+
+## 2016-11-10
+1. started implementing background wifi scans with intent service
+
+## 2016-11-11
+1. changed wifi scan service from intent service to normal service
+2. using count down timer with interval one second

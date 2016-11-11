@@ -54,3 +54,4 @@ curl -X GET csci870.nydev.local/api/test
 [wifi]: http://www.tutorialspoint.com/android/android_wi_fi.htm
 [service]: https://developer.android.com/training/run-background-service/index.html
 [sqlite]: http://www.tutorialspoint.com/android/android_sqlite_database.htm
+[service]: https://www.javacodegeeks.com/2014/01/android-service-tutorial.html
