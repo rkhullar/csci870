@@ -14,7 +14,7 @@ import me.nydev.wifituner.support.BaseActivity;
 import me.nydev.wifituner.support.PermissionManager;
 import me.nydev.wifituner.support.WifiScanTestReceiver;
 
-public class WiFiTestActivity extends BaseActivity
+public class WifiTestActivity extends BaseActivity
 {
     protected WifiManager wm;
     protected WifiScanTestReceiver wsr;

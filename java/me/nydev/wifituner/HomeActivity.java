@@ -26,7 +26,7 @@ public class HomeActivity extends BaseActivity
 
     private void updateStatus()
     {
-        status = false;
+        status = isServiceRunning(WifiScanService.class);
     }
 
     private void updateFragment()
@@ -38,7 +38,7 @@ public class HomeActivity extends BaseActivity
             fragment = new ScanPushFragment();
         else
             fragment = new ScanConfigFragment();
-        fragmentTransaction.add(R.id.fragment_container, fragment).commit();
+        fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
     }
 
     public boolean onCreateOptionsMenu(Menu menu)
@@ -53,7 +53,7 @@ public class HomeActivity extends BaseActivity
         switch (item.getItemId())
         {
             case R.id.menu_test_wifi:
-                handleIntent(WiFiTestActivity.class);
+                handleIntent(WifiTestActivity.class);
                 return true;
             case R.id.menu_test_api:
                 handleIntent(APITestActivity.class);

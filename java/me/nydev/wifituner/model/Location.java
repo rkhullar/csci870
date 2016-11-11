@@ -34,6 +34,11 @@ public class Location
         return room;
     }
 
+    public boolean isValid()
+    {
+        return !(building == null || room == null);
+    }
+
     public String toString()
     {
         return String.format(Locale.US, "%s %d %s", building, floor, room);
