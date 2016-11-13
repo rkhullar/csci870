@@ -49,7 +49,11 @@
 2. tried to read environment variables in postgres
 3. decide to only support json media type for post methods
 
-## 2016-10-15
+## 2016-10-15@app.route('/api/time', methods=['GET'])
+@dec.auth(pswd)
+def api_time(userid):
+    resp = {'time' int(time.time())}
+    return jsonify(resp)
 1. initiate model database classes in python
 2. work on person model for registration, login, and search
 3. authorization decorator works
@@ -61,9 +65,7 @@
 2. now api endpoints can easily require password or token based authorization
 3. reimplemented error system again to cover all error codes
 
-## 2016-10-17
-1. added user view to differentiate registered vs signup
-2. initialized verification endpoint
+## 2016-10-17 endpoint
 3. learned how to print request responses properly
 
 ## 2016-10-18
@@ -168,3 +170,9 @@
 1. working on getting service to run in foreground independent of activity
 2. changed naming convention of home fragments
 3. countdown timer in foreground service works
+
+## 2016-11-13
+1. added unix time api endpoint
+2. added notification for when countdown timer complete
+3. registered wifi scan receiver in manifest
+4. able to perform multiple scans if permission already granted
