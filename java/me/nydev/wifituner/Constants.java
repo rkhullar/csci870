@@ -11,6 +11,7 @@ public final class Constants
         String MAIN = "me.nydev.wifituner.action.main";
         String START = "me.nydev.wifituner.action.start";
         String STOP = "me.nydev.wifituner.action.stop";
+        String DONE = "me.nydev.wifituner.action.done";
     }
     public interface DATA
     {

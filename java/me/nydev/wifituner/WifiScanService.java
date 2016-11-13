@@ -44,7 +44,7 @@ public class WifiScanService extends Service
     }
 
 
-    public void initCountdownTimer()
+    private void initCountdownTimer()
     {
         super.onCreate();
         cdt = new CountDownTimer(duration, Constants.VAR.INTERVAL*1000)
@@ -55,21 +55,28 @@ public class WifiScanService extends Service
             }
             public void onFinish()
             {
+                broadcastDone();
                 onDestroy();
             }
         };
     }
 
-    public void broadcastTimeLeft(int seconds)
+    private void broadcastTimeLeft(int seconds)
     {
         Intent intent = new Intent(Constants.ACTION.MAIN);
         intent.putExtra(Constants.DATA.TIMELEFT, seconds);
         lbm.sendBroadcast(intent);
     }
 
+    private void broadcastDone()
+    {
+        Intent intent = new Intent(Constants.ACTION.DONE);
+        lbm.sendBroadcast(intent);
+    }
+
     private void initNotification()
     {
-        Intent i = new Intent(this, ScanConfActivity.class);
+        Intent i = new Intent(this, HomeActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent p = PendingIntent.getActivity(this, 0, i, 0);
         notification = new NotificationCompat.Builder(this)

@@ -46,7 +46,10 @@ public class HomeActivity extends BaseActivity
         timeViews = new TextView[timeViewIDs.length];
         for(int x = 0; x < timeViewIDs.length; x++)
             timeViews[x] = (TextView) findViewById(timeViewIDs[x]);
-        lbm.registerReceiver(tr, new IntentFilter(Constants.ACTION.MAIN));
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constants.ACTION.MAIN);
+        intentFilter.addAction(Constants.ACTION.DONE);
+        lbm.registerReceiver(tr, intentFilter);
     }
 
     private void updateStatus()
@@ -132,13 +135,20 @@ public class HomeActivity extends BaseActivity
     {
         public void onReceive(Context context, Intent intent)
         {
-            int x = intent.getIntExtra(Constants.DATA.TIMELEFT, 0);
-            int h = x / 3600; x = x % 3600;
-            int m = x / 60; int s = x % 60;
-            timeViews[0].setText(h+"");
-            timeViews[1].setText(m+"");
-            timeViews[2].setText(s+"");
-            //toaster.toast(h+":"+m+":"+s);
+            switch (intent.getAction())
+            {
+                case Constants.ACTION.MAIN:
+                    int x = intent.getIntExtra(Constants.DATA.TIMELEFT, 0);
+                    int h = x / 3600; x = x % 3600;
+                    int m = x / 60; int s = x % 60;
+                    timeViews[0].setText(h+"");
+                    timeViews[1].setText(m+"");
+                    timeViews[2].setText(s+"");
+                    break;
+                case Constants.ACTION.DONE:
+                    toaster.toast("complete");
+                    break;
+            }
         }
     }
 }
