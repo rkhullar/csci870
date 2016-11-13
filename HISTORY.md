@@ -167,3 +167,4 @@
 ## 2016-11-12
 1. working on getting service to run in foreground independent of activity
 2. changed naming convention of home fragments
+3. countdown timer in foreground service works
