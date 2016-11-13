@@ -3,8 +3,8 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  11/06/16
 """
+@updated :  11/13/16
 
 import decor as dec
 
@@ -60,6 +60,12 @@ def api_admin(userid):
     resp = {'message': 'ok'}
     return jsonify(resp)
 
+@app.route('/api/time', methods=['GET'])
+@dec.auth(pswd)
+def api_time(userid):
+    resp = {'time' int(time.time())}
+    return jsonify(resp)
+
 @app.route('/api/register', methods=['POST'])
 @dec.json
 def api_register():
@@ -113,6 +119,7 @@ def api_scan(userid):
         for k in data:
             resp[k] = data[k]
     return jsonify(resp)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
