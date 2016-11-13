@@ -163,3 +163,7 @@
 ## 2016-11-11
 1. changed wifi scan service from intent service to normal service
 2. using count down timer with interval one second
+
+## 2016-11-12
+1. working on getting service to run in foreground independent of activity
+2. changed naming convention of home fragments
