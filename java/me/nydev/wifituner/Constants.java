@@ -2,12 +2,23 @@ package me.nydev.wifituner;
 
 public final class Constants
 {
-    public static final String BROADCAST_ACTION = "me.nydev.wifituner.BROADCAST";
-    public static final String EXTENDED_DATA_STATUS = "me.nydev.wifituner.STATUS";
-
-    public static final String DURATION = "me.nydev.wifituner.DURATION";
-    public static final String TIMELEFT = "me.nydev.wifituner.TIMELEFT";
-
-    public static final int INTERVAL = 1;
-
+    public interface NOTIFICATION_ID
+    {
+        int WIFI_SCAN_SERVICE = 101;
+    }
+    public interface ACTION
+    {
+        String MAIN = "me.nydev.wifituner.action.main";
+        String START = "me.nydev.wifituner.action.start";
+        String STOP = "me.nydev.wifituner.action.stop";
+    }
+    public interface DATA
+    {
+        String DURATION = "me.nydev.wifituner.data.duration";
+        String TIMELEFT = "me.nydev.wifituner.data.timeleft";
+    }
+    public interface VAR
+    {
+        int INTERVAL = 1;
+    }
 }

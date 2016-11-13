@@ -27,27 +27,12 @@ public class ScanConfActivity extends BaseActivity implements AdapterView.OnItem
 
     private LocationBuilder location;
 
-    private ResponseReceiver rr;
-
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState, R.layout.activity_scan_conf);
         location = new LocationBuilder();
-        rr = new ResponseReceiver();
         initSpinners();
         initNumberPickers();
-    }
-
-    protected void onPause()
-    {
-        super.onPause();
-        lbm.unregisterReceiver(rr);
-    }
-
-    protected void onResume()
-    {
-        super.onResume();
-        lbm.registerReceiver(rr, new IntentFilter(Constants.BROADCAST_ACTION));
     }
 
     private void initSpinners()
@@ -130,23 +115,16 @@ public class ScanConfActivity extends BaseActivity implements AdapterView.OnItem
 
     public void start_scan(View view)
     {
-        if(location.isValid()) {
-            toaster.toast(location);
-            toaster.toast("init scan "+duration());
+        if(location.isValid() || true) {
+            //toaster.toast(location);
+            //toaster.toast("init scan "+duration());
             Intent intent = new Intent(this, WifiScanService.class);
-            intent.putExtra(Constants.DURATION, duration());
+            //intent.putExtra(Constants.DATA.DURATION, duration());
+            intent.putExtra(Constants.DATA.DURATION, 20);
             startService(intent);
+            handleNewIntent(HomeActivity.class);
         } else {
             toaster.toast("invalid settings");
-        }
-    }
-
-    private class ResponseReceiver extends BroadcastReceiver
-    {
-        public void onReceive(Context context, Intent intent)
-        {
-            int x = intent.getIntExtra(Constants.TIMELEFT, 0);
-            toaster.toast(x);
         }
     }
 }

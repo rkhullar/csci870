@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkgrey">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/stop"
+        android:id="@+id/home_stop_scan"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:background="@color/red"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:onClick="home_scan_stop" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/home_button"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/home_space1"
+        android:textColor="@color/white"
+        android:background="@color/red"
+        android:textSize="20sp"
+        android:clickable="true" />
+
+    <Space
+        android:id="@+id/home_space1"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_above="@+id/home_stop_scan" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/home_button"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/home_time_hour"
+            android:textSize="40sp"
+            android:textColor="@color/white"
+            android:gravity="center" />
+
+        <TextView
+            android:text="@string/colon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/home_time_colon1"
+            android:textSize="40sp"
+            android:textColor="@color/white"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/home_time_minute"
+            android:textSize="40sp"
+            android:textColor="@color/white"
+            android:gravity="center" />
+
+        <TextView
+            android:text="@string/colon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/home_time_colon2"
+            android:textSize="40sp"
+            android:textColor="@color/white"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/home_time_second"
+            android:textSize="40sp"
+            android:textColor="@color/white"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</RelativeLayout>
