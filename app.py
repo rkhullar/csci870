@@ -3,8 +3,8 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-"""
 @updated :  11/13/16
+"""
 
 import decor as dec
 
@@ -19,6 +19,7 @@ from core import core
 from person import person
 from location import location
 from scan import scan
+from time import time
 
 BASEURL = 'https://csci870.nydev.me'
 BASEAPI = BASEURL + '/api'
@@ -48,6 +49,11 @@ def api_echo():
         #return request.form['data']
         return request.json
 
+@app.route('/api/time', methods=['GET'])
+def api_time():
+    resp = {'time': int(time())}
+    return jsonify(resp)
+
 @app.route('/api/authenticate')
 @dec.auth(pswd)
 def api_authenticate(userid):
@@ -58,12 +64,6 @@ def api_authenticate(userid):
 @dec.auth(admin)
 def api_admin(userid):
     resp = {'message': 'ok'}
-    return jsonify(resp)
-
-@app.route('/api/time', methods=['GET'])
-@dec.auth(pswd)
-def api_time(userid):
-    resp = {'time' int(time.time())}
     return jsonify(resp)
 
 @app.route('/api/register', methods=['POST'])
