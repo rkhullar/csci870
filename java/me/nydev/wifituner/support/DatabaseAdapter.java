@@ -2,15 +2,13 @@ package me.nydev.wifituner.support;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import java.util.Locale;
 
 import me.nydev.wifituner.model.Auth;
 import me.nydev.wifituner.model.Location;
 import me.nydev.wifituner.model.LocationBuilder;
+import me.nydev.wifituner.model.Scan;
 
 public class DatabaseAdapter extends BaseDatabase
 {
@@ -183,6 +181,13 @@ public class DatabaseAdapter extends BaseDatabase
         if(x < 0)
             return addBuilding(db, abbr);
         return x;
+    }
+
+    //==============================================================================================
+
+    public void addScan(Scan scan)
+    {
+        System.out.println(scan);
     }
 
     //==============================================================================================

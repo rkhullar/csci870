@@ -49,7 +49,8 @@
             android:id="@+id/home_time_hour"
             android:textSize="40sp"
             android:textColor="@color/white"
-            android:gravity="center" />
+            android:gravity="center"
+            android:text="HH" />
 
         <TextView
             android:text="@string/colon"
@@ -66,7 +67,8 @@
             android:id="@+id/home_time_minute"
             android:textSize="40sp"
             android:textColor="@color/white"
-            android:gravity="center" />
+            android:gravity="center"
+            android:text="MM" />
 
         <TextView
             android:text="@string/colon"
@@ -83,7 +85,8 @@
             android:id="@+id/home_time_second"
             android:textSize="40sp"
             android:textColor="@color/white"
-            android:gravity="center" />
+            android:gravity="center"
+            android:text="SS" />
 
     </LinearLayout>
 

@@ -117,10 +117,13 @@ public class ScanConfActivity extends BaseActivity implements AdapterView.OnItem
     {
         if(location.isValid() || true) {
             //toaster.toast(location);
-            //toaster.toast("init scan "+duration());
             Intent intent = new Intent(this, WifiScanService.class);
             //intent.putExtra(Constants.DATA.DURATION, duration());
-            intent.putExtra(Constants.DATA.DURATION, 20);
+            intent.putExtra(Constants.DATA.DURATION, 15);
+            location.setBuilding("ANY").setFloor(0).setRoom("ANY");
+            intent.putExtra(Constants.DATA.BUILDING, location.getBuilding());
+            intent.putExtra(Constants.DATA.FLOOR, location.getFloor());
+            intent.putExtra(Constants.DATA.ROOM, location.getRoom());
             startService(intent);
             handleNewIntent(HomeActivity.class);
         } else {

@@ -5,9 +5,10 @@ import android.net.wifi.ScanResult;
 import java.util.List;
 import java.util.Locale;
 
+import me.nydev.wifituner.Constants;
+
 public class Scan
 {
-    private static final String FILTER = "NYIT";
     private static boolean filter = true;
 
     protected String bssid;
@@ -40,6 +41,8 @@ public class Scan
 
     public String toString()
     {
+        if(location != null)
+            return String.format(Locale.US, "%s => %d | %s | %d", bssid, level, location.getBuilding(), location.getFloor());
         return String.format(Locale.US, "%s => %d", bssid, level);
     }
 
@@ -53,13 +56,13 @@ public class Scan
         int n = scanResults.size(), c = 0;
         ScanResult sr;
         for(int x = 0; x < n; x++)
-            if(scanResults.get(x).SSID.equals(FILTER) || !filter)
+            if(scanResults.get(x).SSID.equals(Constants.VAR.SSID) || !filter)
                 c++;
         Scan[] a = new Scan[c]; c = 0;
         for(int x = 0; x < n; x++)
         {
             sr = scanResults.get(x);
-            if(sr.SSID.equals(FILTER) || !filter)
+            if(sr.SSID.equals(Constants.VAR.SSID) || !filter)
                 a[c++] = new Scan(sr.BSSID, sr.level, location);
         }
         return a;

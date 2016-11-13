@@ -1,10 +1,14 @@
 package me.nydev.wifituner.model;
 
+import android.content.Intent;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Locale;
+
+import me.nydev.wifituner.Constants;
 
 public class Location
 {
@@ -18,6 +22,13 @@ public class Location
         this.building = building;
         this.floor = floor;
         this.room = room;
+    }
+
+    public Location(Intent i)
+    {
+        building = i.getStringExtra(Constants.DATA.BUILDING);
+        floor = i.getIntExtra(Constants.DATA.FLOOR, -99);
+        room = i.getStringExtra(Constants.DATA.ROOM);
     }
 
     public String getBuilding() {

@@ -50,6 +50,12 @@
 
         <service android:name=".WifiScanService" android:exported="false" />
 
+        <receiver android:name=".WifiScanReceiver">
+            <intent-filter>
+                <action android:name="android.net.wifi.SCAN_RESULTS" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

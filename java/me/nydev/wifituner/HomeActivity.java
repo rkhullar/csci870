@@ -113,6 +113,8 @@ public class HomeActivity extends BaseActivity
     public void home_scan_stop(View view)
     {
         toaster.toast("stopping wifi scan service");
+        Intent intent = new Intent(this, WifiScanService.class);
+        stopService(intent);
     }
 
     public static class HomeIdleFragment extends Fragment

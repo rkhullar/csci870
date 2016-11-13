@@ -4,7 +4,8 @@ public final class Constants
 {
     public interface NOTIFICATION_ID
     {
-        int WIFI_SCAN_SERVICE = 101;
+        int COUNTDOWN_BEGIN = 101;
+        int COUNTDOWN_END = 102;
     }
     public interface ACTION
     {
@@ -17,9 +18,18 @@ public final class Constants
     {
         String DURATION = "me.nydev.wifituner.data.duration";
         String TIMELEFT = "me.nydev.wifituner.data.timeleft";
+        String BUILDING = "me.nydev.wifituner.data.building";
+        String FLOOR = "me.nydev.wifituner.data.floor";
+        String ROOM = "me.nydev.wifituner.data.room";
     }
     public interface VAR
     {
+        //int INTERVAL = 20;
         int INTERVAL = 1;
+        String SSID = "NYIT";
+    }
+    public interface REQUEST
+    {
+        int LOCATION = 1;
     }
 }
