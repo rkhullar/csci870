@@ -37,7 +37,7 @@ public class WifiScanService extends Service
         nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         wm = (WifiManager) getSystemService(WIFI_SERVICE);
         WifiScanReceiver.WifiManager = wm;
-        Scan.disableFilter();
+        Scan.enableFilter();
     }
 
     public void onDestroy()
@@ -47,6 +47,7 @@ public class WifiScanService extends Service
         lbm.unregisterReceiver(wsr);
         WifiScanReceiver.WifiManager = null;
         WifiScanReceiver.Location = null;
+        stopSelf();
         super.onDestroy();
     }
 
@@ -90,6 +91,7 @@ public class WifiScanService extends Service
             }
             public void onFinish()
             {
+                Log.i(TAG, "countdown complete");
                 Intent intent = new Intent(Constants.ACTION.DONE);
                 lbm.sendBroadcast(intent);
                 notification = Support.notification("countdown complete", "wifi results stored", context, HomeActivity.class);

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.util.Log;
 
 import java.util.List;
 
@@ -21,12 +22,11 @@ public class WifiScanReceiver extends BroadcastReceiver
 
     public void onReceive(Context context, Intent intent)
     {
+        Log.i(TAG, "broadcast received");
         if(WifiManager == null || Location == null) return;
         List<ScanResult> wl = WifiManager.getScanResults();
-        Scan[] scans = Scan.parseScanResults(wl, Location);
-        DatabaseAdapter dba = new DatabaseAdapter(context);
-        for(Scan scan: scans) {
-            dba.addScan(scan);
-        }
+        long uxt = System.currentTimeMillis() / 1000;
+        Scan[] scans = Scan.parseScanResults(wl, Location, uxt);
+        new DatabaseAdapter(context).addScans(scans);
     }
 }

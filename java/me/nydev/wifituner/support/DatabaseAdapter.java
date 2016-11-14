@@ -20,6 +20,8 @@ public class DatabaseAdapter extends BaseDatabase
         super(context);
     }
 
+    //==============================================================================================
+
     public void login(Auth auth)
     {
         logout();
@@ -186,11 +188,69 @@ public class DatabaseAdapter extends BaseDatabase
         return x;
     }
 
+    private long findLocation(SQLiteDatabase db, Location l)
+    {
+        long x = -1;
+        String sql = "select l.id "
+                + "from location l inner join building b on l.buildingID = b.id "
+                + "where b.abbr=? and l.floor=? and l.room=?";
+        Cursor c = db.rawQuery(sql, new String[]{l.getBuilding(), l.getFloor()+"", l.getRoom()});
+        if(c.getCount() > 0) {
+            c.moveToFirst();
+            x = c.getLong(0);
+        }
+        c.close();
+        return x;
+    }
+
     //==============================================================================================
 
-    public void addScan(Scan scan)
+    private long addWPA(SQLiteDatabase db, String bssid)
+    {
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_BSSID, bssid);
+        return db.insert(TABLE_WPA, null, cv);
+    }
+
+    private long findWPA(SQLiteDatabase db, String bssid) {
+        long x = -1;
+        Cursor c = db.rawQuery("select id from wpa where bssid=?", new String[]{bssid});
+        if (c.getCount() > 0) {
+            c.moveToFirst();
+            x = c.getLong(0);
+        }
+        c.close();
+        return x;
+    }
+
+    private long findOrAddWPA(SQLiteDatabase db, String bssid)
+    {
+        long x = findWPA(db, bssid);
+        if(x < 0)
+            return addWPA(db, bssid);
+        return x;
+    }
+
+    //==============================================================================================
+    public void addScans(Scan[] scans)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        for(Scan scan: scans)
+            addScan(db, scan);
+        db.close();
+    }
+
+    private long addScan(SQLiteDatabase db, Scan scan)
     {
         Log.i(TAG, scan.toString());
+        long lid = findLocation(db, scan.getLocation());
+        long wid = findOrAddWPA(db, scan.getBSSID());
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_UXT, scan.getUnixTime());
+        cv.put(KEY_WPA_ID, wid);
+        cv.put(KEY_LEVEL, scan.getLevel());
+        cv.put(KEY_LOCATION_ID, lid);
+        return db.insert(TABLE_SCAN, null, cv);
     }
 
     //==============================================================================================

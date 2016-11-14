@@ -11,17 +11,24 @@ public class Scan
 {
     private static boolean filter = true;
 
+    protected long uxt;
     protected String bssid;
     protected int level;
     protected Location location;
 
     public Scan() {}
 
-    public Scan(String bssid, int level, Location location)
+    public Scan(long uxt, String bssid, int level, Location location)
     {
+        this.uxt = uxt;
         this.bssid = bssid;
         this.level = level;
         this.location = location;
+    }
+
+    public long getUnixTime()
+    {
+        return uxt;
     }
 
     public String getBSSID()
@@ -50,8 +57,12 @@ public class Scan
     {
         filter = false;
     }
+    public static void enableFilter()
+    {
+        filter = true;
+    }
 
-    public static Scan[] parseScanResults(List<ScanResult> scanResults, Location location)
+    public static Scan[] parseScanResults(List<ScanResult> scanResults, Location location, long uxt)
     {
         int n = scanResults.size(), c = 0;
         ScanResult sr;
@@ -63,7 +74,7 @@ public class Scan
         {
             sr = scanResults.get(x);
             if(sr.SSID.equals(Constants.VAR.SSID) || !filter)
-                a[c++] = new Scan(sr.BSSID, sr.level, location);
+                a[c++] = new Scan(uxt, sr.BSSID, sr.level, location);
         }
         return a;
     }

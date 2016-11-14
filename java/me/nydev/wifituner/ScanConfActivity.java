@@ -1,12 +1,10 @@
 package me.nydev.wifituner;
 
 import android.Manifest;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +19,7 @@ import me.nydev.wifituner.support.PermissionManager;
 
 public class ScanConfActivity extends BaseActivity implements AdapterView.OnItemSelectedListener
 {
+    private static final String TAG = "ScanConfActivity";
     private static final int SPINLAYOUT = R.layout.support_simple_spinner_dropdown_item;
     private static final int[] SPINIDS = {R.id.scan_conf_building, R.id.scan_conf_floor, R.id.scan_conf_room};
     private static final String PROMPT = "[select]";
@@ -130,21 +129,21 @@ public class ScanConfActivity extends BaseActivity implements AdapterView.OnItem
 
     public void start_scan(View view)
     {
-        if(location.isValid())
-            if(PermissionManager.check(this, Manifest.permission.ACCESS_COARSE_LOCATION, Constants.REQUEST.LOCATION))
-                onStartScan();
-        else
+        if(!location.isValid())
+        {
             toaster.toast("invalid settings");
+            return;
+        }
+        if(PermissionManager.check(this, Manifest.permission.ACCESS_COARSE_LOCATION, Constants.REQUEST.LOCATION))
+            onStartScan();
     }
 
     private void onStartScan()
     {
         vibrator.vibrate(200);
-        //toaster.toast(location);
+        Log.i(TAG, location.toString());
         Intent intent = new Intent(this, WifiScanService.class);
         intent.putExtra(Constants.DATA.DURATION, duration());
-        //intent.putExtra(Constants.DATA.DURATION, 15);
-        //location.setBuilding("ANY").setFloor(0).setRoom("ANY");
         intent.putExtra(Constants.DATA.BUILDING, location.getBuilding());
         intent.putExtra(Constants.DATA.FLOOR, location.getFloor());
         intent.putExtra(Constants.DATA.ROOM, location.getRoom());

@@ -9,12 +9,14 @@ import android.content.pm.PackageManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.List;
 
+import me.nydev.wifituner.model.Location;
 import me.nydev.wifituner.model.Scan;
 import me.nydev.wifituner.support.BaseActivity;
 import me.nydev.wifituner.support.PermissionManager;
@@ -73,13 +75,19 @@ public class WifiTestActivity extends BaseActivity
 
     private class WifiScanReceiver extends BroadcastReceiver
     {
+        private static final String TAG = "WifiScanReceiver";
+        private Location loc = new Location("ANY ", 0, "ANY");
+
         public void onReceive(Context context, Intent intent)
         {
+            Log.i(TAG, "broadcast received");
             List<ScanResult> wl = wm.getScanResults();
-            Scan[] scans = Scan.parseScanResults(wl, null);
+            long uxt = System.currentTimeMillis() / 1000;
+            Scan[] scans = Scan.parseScanResults(wl, loc, uxt);
             Toaster toaster = new Toaster(context);
             toaster.toast("updating " + scans.length);
             lv.setAdapter(new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item, scans));
+            dba.addScans(scans);
         }
 
     }

@@ -4,10 +4,14 @@ import android.net.wifi.ScanResult;
 
 public class ScanBuilder extends Scan
 {
-
     public ScanBuilder()
     {
         this.location = new Location();
+    }
+
+    public void setUnixTime(long x)
+    {
+        this.uxt = x;
     }
 
     public ScanBuilder setBSSID(String x)
@@ -55,6 +59,6 @@ public class ScanBuilder extends Scan
 
     public Scan build()
     {
-        return new Scan(bssid, level, location);
+        return new Scan(uxt, bssid, level, location);
     }
 }
