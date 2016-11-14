@@ -1,9 +1,6 @@
 ## Immediate
-1. add method to persist new wpa
-2. learn how to use spinner or listview
-3. wifi test activity (1)
-4. add method to call /api/scan
-5. wifi test activity (2)
+1. add methods to add new scans
+2. add method to call /api/scan
 
 ## Main Activity (Login)
  * if logged in goto home activity
@@ -27,9 +24,10 @@
  * how to check logged in
    1. query user table
  * how to login
-   1. if api call ok, then insert user data to sqlite
- * post successful login
-   1. call api to get location list, persist to sqlite
+   1. call api to get location list
+   2. if api call ok then
+     2a. insert user data to sqlite
+     2b. persist locations to sqlite
 
 ## WiFi Test Activity
  * on generic scan persist results to sqlite

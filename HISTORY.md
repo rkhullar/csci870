@@ -176,3 +176,4 @@ def api_time(userid):
 2. added notification for when countdown timer complete
 3. registered wifi scan receiver in manifest
 4. able to perform multiple scans if permission already granted
+5. permission request system works
