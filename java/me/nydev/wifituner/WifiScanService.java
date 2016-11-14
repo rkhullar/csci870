@@ -10,6 +10,7 @@ import android.net.wifi.WifiManager;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import me.nydev.wifituner.model.Location;
 import me.nydev.wifituner.model.Scan;
@@ -17,6 +18,8 @@ import me.nydev.wifituner.support.Support;
 
 public class WifiScanService extends Service
 {
+    private static final String TAG = "WifiScanService";
+
     private Context context;
     private long duration;
     private CountDownTimer cdt;
@@ -79,7 +82,7 @@ public class WifiScanService extends Service
                 lbm.sendBroadcast(intent);
                 if(seconds % Constants.VAR.INTERVAL == 0)
                 {
-                    System.out.println("doing it");
+                    Log.i(TAG, "tick");
                     wm.setWifiEnabled(true);
                     wm.disconnect();
                     wm.startScan();

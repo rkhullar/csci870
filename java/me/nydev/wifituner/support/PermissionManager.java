@@ -7,9 +7,10 @@ import android.support.v4.content.ContextCompat;
 
 public class PermissionManager
 {
-    public static void check(Activity activity, String permission, int requestCode)
+    public static boolean check(Activity activity, String permission, int requestCode)
     {
-        if(ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED)
-            ActivityCompat.requestPermissions(activity, new String[] {permission}, requestCode);
+        boolean x = ContextCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_GRANTED;
+        if(!x) ActivityCompat.requestPermissions(activity, new String[] {permission}, requestCode);
+        return x;
     }
 }

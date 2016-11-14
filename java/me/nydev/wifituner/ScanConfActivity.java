@@ -1,9 +1,11 @@
 package me.nydev.wifituner;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 
 import me.nydev.wifituner.model.LocationBuilder;
 import me.nydev.wifituner.support.BaseActivity;
+import me.nydev.wifituner.support.PermissionManager;
 
 public class ScanConfActivity extends BaseActivity implements AdapterView.OnItemSelectedListener
 {
@@ -113,21 +116,39 @@ public class ScanConfActivity extends BaseActivity implements AdapterView.OnItem
         toaster.toast("nothing selected");
     }
 
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+        switch (requestCode)
+        {
+            case Constants.REQUEST.LOCATION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    onStartScan();
+                else
+                    toaster.toast("cannot scan without permission");
+        }
+    }
+
     public void start_scan(View view)
     {
-        if(location.isValid() || true) {
-            //toaster.toast(location);
-            Intent intent = new Intent(this, WifiScanService.class);
-            //intent.putExtra(Constants.DATA.DURATION, duration());
-            intent.putExtra(Constants.DATA.DURATION, 15);
-            location.setBuilding("ANY").setFloor(0).setRoom("ANY");
-            intent.putExtra(Constants.DATA.BUILDING, location.getBuilding());
-            intent.putExtra(Constants.DATA.FLOOR, location.getFloor());
-            intent.putExtra(Constants.DATA.ROOM, location.getRoom());
-            startService(intent);
-            handleNewIntent(HomeActivity.class);
-        } else {
+        if(location.isValid())
+            if(PermissionManager.check(this, Manifest.permission.ACCESS_COARSE_LOCATION, Constants.REQUEST.LOCATION))
+                onStartScan();
+        else
             toaster.toast("invalid settings");
-        }
+    }
+
+    private void onStartScan()
+    {
+        vibrator.vibrate(200);
+        //toaster.toast(location);
+        Intent intent = new Intent(this, WifiScanService.class);
+        intent.putExtra(Constants.DATA.DURATION, duration());
+        //intent.putExtra(Constants.DATA.DURATION, 15);
+        //location.setBuilding("ANY").setFloor(0).setRoom("ANY");
+        intent.putExtra(Constants.DATA.BUILDING, location.getBuilding());
+        intent.putExtra(Constants.DATA.FLOOR, location.getFloor());
+        intent.putExtra(Constants.DATA.ROOM, location.getRoom());
+        startService(intent);
+        handleNewIntent(HomeActivity.class);
     }
 }

@@ -12,9 +12,10 @@ import me.nydev.wifituner.model.Location;
 import me.nydev.wifituner.model.Scan;
 import me.nydev.wifituner.support.DatabaseAdapter;
 
-
 public class WifiScanReceiver extends BroadcastReceiver
 {
+    private static final String TAG = "WifiScanReceiver";
+
     public static WifiManager WifiManager;
     public static Location Location;
 
@@ -27,12 +28,5 @@ public class WifiScanReceiver extends BroadcastReceiver
         for(Scan scan: scans) {
             dba.addScan(scan);
         }
-    }
-
-    private void test()
-    {
-        if(WifiManager == null)
-            System.out.println("wtf");
-        System.out.println(Location);
     }
 }

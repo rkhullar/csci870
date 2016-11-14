@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import me.nydev.wifituner.model.Auth;
 import me.nydev.wifituner.model.Location;
@@ -12,6 +13,8 @@ import me.nydev.wifituner.model.Scan;
 
 public class DatabaseAdapter extends BaseDatabase
 {
+    private static final String TAG = "DatabaseAdapter";
+
     public DatabaseAdapter(Context context)
     {
         super(context);
@@ -73,7 +76,7 @@ public class DatabaseAdapter extends BaseDatabase
             cv.put(KEY_BUILDING_ID, bid);
             cv.put(KEY_FLOOR, l.getFloor());
             cv.put(KEY_ROOM, l.getRoom());
-            System.out.printf("%s(%d) %d %s\n", l.getBuilding(), bid, l.getFloor(), l.getRoom());
+            Log.i(TAG, String.format("%s(%d) %d %s", l.getBuilding(), bid, l.getFloor(), l.getRoom()));
             db.insert(TABLE_LOCATION, null, cv);
         }
         db.close();
@@ -187,7 +190,7 @@ public class DatabaseAdapter extends BaseDatabase
 
     public void addScan(Scan scan)
     {
-        System.out.println(scan);
+        Log.i(TAG, scan.toString());
     }
 
     //==============================================================================================
