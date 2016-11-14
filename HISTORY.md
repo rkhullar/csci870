@@ -49,11 +49,7 @@
 2. tried to read environment variables in postgres
 3. decide to only support json media type for post methods
 
-## 2016-10-15@app.route('/api/time', methods=['GET'])
-@dec.auth(pswd)
-def api_time(userid):
-    resp = {'time' int(time.time())}
-    return jsonify(resp)
+## 2016-10-15
 1. initiate model database classes in python
 2. work on person model for registration, login, and search
 3. authorization decorator works
@@ -176,4 +172,6 @@ def api_time(userid):
 2. added notification for when countdown timer complete
 3. registered wifi scan receiver in manifest
 4. able to perform multiple scans if permission already granted
-5. permission request system works
+5. learned how to use logcat system
+6. permission request system works
+7. able to persist scans in wifi test activity
