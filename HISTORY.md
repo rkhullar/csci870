@@ -174,4 +174,5 @@
 4. able to perform multiple scans if permission already granted
 5. learned how to use logcat system
 6. permission request system works
-7. able to persist scans in wifi test activity
+7. changed scan table to use unix time integer instead of datetime
+8. able to persist scans in wifi test activity
