@@ -1,5 +1,5 @@
 ## Immediate
-1. add method to fetch local scans
+1. add list view for local scans
 2. add method to call /api/scan
 
 ## Main Activity (Login)

@@ -176,3 +176,7 @@
 6. permission request system works
 7. changed scan table to use unix time integer instead of datetime
 8. able to persist scans in wifi test activity
+
+## 2016-11-14
+1. updated android studio sdk platform
+2. added method to fetch scan objects from sqlite
