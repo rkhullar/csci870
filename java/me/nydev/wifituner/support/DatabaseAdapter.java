@@ -10,6 +10,7 @@ import me.nydev.wifituner.model.Auth;
 import me.nydev.wifituner.model.Location;
 import me.nydev.wifituner.model.LocationBuilder;
 import me.nydev.wifituner.model.Scan;
+import me.nydev.wifituner.model.ScanBuilder;
 
 public class DatabaseAdapter extends BaseDatabase
 {
@@ -251,6 +252,31 @@ public class DatabaseAdapter extends BaseDatabase
         cv.put(KEY_LEVEL, scan.getLevel());
         cv.put(KEY_LOCATION_ID, lid);
         return db.insert(TABLE_SCAN, null, cv);
+    }
+
+    public Scan[] scans()
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = "select s.time, w.bssid, s.level, b.abbr, l.floor, l.room "
+                + "from scan s inner join wpa w on s.wpaID = w.id "
+                + "inner join location l on s.locationID = l.id "
+                + "inner join building b on l.buildingID = b.id";
+        Cursor c = db.rawQuery(sql, null);
+        int n = c.getCount();
+        Scan[] scans = new Scan[n];
+        ScanBuilder sb = new ScanBuilder();
+        LocationBuilder lb = new LocationBuilder();
+        c.moveToFirst();
+        for(int x = 0; x < n; x++)
+        {
+            lb.setBuilding(c.getString(3)).setFloor(c.getInt(4)).setRoom(c.getString(5));
+            sb.setUnixTime(c.getLong(0)).setBSSID(c.getString(1)).setLevel(c.getInt(2));
+            scans[x] = sb.setLocation(lb.build()).build();
+            c.moveToNext();
+        }
+        c.close();
+        db.close();
+        return scans;
     }
 
     //==============================================================================================

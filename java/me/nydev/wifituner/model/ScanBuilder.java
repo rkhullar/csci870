@@ -9,9 +9,10 @@ public class ScanBuilder extends Scan
         this.location = new Location();
     }
 
-    public void setUnixTime(long x)
+    public ScanBuilder setUnixTime(long x)
     {
         this.uxt = x;
+        return this;
     }
 
     public ScanBuilder setBSSID(String x)

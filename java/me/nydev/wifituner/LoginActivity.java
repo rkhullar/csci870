@@ -14,7 +14,10 @@ import me.nydev.wifituner.support.BaseActivity;
 
 public class LoginActivity extends BaseActivity
 {
-    protected EditText et1, et2;
+    private static final String TAG = "ScanConfActivity";
+
+    private EditText et1, et2;
+
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState, R.layout.activity_login);
