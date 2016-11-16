@@ -185,3 +185,7 @@
 1. added list view on scan push activity
 2. updated logout method to preserve integrity; truncate all tables
 3. implemented scan upload system with time synchronization
+
+## 2016-11-16
+1. compiled location list
+2. push system on app works with minor bugs

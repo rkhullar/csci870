@@ -1,5 +1,8 @@
 ## Immediate
-1. compile location list
+1. add api endpoint to push array of scans
+2. change push system on app to post one large package
+3. add api endpoint to download datasets
+4. start analyze with sklearn
 
 ## Main Activity (Login)
  * if logged in goto home activity
