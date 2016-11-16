@@ -5,7 +5,7 @@
  */
 
 select fnd.user('rkhullar@nyit.edu', 'aaaaaa', true, false);
-select fnd.location('ANY', 0::smallint, 'ANY');
+select fnd.location('ANY', 0::smallint, 'any');
 
 
 select new.scan(1473328800, 1, '00:00:00:00:00:00'::macaddr, -100::smallint, 1);
