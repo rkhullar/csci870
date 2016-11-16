@@ -1,6 +1,5 @@
 ## Immediate
-1. add list view for local scans
-2. add method to call /api/scan
+1. compile location list
 
 ## Main Activity (Login)
  * if logged in goto home activity

@@ -180,3 +180,8 @@
 ## 2016-11-14
 1. updated android studio sdk platform
 2. added method to fetch scan objects from sqlite
+
+## 2016-11-15
+1. added list view on scan push activity
+2. updated logout method to preserve integrity; truncate all tables
+3. implemented scan upload system with time synchronization
