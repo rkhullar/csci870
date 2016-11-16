@@ -1,25 +1,181 @@
 abbr;floor;room
-ANY;0;ANY
+ANY;0;any
+EGGC;1;lobby
+EGGC;1;elevators
 EGGC;1;library
-EGGC;2;library
+EGGC;1;library printers
+EGGC;2;elevators
+EGGC;2;library couches
+EGGC;2;library offices
+EGGC;2;library cubicles
+EGGC;2;library printers
+EGGC;3;elevators
+EGGC;3;vending machines
+EGGC;3;319 lab
+EGGC;3;307 lab
 EGGC;3;library cubicles
-EGGC;3;library study rooms
+EGGC;3;library study area
+EGGC;3;library conference room
+EGGC;3;library 302
+EGGC;3;library 303
+EGGC;3;library 304
+EGGC;4;elevators
+EGGC;4;401
+EGGC;4;402 math center
 EGGC;4;405
-EGGC;6;601
-EGGC;6;603
+EGGC;4;406
+EGGC;4;408 physic lab
+EGGC;4;409
+EGGC;5;elevators
+EGGC;5;501 lab
+EGGC;5;architecture studio
+EGGC;5;vending machines
+EGGC;6;elevators
+EGGC;6;601 lab
+EGGC;6;603 innovation studio
+EGGC;6;602
 EGGC;6;604
-EGGC;6;607
-EGGC;7;702
+EGGC;6;607 senior design
+EGGC;6;608 senior design
+EGGC;6;606
+EGGC;7;elevators
+EGGC;7;701A acs
+EGGC;7;701B acs
+EGGC;7;DL1 701C
+EGGC;7;DL2 706
+EGGC;7;DL3 704
+EGGC;7;DL4 708
+EGGC;7;DL5 702
+EGGC;8;elevators
+EGGC;8;801
+EGGC;8;801A
+EGGC;8;802
+EGGC;8;802B
+EGGC;8;803
+EGGC;8;804
+EGGC;8;805
+EGGC;8;806
+EGGC;8;807
+EGGC;8;808
+EGGC;8;809
+EGGC;8;810
+EGGC;8;811
+EGGC;8;812
+EGGC;8;814
+EGGC;8;815 conference room
+EGGC;9;elevators
+EGGC;9;901 bio lab
+EGGC;9;902 chem lab
 EGGC;9;903
+EGGC;9;903B
 EGGC;9;904
-EGGC;9;903b
-EGGC;9;904b
+EGGC;9;904B
+EGGC;10;elevators
+EGGC;10;lockers
+EGGC;10;1009 model shop
+EGGC;10;1010
+EGGC;10;1011
+EGGC;10;1012
+EGGC;10;1013
+EGGC;11;elevators
+EGGC;11;1109
+EGGC;11;1119
+EGGC;11;1120
+MC16;1;elevators
+MC16;1;student solutions
+MC16;1;bursar
+MC16;1;registrar
+MC16;1;financial aid
+MC16;1;offices
+MC16;6;elevators
+MC16;6;603 lab
+MC16;6;623
 MC16;6;624
-MC16;7;723
+MC16;7;elevators
+MC16;7;725 tutoring center
 MC16;7;724
-MC16;8;826
+MC16;7;723
+MC16;7;722
+MC16;7;721
+MC16;7;718 lab
+MC16;7;717
+MC16;8;elevators
+MC16;8;820
+MC16;8;821
+MC16;8;822
+MC16;9;elevators
+MC16;9;919
+MC16;9;924
+MC16;9;925
+MC16;9;927
+MC16;10;elevators
+MC16;10;1026
+MC16;11;elevators
+MC16;11;auditorium
+MC16;11;conference room 1
+MC16;11;conference room 2
+MC26;0;2
+MC26;0;4
+MC26;0;5
+MC26;0;6
+MC26;0;7
+MC26;0;11
+MC26;0;12
+MC26;0;13
+MC26;0;20
+MC26;0;21
+MC26;1;elevators
+MC26;1;lounge
+MC26;1;international office
+MC26;1;housing office
+MC26;2;elevators
+MC26;2;205
+MC26;2;206
+MC26;2;207
+MC26;2;211
+MC26;2;218
+MC26;2;219
+MC26;2;220
+MC26;2;221
+MC26;2;223
+MC26;3;elevators
+MC26;3;305
+MC26;3;306
+MC26;3;307
+MC26;3;308
+MC26;3;309
+MC26;3;310A
+MC26;3;310B
+MC26;3;311
 MC26;3;312
+MC26;3;313
+MC26;3;314
+MC26;3;318
+MC26;4;elevators
+MC26;4;vending machines
 MC26;4;401
+MC26;4;403
+MC26;4;404
+MC26;4;405
+MC26;4;406
+MC26;4;407
+MC26;4;408
+MC26;4;409
 MC26;4;410
 MC26;4;411
+MC26;4;421
+MC26;4;422
+MC26;4;423
+MC26;5;elevators
+MC26;5;501
 MC26;5;502
+MC26;5;503
+MC26;5;504
+MC26;5;505
+MC26;5;506
+MC26;5;507
+MC26;5;508
+MC26;5;509
+MC26;5;510
+MC26;5;512
+MC26;5;523
