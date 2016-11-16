@@ -1,11 +1,10 @@
 package me.nydev.wifituner.support;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.json.*;
 import com.loopj.android.http.*;
-
-import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -15,6 +14,7 @@ import me.nydev.wifituner.model.User;
 
 public class RestClientAdapter
 {
+    private static final String TAG = "RestClientAdapter";
 
     private Context context;
     private Toaster toaster;
@@ -58,9 +58,25 @@ public class RestClientAdapter
         BaseRestClient.get("locations", null, handler);
     }
 
-    public void persist_scan(Auth auth, Scan scan)
+    public void fetch_time(JsonHttpResponseHandler handler)
     {
-        String m = String.format(Locale.US, "%s => %d", scan.getBSSID(), scan.getLevel());
-        toaster.toast(m);
+        BaseRestClient.get("time", null, handler);
+    }
+
+    public long extract_time(JSONObject json)
+    {
+        try {
+            return json.getLong("time");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public void persist_scan(Auth auth, Scan scan, JsonHttpResponseHandler handler)
+    {
+        BaseRestClient.auth(auth);
+        JSONObject json = Scan.jsonify(scan);
+        BaseRestClient.post("scan", json, handler);
     }
 }

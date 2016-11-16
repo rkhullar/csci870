@@ -8,23 +8,28 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import me.nydev.wifituner.support.BaseActivity;
 
 public class HomeActivity extends BaseActivity
 {
+    private static final String TAG = "HomeActivity";
     private static final int[] timeViewIDs = {R.id.home_time_hour, R.id.home_time_minute, R.id.home_time_second};
 
     private boolean mode;
     private TimeReceiver tr;
     private TextView[] timeViews;
+    private TextView locationView;
+    private Button button;
 
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -43,9 +48,21 @@ public class HomeActivity extends BaseActivity
     protected void onResume()
     {
         super.onResume();
+
+        // user interface
         timeViews = new TextView[timeViewIDs.length];
         for(int x = 0; x < timeViewIDs.length; x++)
             timeViews[x] = (TextView) findViewById(timeViewIDs[x]);
+        locationView = (TextView) findViewById(R.id.home_location);
+
+        // pause resume button
+        if(mode)
+        {
+            button = (Button) findViewById(R.id.home_button);
+            setPauseButton();
+        }
+
+        // time receiver
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Constants.ACTION.MAIN);
         intentFilter.addAction(Constants.ACTION.DONE);
@@ -94,6 +111,34 @@ public class HomeActivity extends BaseActivity
         }
     }
 
+    private void setPauseButton()
+    {
+        button.setText(getString(R.string.pause));
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View view)
+            {
+                WifiScanReceiver.disable();
+                setResumeButton();
+                toaster.toast("scan paused");
+            }
+        });
+    }
+
+    private void setResumeButton()
+    {
+        button.setText(getString(R.string.resume));
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View view)
+            {
+                WifiScanReceiver.enable();
+                setPauseButton();
+                toaster.toast("scan resumed");
+            }
+        });
+    }
+
     public void home_logout(View view)
     {
         dba.logout();
@@ -137,6 +182,8 @@ public class HomeActivity extends BaseActivity
     {
         public void onReceive(Context context, Intent intent)
         {
+            if(WifiScanReceiver.Location != null)
+                locationView.setText(WifiScanReceiver.Location.toString());
             switch (intent.getAction())
             {
                 case Constants.ACTION.MAIN:

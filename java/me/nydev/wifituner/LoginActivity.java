@@ -1,6 +1,7 @@
 package me.nydev.wifituner;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -52,7 +53,7 @@ public class LoginActivity extends BaseActivity
 
             public void onSuccess(int statusCode, Header[] headers, JSONObject response)
             {
-                toaster.toast("authenticated");
+                Log.i(TAG, "authenticated");
                 dba.login(auth);
                 Location[] a = Location.parseArray(response);
                 dba.locations(a);

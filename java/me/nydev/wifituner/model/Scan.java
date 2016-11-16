@@ -2,6 +2,9 @@ package me.nydev.wifituner.model;
 
 import android.net.wifi.ScanResult;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -31,6 +34,16 @@ public class Scan
         return uxt;
     }
 
+    public void addUnixTime(long t)
+    {
+        uxt += t;
+    }
+
+    public void delUnixTime(long t)
+    {
+        uxt -= t;
+    }
+
     public String getBSSID()
     {
         return bssid;
@@ -44,6 +57,21 @@ public class Scan
     public Location getLocation()
     {
         return location;
+    }
+
+    public String getBuilding()
+    {
+        return location.getBuilding();
+    }
+
+    public int getFloor()
+    {
+        return location.getFloor();
+    }
+
+    public String getRoom()
+    {
+        return location.getRoom();
     }
 
     public String toString()
@@ -77,6 +105,43 @@ public class Scan
                 a[c++] = new Scan(uxt, sr.BSSID, sr.level, location);
         }
         return a;
+    }
+
+    public static JSONObject jsonify(Scan x)
+    {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("uxt", x.getUnixTime());
+            json.put("bssid", x.getBSSID());
+            json.put("level", x.getLevel());
+            json.put("building" , x.getBuilding());
+            json.put("floor", x.getFloor());
+            json.put("room", x.getRoom());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+    public static Scan parseObject(JSONObject json)
+    {
+        Location l; Scan s = null;
+        try {
+            l = new LocationBuilder()
+                    .setBuilding(json.getString("building"))
+                    .setFloor(json.getInt("floor"))
+                    .setRoom(json.getString("room"))
+                    .build();
+            s = new ScanBuilder()
+                    .setUnixTime(json.getLong("uxt"))
+                    .setBSSID(json.getString("bssid"))
+                    .setLevel(json.getInt("level"))
+                    .setLocation(l)
+                    .build();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return s;
     }
 
 }

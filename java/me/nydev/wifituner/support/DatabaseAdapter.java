@@ -38,6 +38,10 @@ public class DatabaseAdapter extends BaseDatabase
     {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_USER, null, null);
+        db.delete(TABLE_SCAN, null, null);
+        db.delete(TABLE_WPA, null, null);
+        db.delete(TABLE_LOCATION, null, null);
+        db.delete(TABLE_BUILDING, null, null);
         db.close();
     }
 
@@ -277,6 +281,21 @@ public class DatabaseAdapter extends BaseDatabase
         c.close();
         db.close();
         return scans;
+    }
+
+    private static final String delScanCond = "time=? and wpaID=? and level=? and locationID=?";
+    public void delScan(Scan x)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        long wid = findWPA(db, x.getBSSID());
+        long lid = findLocation(db, x.getLocation());
+        String[] vals = new String[4];
+        vals[0] = x.getUnixTime()+"";
+        vals[1] = wid+"";
+        vals[2] = x.getLevel()+"";
+        vals[3] = lid+"";
+        db.delete(TABLE_SCAN, delScanCond, vals);
+        db.close();
     }
 
     //==============================================================================================

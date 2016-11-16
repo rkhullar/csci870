@@ -38,6 +38,7 @@ public class WifiScanService extends Service
         wm = (WifiManager) getSystemService(WIFI_SERVICE);
         WifiScanReceiver.WifiManager = wm;
         Scan.enableFilter();
+        WifiScanReceiver.enable();
     }
 
     public void onDestroy()

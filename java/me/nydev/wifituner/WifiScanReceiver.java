@@ -19,14 +19,25 @@ public class WifiScanReceiver extends BroadcastReceiver
 
     public static WifiManager WifiManager;
     public static Location Location;
+    private static boolean ENABLED = true;
 
     public void onReceive(Context context, Intent intent)
     {
         Log.i(TAG, "broadcast received");
-        if(WifiManager == null || Location == null) return;
+        if(WifiManager == null || Location == null || !ENABLED) return;
         List<ScanResult> wl = WifiManager.getScanResults();
         long uxt = System.currentTimeMillis() / 1000;
         Scan[] scans = Scan.parseScanResults(wl, Location, uxt);
         new DatabaseAdapter(context).addScans(scans);
+    }
+
+    public static void enable()
+    {
+        ENABLED = true;
+    }
+
+    public static void disable()
+    {
+        ENABLED = false;
     }
 }
