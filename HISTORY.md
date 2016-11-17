@@ -190,4 +190,5 @@
 1. compiled location list
 2. push system on app works with minor bugs
 3. fixed typo in database (wpa -> wap)
-4. added endpoint to push multiple scan results
+4. added database constraint to prevent repeatedly persisted scans
+5. added endpoint to push multiple scan results
