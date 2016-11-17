@@ -140,5 +140,6 @@ def api_post_scans(userid):
     resp = persist_scans(userid, l)
     return jsonify(resp)
 
+
 if __name__ == '__main__':
     app.run(debug=True)
