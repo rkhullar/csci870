@@ -1,7 +1,6 @@
 ## Immediate
-1. change push system on app to post scan data in buffer
-2. add api endpoint to download datasets
-3. start analyze with sklearn
+1. add api endpoint to download datasets
+2. start analyze with sklearn
 
 ## Main Activity (Login)
  * if logged in goto home activity

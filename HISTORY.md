@@ -193,3 +193,5 @@
 4. added database constraint to prevent repeatedly persisted scans
 5. added endpoint to push multiple scan results
 6. improved efficiency of app location download system
+7. extended scan upload system with buffer implementation
+8. improved user experience for scan upload system
