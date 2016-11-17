@@ -1,7 +1,7 @@
 /*
  * @author  : Rajan Khullar
  * @created : 09/08/16
- * @updated : 10/18/16
+ * @updated : 11/16/16
  */
 
 create extension if not exists pgcrypto;
@@ -55,7 +55,7 @@ create view dbv.admin as
 /************************************************/
 
 /************************************************/
-create table dbo.wpa
+create table dbo.wap
 (
     id serial primary key,
     bssid macaddr unique
@@ -89,13 +89,14 @@ create table dbo.scan
 (
     time timestamp not null default now(),
     actorID serial references dbo.actor(id) not null,
-    wpaID serial references dbo.wpa(id) not null,
+    wapID serial references dbo.wap(id) not null,
     level smallint not null,
-    locationID serial references dbo.location(id) not null
+    locationID serial references dbo.location(id) not null,
+    unique(time, actorID, wapID, level, locationID)
 );
 
 create view dbv.scan as
     select extract(epoch from s.time) as uxt, a.email, w.bssid, s.level, l.building, l.floor, l.room
-    from dbo.scan s, dbo.actor a, dbo.wpa w, dbv.location l
-    where s.actorID = a.id and s.wpaID = w.id and s.locationID = l.id;
+    from dbo.scan s, dbo.actor a, dbo.wap w, dbv.location l
+    where s.actorID = a.id and s.wapID = w.id and s.locationID = l.id;
 /************************************************/

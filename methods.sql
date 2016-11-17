@@ -71,20 +71,20 @@ create function fnd.admin(dbo.actor.email%type, ptex text)
   end;
 $$ language plpgsql;
 
-create function new.wpa(dbo.wpa.bssid%type) returns integer as $$
+create function new.wap(dbo.wap.bssid%type) returns integer as $$
   declare
     x integer;
   begin
-    insert into dbo.wpa(bssid) values($1) returning id into x;
+    insert into dbo.wap(bssid) values($1) returning id into x;
     return x;
   end;
 $$ language plpgsql;
 
-create function fnd.wpa(dbo.wpa.bssid%type) returns integer as $$
+create function fnd.wap(dbo.wap.bssid%type) returns integer as $$
   declare
     x integer;
   begin
-    select id from dbo.wpa where bssid = $1 into x;
+    select id from dbo.wap where bssid = $1 into x;
     return x;
   end;
 $$ language plpgsql;
@@ -114,16 +114,16 @@ create function fnd.location(dbo.building.abbr%type, dbo.location.floor%type, db
   end;
 $$ language plpgsql;
 
-create function new.scan(integer, integer, dbo.wpa.bssid%type, dbo.scan.level%type, integer)
+create function new.scan(integer, integer, dbo.wap.bssid%type, dbo.scan.level%type, integer)
   returns void as $$
   declare
     w integer;
   begin
-    select fnd.wpa($3) into w;
+    select fnd.wap($3) into w;
     if w isnull then
-        select new.wpa($3) into w;
+        select new.wap($3) into w;
     end if;
-    insert into dbo.scan(time, actorID, wpaID, level, locationID)
+    insert into dbo.scan(time, actorID, wapID, level, locationID)
         values (to_timestamp($1) at time zone 'UTC', $2, w, $4, $5);
   end;
 $$ language plpgsql;
