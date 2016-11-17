@@ -74,7 +74,7 @@ create table dbo.location
     id serial primary key,
     buildingID serial references dbo.building(id),
     floor smallint not null,
-    room varchar(20) not null,
+    room varchar(50) not null,
     unique(buildingID, floor, room)
 );
 
