@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  11/13/16
+@updated :  11/16/16
 """
 
 import decor as dec
@@ -40,6 +40,7 @@ verify = dec.corify(person.verify)
 # Scan Methods
 fetch_locations = dec.corify(location.dump)
 persist_scan = dec.corify(scan.persist)
+persist_scans = dec.corify(scan.persistMany)
 
 @app.route('/api/echo', methods=['GET', 'POST'])
 def api_echo():
@@ -109,7 +110,7 @@ def api_locations(userid):
 @app.route('/api/scan', methods=['POST'])
 @dec.auth(pswd)
 @dec.json
-def api_scan(userid):
+def api_post_scan(userid):
     data = request.json
     data['userID'] = userid
     resp = {'message': 'not ok'}
@@ -120,6 +121,24 @@ def api_scan(userid):
             resp[k] = data[k]
     return jsonify(resp)
 
+@app.route('/api/scans', methods=['POST'])
+@dec.auth(pswd)
+@dec.json
+def api_post_scans(userid):
+    data = request.json
+    n  = int(data['size'])
+    vt = data['uxt']
+    vw = data['bssid']
+    vl = data['level']
+    vb = data['building']
+    vf = data['floor']
+    vr = data['room']
+    l = []
+    for i in range(n):
+        x = scan(int(vt[i]), None, vw[i], int(vl[i]), vb[i], int(vf[i]), vr[i])
+        l.append(x)
+    resp = persist_scans(userid, l)
+    return jsonify(resp)
 
 if __name__ == '__main__':
     app.run(debug=True)

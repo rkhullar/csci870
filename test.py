@@ -52,9 +52,22 @@ def test04():
     r = requests.post(url, data=json.dumps(payload), headers=headers, auth=auth)
     print(r.content.decode('UTF-8'))
 
+def test05():
+    url = genurl('api', 'scans')
+    payload = {
+        'size'     : 3,
+        'uxt'      : [1479354594, 1579359999, 1679359999],
+        'bssid'    : ['F0:00:00:00:00:00', 'F0:00:00:00:00:01', 'F0:00:00:00:00:02'],
+        'level'    : [100, 120, 140],
+        'building' : ['ANY', 'EGGC', 'MC16'],
+        'floor'    : [0, 6, 10],
+        'room'     : ['any', '606', '1026']}
+    post(url, payload)
+
 if __name__ == '__main__':
     call(['./refresh'])
     #test01()
     #test02()
     #test03()
     #test04()
+    test05()

@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  10/18/16
-@updated :  10/18/16
+@updated :  11/16/16
 """
 
 import time
@@ -33,7 +33,7 @@ class scan:
         return l
 
     @staticmethod
-    def persist(o, bssid, level, building='ANY', floor=0, room='ANY', uxt=None, userID=None):
+    def persist(o, bssid, level, building='ANY', floor=0, room='any', uxt=None, userID=None):
         if not userID:
             userID = person.find(o, email='nydevteam@gmail.com')
         if not uxt:
@@ -45,6 +45,29 @@ class scan:
             return True
         return False
 
+    @staticmethod
+    def persistMany(o, userID, l):
+        n  = 0
+        vt = [] # times
+        vw = [] # wifi access points
+        vl = [] # signal strength levels
+        vb = [] # buildings
+        vf = [] # floors
+        vr = [] # rooms
+        for s in l:
+            locationID = location.find(o, s.building, s.floor, s.room)
+            t = o.exe('select new.scan(%s,%s,%s::macaddr,%s::smallint,%s)', s.uxt, userID, s.bssid, s.level, locationID)
+            if(t):
+                o.commit()
+                vt.append(int(s.uxt))
+                vw.append(s.bssid)
+                vl.append(int(s.level))
+                vb.append(s.building)
+                vf.append(int(s.floor))
+                vr.append(s.room)
+                n += 1
+        return {'size': n, 'uxt': vt, 'bssid': vw, 'level': vl, 'building': vb, 'floor': vf, 'room': vr}
+
 
 def test01(o):
     for s in scan.dump(o):
@@ -55,6 +78,6 @@ def test02(o):
 
 if __name__ == '__main__':
     o = core()
-    test01(o)
+    #test01(o)
     #test02(o)
     o.close()

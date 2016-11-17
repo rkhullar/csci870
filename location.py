@@ -41,14 +41,14 @@ class location:
         return False
 
 def test01(o):
-    location.persist(o, 'ANY', 0, 'ANY')
+    location.persist(o, 'ANY', 0, 'any')
 
 def test02(o):
     for x in location.dump(o):
         print(x)
 
 def test03(o):
-    t = location.find(o, building='ANY', floor=0, room='ANY')
+    t = location.find(o, building='ANY', floor=0, room='any')
     print(t)
 
 if __name__ == '__main__':
