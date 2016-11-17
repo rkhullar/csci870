@@ -195,3 +195,4 @@
 6. improved efficiency of app location download system
 7. extended scan upload system with buffer implementation
 8. improved user experience for scan upload system
+9. using github project page to store apk file
