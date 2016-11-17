@@ -87,7 +87,7 @@ public class WifiTestActivity extends BaseActivity
             Toaster toaster = new Toaster(context);
             toaster.toast("updating " + scans.length);
             lv.setAdapter(new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item, scans));
-            dba.addScans(scans);
+            //dba.addScans(scans);
         }
 
     }

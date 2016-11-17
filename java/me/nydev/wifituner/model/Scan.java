@@ -75,6 +75,14 @@ public class Scan
         return location.getRoom();
     }
 
+    public boolean equals(Scan x)
+    {
+        return x.uxt == uxt
+                && x.bssid.equals(bssid)
+                && x.level == level
+                && x.location.equals(location);
+    }
+
     public String toString()
     {
         if(location != null)
@@ -211,6 +219,14 @@ public class Scan
             e.printStackTrace();
         }
         return a;
+    }
+
+    public static int find(Scan[] a, Scan x)
+    {
+        for(int i = 0; i < a.length; i++)
+            if(a[i] != null && a[i].equals(x))
+                return i;
+        return -1;
     }
 
 }

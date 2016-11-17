@@ -47,14 +47,15 @@ public class ScanPushActivity extends BaseActivity
         {
             fetchTime();
             toaster.toast("try again");
+            return;
         }
         vibrator.vibrate(200);
-        count = 0;
+        count = 0; scans = dba.scans();
         int l = 0, h, n = scans.length, b = Constants.VAR.BUFFER;
         if(n == 0)
             toaster.toast("no scan results available");
         else
-            toaster.toast("pushing "+n+"results");
+            toaster.toast("pushing "+n+" results");
         while(n >= b)
         {
             h = l + b - 1;
@@ -108,10 +109,10 @@ public class ScanPushActivity extends BaseActivity
         });
     }
 
-    private void pushScans(Scan[] scanz, int low, int high)
+    private void pushScans(final Scan[] scanz, final int low, final int high)
     {
         for(int x = low; x <= high; x++)
-            scanz[x].addUnixTime(deltaTime);
+                scanz[x].addUnixTime(deltaTime);
         api.pushScans(auth, scanz, low, high, new JsonHttpResponseHandler()
         {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse)
@@ -126,6 +127,12 @@ public class ScanPushActivity extends BaseActivity
                 count += a.length;
                 Log.i(TAG, String.format("progress = %d/%d", count, scans.length));
                 updateView();
+                for(Scan s: a)
+                {
+                    int x = Scan.find(scanz, s);
+                    if(x > -1)
+                        scanz[x] = null;
+                }
             }
         });
     }

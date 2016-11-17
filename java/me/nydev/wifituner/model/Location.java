@@ -50,6 +50,13 @@ public class Location
         return !(building == null || room == null);
     }
 
+    public boolean equals(Location x)
+    {
+        return x.building.equals(building)
+                && x.floor == floor
+                && x.room.equals(room);
+    }
+
     public String toString()
     {
         return String.format(Locale.US, "%s %d %s", building, floor, room);

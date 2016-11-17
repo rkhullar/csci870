@@ -196,6 +196,7 @@ public class HomeActivity extends BaseActivity
                     break;
                 case Constants.ACTION.DONE:
                     toaster.toast("complete");
+                    handleNewIntent(ScanPushActivity.class);
                     break;
             }
         }
