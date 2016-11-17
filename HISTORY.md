@@ -189,3 +189,5 @@
 ## 2016-11-16
 1. compiled location list
 2. push system on app works with minor bugs
+3. fixed typo in database (wpa -> wap)
+4. added endpoint to push multiple scan results
