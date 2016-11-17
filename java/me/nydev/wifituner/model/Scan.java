@@ -2,6 +2,7 @@ package me.nydev.wifituner.model;
 
 import android.net.wifi.ScanResult;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -142,6 +143,74 @@ public class Scan
             e.printStackTrace();
         }
         return s;
+    }
+
+    public static JSONObject jsonify(Scan[] a, int l, int h)
+    {
+        JSONObject json = new JSONObject();
+        JSONArray vt=new JSONArray(), vw=new JSONArray(), vl=new JSONArray(), vb=new JSONArray(), vf=new JSONArray(), vr=new JSONArray();
+        try {
+            json.put("size", h-l+1);
+            for(int x = l; x <= h; x++)
+            {
+                vt.put(a[x].getUnixTime());
+                vw.put(a[x].getBSSID());
+                vl.put(a[x].getLevel());
+                vb.put(a[x].getBuilding());
+                vf.put(a[x].getFloor());
+                vr.put(a[x].getRoom());
+            }
+            json.put("uxt", vt);
+            json.put("bssid", vw);
+            json.put("level", vl);
+            json.put("building" , vb);
+            json.put("floor", vf);
+            json.put("room", vr);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+    public static JSONObject jsonify(Scan[] a)
+    {
+        return jsonify(a, 0, a.length-1);
+    }
+
+    public static Scan[] parseArray(JSONObject json)
+    {
+        Scan[] a = new Scan[0];
+        JSONArray vt, vw, vl, vb, vf, vr;
+        ScanBuilder sb = new ScanBuilder();
+        LocationBuilder lb = new LocationBuilder();
+        Location location;
+        try {
+            int n = json.getInt("size");
+            a = new Scan[n];
+            vt = json.getJSONArray("uxt");
+            vw = json.getJSONArray("bssid");
+            vl = json.getJSONArray("level");
+            vb = json.getJSONArray("building");
+            vf = json.getJSONArray("floor");
+            vr = json.getJSONArray("room");
+            for(int x = 0; x < n; x++)
+            {
+                location = lb
+                        .setBuilding(vb.getString(x))
+                        .setFloor(vf.getInt(x))
+                        .setRoom(vr.getString(x))
+                        .build();
+                a[x] = sb
+                        .setUnixTime(vt.getLong(x))
+                        .setBSSID(vw.getString(x))
+                        .setLevel(vl.getInt(x))
+                        .setLocation(location)
+                        .build();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return a;
     }
 
 }

@@ -59,6 +59,7 @@ public class Location
     {
         Location[] a = new Location[0];
         JSONArray a1, a2, a3;
+        LocationBuilder lb = new LocationBuilder();
         try {
             int n = json.getInt("size");
             a = new Location[n];
@@ -67,7 +68,7 @@ public class Location
             a3 = json.getJSONArray("room");
             for(int x = 0; x < n; x++)
             {
-                a[x] = new LocationBuilder()
+                a[x] = lb
                         .setBuilding(a1.getString(x))
                         .setFloor(a2.getInt(x))
                         .setRoom(a3.getString(x))

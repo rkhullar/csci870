@@ -33,7 +33,12 @@ public class ScanPushActivity extends BaseActivity
         scans = dba.scans();
         auth = dba.getAuth();
         lv = (ListView) findViewById(R.id.scan_push_list);
-        lv.setAdapter(new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item, scans));
+        updateView();
+    }
+
+    private void updateView()
+    {
+        lv.setAdapter(new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item, dba.scans()));
     }
 
     public void push_scans(View view)
@@ -45,13 +50,28 @@ public class ScanPushActivity extends BaseActivity
         }
         vibrator.vibrate(200);
         count = 0;
-        for(Scan scan: scans)
-            persistScan(scan);
+        int l = 0, h, n = scans.length, b = Constants.VAR.BUFFER;
+        if(n == 0)
+            toaster.toast("no scan results available");
+        else
+            toaster.toast("pushing "+n+"results");
+        while(n >= b)
+        {
+            h = l + b - 1;
+            pushScans(scans, l, h);
+            n -= b;
+            l += b;
+        }
+        if(n > 0)
+        {
+            h = l + n - 1;
+            pushScans(scans, l, h);
+        }
     }
 
     private void fetchTime()
     {
-        api.fetch_time(new JsonHttpResponseHandler()
+        api.fetchTime(new JsonHttpResponseHandler()
         {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse)
             {
@@ -62,19 +82,20 @@ public class ScanPushActivity extends BaseActivity
             {
                 fetchTime = true;
                 localTime = System.currentTimeMillis() / 1000;
-                serverTime = api.extract_time(response);
+                serverTime = api.extractTime(response);
                 deltaTime = serverTime - localTime;
             }
         });
     }
 
-    private void persistScan(Scan scan)
+    private void pushScan(Scan scan)
     {
         scan.addUnixTime(deltaTime);
-        api.persist_scan(auth, scan, new JsonHttpResponseHandler()
+        api.pushScan(auth, scan, new JsonHttpResponseHandler()
         {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse)
             {
+                count++;
             }
             public void onSuccess(int statusCode, Header[] headers, JSONObject response)
             {
@@ -83,6 +104,28 @@ public class ScanPushActivity extends BaseActivity
                 dba.delScan(x);
                 count++;
                 Log.i(TAG, String.format("progress = %d/%d", count, scans.length));
+            }
+        });
+    }
+
+    private void pushScans(Scan[] scanz, int low, int high)
+    {
+        for(int x = low; x <= high; x++)
+            scanz[x].addUnixTime(deltaTime);
+        api.pushScans(auth, scanz, low, high, new JsonHttpResponseHandler()
+        {
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse)
+            {
+            }
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response)
+            {
+                Scan[] a = Scan.parseArray(response);
+                for(int x = 0; x < a.length; x++)
+                    a[x].delUnixTime(deltaTime);
+                dba.delScans(a);
+                count += a.length;
+                Log.i(TAG, String.format("progress = %d/%d", count, scans.length));
+                updateView();
             }
         });
     }

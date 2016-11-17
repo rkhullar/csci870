@@ -45,7 +45,7 @@ public class LoginActivity extends BaseActivity
         }
         vibrator.vibrate(200);
         auth = new Auth(email, pswd);
-        api.fetch_locations(auth, new JsonHttpResponseHandler(){
+        api.pullLocations(auth, new JsonHttpResponseHandler(){
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse)
             {
                 toaster.toast("login failed");

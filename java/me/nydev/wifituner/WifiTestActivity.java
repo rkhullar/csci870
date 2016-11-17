@@ -76,7 +76,7 @@ public class WifiTestActivity extends BaseActivity
     private class WifiScanReceiver extends BroadcastReceiver
     {
         private static final String TAG = "WifiScanReceiver";
-        private Location loc = new Location("ANY ", 0, "ANY");
+        private Location loc = new Location("ANY ", 0, "any");
 
         public void onReceive(Context context, Intent intent)
         {

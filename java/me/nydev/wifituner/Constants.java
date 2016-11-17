@@ -27,6 +27,8 @@ public final class Constants
         //int INTERVAL = 20;
         int INTERVAL = 1;
         String SSID = "NYIT";
+        int BUFFER = 100;
+        //int BUFFER = 10;
     }
     public interface REQUEST
     {

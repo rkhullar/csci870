@@ -284,9 +284,8 @@ public class DatabaseAdapter extends BaseDatabase
     }
 
     private static final String delScanCond = "time=? and wpaID=? and level=? and locationID=?";
-    public void delScan(Scan x)
+    private void delScan(SQLiteDatabase db, Scan x)
     {
-        SQLiteDatabase db = getWritableDatabase();
         long wid = findWPA(db, x.getBSSID());
         long lid = findLocation(db, x.getLocation());
         String[] vals = new String[4];
@@ -295,6 +294,20 @@ public class DatabaseAdapter extends BaseDatabase
         vals[2] = x.getLevel()+"";
         vals[3] = lid+"";
         db.delete(TABLE_SCAN, delScanCond, vals);
+    }
+
+    public void delScan(Scan x)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        delScan(db, x);
+        db.close();
+    }
+
+    public void delScans(Scan[] a)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        for(Scan x: a)
+            delScan(db, x);
         db.close();
     }
 

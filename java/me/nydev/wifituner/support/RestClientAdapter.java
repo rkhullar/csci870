@@ -52,18 +52,18 @@ public class RestClientAdapter
         BaseRestClient.post("register", json, handler);
     }
 
-    public void fetch_locations(Auth auth, JsonHttpResponseHandler handler)
+    public void pullLocations(Auth auth, JsonHttpResponseHandler handler)
     {
         BaseRestClient.auth(auth);
         BaseRestClient.get("locations", null, handler);
     }
 
-    public void fetch_time(JsonHttpResponseHandler handler)
+    public void fetchTime(JsonHttpResponseHandler handler)
     {
         BaseRestClient.get("time", null, handler);
     }
 
-    public long extract_time(JSONObject json)
+    public long extractTime(JSONObject json)
     {
         try {
             return json.getLong("time");
@@ -73,10 +73,17 @@ public class RestClientAdapter
         return -1;
     }
 
-    public void persist_scan(Auth auth, Scan scan, JsonHttpResponseHandler handler)
+    public void pushScan(Auth auth, Scan scan, JsonHttpResponseHandler handler)
     {
         BaseRestClient.auth(auth);
         JSONObject json = Scan.jsonify(scan);
         BaseRestClient.post("scan", json, handler);
+    }
+
+    public void pushScans(Auth auth, Scan[] scans, int low, int high, JsonHttpResponseHandler handler)
+    {
+        BaseRestClient.auth(auth);
+        JSONObject json = Scan.jsonify(scans, low, high);
+        BaseRestClient.post("scans", json, handler);
     }
 }
