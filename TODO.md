@@ -1,6 +1,7 @@
 ## Immediate
 1. add api endpoint to download datasets
-2. start analyze with sklearn
+2. make seamless recovery system for database reset
+3. start analyze with sklearn
 
 ## Main Activity (Login)
  * if logged in goto home activity

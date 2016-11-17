@@ -196,3 +196,8 @@
 7. extended scan upload system with buffer implementation
 8. improved user experience for scan upload system
 9. using github project page to store apk file
+
+## 2016-11-17
+1. improved scan push system again
+2. generated bit.ly link for apk
+3. updated dbo.location to accommodate room length 50
