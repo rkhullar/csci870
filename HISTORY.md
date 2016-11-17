@@ -192,3 +192,4 @@
 3. fixed typo in database (wpa -> wap)
 4. added database constraint to prevent repeatedly persisted scans
 5. added endpoint to push multiple scan results
+6. improved efficiency of app location download system
