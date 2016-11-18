@@ -64,10 +64,17 @@ def test05():
         'room'     : ['any', '606', '1026']}
     post(url, payload)
 
+def test06():
+    url = 'https://csci870.nydev.me/api/register'
+    payload = {'fname': 'mr', 'lname': 'robot', 'email': 'example@uni.edu'}
+    r = requests.post(url, data=json.dumps(payload), headers=headers)
+    print(r.content.decode('UTF-8'))
+
 if __name__ == '__main__':
     call(['./refresh'])
     #test01()
     #test02()
     #test03()
     #test04()
-    test05()
+    #test05()
+    test06()
