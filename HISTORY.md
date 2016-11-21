@@ -201,3 +201,8 @@
 1. improved scan push system again
 2. generated bit.ly link for apk
 3. updated dbo.location to accommodate room length 50
+
+## 2016-11-20
+1. improved python scan model code
+2. renewed ssl certificate
+3. updated time formatting in app with leading zeros
