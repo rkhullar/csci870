@@ -13,14 +13,11 @@ from person import person
 from location import location
 
 class scan:
-    def __init__(self, uxt, email, bssid, level, building, floor, room):
-        self.uxt      = uxt
-        self.email    = email
-        self.bssid    = bssid
-        self.level    = level
-        self.building = building
-        self.floor    = floor
-        self.room     = room
+    def __init__(self, **kwargs):
+        for key in ['uxt', 'userid', 'email', 'bssid', 'level', 'locationID', 'building', 'floor', 'room']:
+            setattr(self, key, None)
+        for key, val in kwargs.items():
+            setattr(self, key, val)
 
     def __str__(self):
         return '%s %d' % (self.bssid, self.level)
@@ -29,7 +26,7 @@ class scan:
     def dump(o):
         l = []
         for r in o.exe('select * from dbv.scan'):
-            l.append(scan(r[0], r[1], r[2], r[3], r[4], r[5], r[6]))
+            l.append(scan(uxt=r[0], email=r[1], bssid=r[2], level=r[3], building=r[4], floor=r[5], room=r[6]))
         return l
 
     @staticmethod
@@ -46,8 +43,7 @@ class scan:
         return False
 
     @staticmethod
-    def persistMany(o, userID, l):
-        n  = 0
+    def prepMany(l):
         vt = [] # times
         vw = [] # wifi access points
         vl = [] # signal strength levels
@@ -55,18 +51,24 @@ class scan:
         vf = [] # floors
         vr = [] # rooms
         for s in l:
+            vt.append(int(s.uxt))
+            vw.append(s.bssid)
+            vl.append(int(s.level))
+            vb.append(s.building)
+            vf.append(int(s.floor))
+            vr.append(s.room)
+        return {'size': len(l), 'uxt': vt, 'bssid': vw, 'level': vl, 'building': vb, 'floor': vf, 'room': vr}
+
+    @staticmethod
+    def persistMany(o, userID, l):
+        z = []
+        for s in l:
             locationID = location.find(o, s.building, s.floor, s.room)
             t = o.exe('select new.scan(%s,%s,%s::macaddr,%s::smallint,%s)', s.uxt, userID, s.bssid, s.level, locationID)
             if(t):
                 o.commit()
-                vt.append(int(s.uxt))
-                vw.append(s.bssid)
-                vl.append(int(s.level))
-                vb.append(s.building)
-                vf.append(int(s.floor))
-                vr.append(s.room)
-                n += 1
-        return {'size': n, 'uxt': vt, 'bssid': vw, 'level': vl, 'building': vb, 'floor': vf, 'room': vr}
+                z.append(s)
+        return scan.prepMany(z)
 
 
 def test01(o):

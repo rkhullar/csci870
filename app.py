@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  11/17/16
+@updated :  11/20/16
 """
 
 import decor as dec
@@ -41,6 +41,7 @@ verify = dec.corify(person.verify)
 fetch_locations = dec.corify(location.dump)
 persist_scan = dec.corify(scan.persist)
 persist_scans = dec.corify(scan.persistMany)
+fetch_scans = dec.corify(scan.dump)
 
 @app.route('/api/echo', methods=['GET', 'POST'])
 def api_echo():
@@ -135,11 +136,16 @@ def api_post_scans(userid):
     vr = data['room']
     l = []
     for i in range(n):
-        x = scan(int(vt[i]), None, vw[i], int(vl[i]), vb[i], int(vf[i]), vr[i])
+        x = scan(uxt=int(vt[i]), bssid=vw[i], level=int(vl[i]), building=vb[i], floor=int(vf[i]), room=vr[i])
         l.append(x)
     resp = persist_scans(userid, l)
     return jsonify(resp)
 
+@app.route('/api/scans', methods=['GET'])
+@dec.auth(admin)
+def api_get_scans(userid):
+    l = fetch_scans()
+    return 'hello world'
 
 if __name__ == '__main__':
     app.run(debug=True)
