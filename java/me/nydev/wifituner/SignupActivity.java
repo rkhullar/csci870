@@ -15,7 +15,10 @@ import me.nydev.wifituner.support.BaseActivity;
 
 public class SignupActivity extends BaseActivity
 {
-    protected EditText[] eta;
+    private static final String TAG = "SignupActivity";
+
+    private EditText[] eta;
+
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState, R.layout.activity_signup);
@@ -73,7 +76,8 @@ public class SignupActivity extends BaseActivity
                 .setEmail(getETA(2))
                 .setToken(getETA(3))
                 .build();
-        api.register(user, new JsonHttpResponseHandler(){
+        api.register(user, new JsonHttpResponseHandler()
+        {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse)
             {
                 toaster.toast("signup failed");

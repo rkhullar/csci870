@@ -15,7 +15,7 @@ import me.nydev.wifituner.support.BaseActivity;
 
 public class LoginActivity extends BaseActivity
 {
-    private static final String TAG = "ScanConfActivity";
+    private static final String TAG = "LoginActivity";
 
     private EditText et1, et2;
 
@@ -45,7 +45,8 @@ public class LoginActivity extends BaseActivity
         }
         vibrator.vibrate(200);
         auth = new Auth(email, pswd);
-        api.pullLocations(auth, new JsonHttpResponseHandler(){
+        api.pullLocations(auth, new JsonHttpResponseHandler()
+        {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse)
             {
                 toaster.toast("login failed");

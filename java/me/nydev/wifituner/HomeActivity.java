@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import me.nydev.wifituner.support.BaseActivity;
 
 public class HomeActivity extends BaseActivity
@@ -190,9 +192,9 @@ public class HomeActivity extends BaseActivity
                     int x = intent.getIntExtra(Constants.DATA.TIMELEFT, 0);
                     int h = x / 3600; x = x % 3600;
                     int m = x / 60; int s = x % 60;
-                    timeViews[0].setText(h+"");
-                    timeViews[1].setText(m+"");
-                    timeViews[2].setText(s+"");
+                    timeViews[0].setText(String.format(Locale.US, "%01d", h));
+                    timeViews[1].setText(String.format(Locale.US, "%02d", m));
+                    timeViews[2].setText(String.format(Locale.US, "%02d", s));
                     break;
                 case Constants.ACTION.DONE:
                     toaster.toast("complete");
