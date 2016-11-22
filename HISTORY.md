@@ -206,3 +206,6 @@
 1. improved python scan model code
 2. renewed ssl certificate
 3. updated time formatting in app with leading zeros
+
+## 2016-11-21
+1. improved user experience for app signup
