@@ -1,12 +1,13 @@
 package me.nydev.wifituner;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
-
 import org.json.JSONObject;
+import java.util.regex.Pattern;
 
 import cz.msebera.android.httpclient.Header;
 import me.nydev.wifituner.model.User;
@@ -31,17 +32,17 @@ public class SignupActivity extends BaseActivity
         api.setup(context);
     }
 
-    protected void setETA(int x, int id)
+    private void setETA(int x, int id)
     {
         eta[x] = (EditText) findViewById(id);
     }
 
-    protected String getETA(int x)
+    private String getETA(int x)
     {
         return eta[x].getText().toString();
     }
 
-    protected boolean any_eta_empty()
+    private boolean areAllFieldsFilled()
     {
         boolean t = true;
         for(EditText et: eta)
@@ -49,7 +50,7 @@ public class SignupActivity extends BaseActivity
         return t;
     }
 
-    protected boolean pswd_match()
+    private boolean doPswdsMatch()
     {
         String p, q;
         p = eta[3].getText().toString();
@@ -57,16 +58,29 @@ public class SignupActivity extends BaseActivity
         return p.equals(q);
     }
 
+    private boolean isCollegeEmail() {
+        String e = eta[2].getText().toString();
+        String[] a = e.split("@");
+        if (a.length < 2) return false;
+        a = a[1].split(Pattern.quote("."));
+        return a.length > 1 && a[a.length - 1].equals("edu");
+    }
+
     public void signup_default(View view)
     {
-        if(!any_eta_empty())
+        if(!areAllFieldsFilled())
         {
             toaster.toast("empty fields");
             return;
         }
-        if(!pswd_match())
+        if(!doPswdsMatch())
         {
             toaster.toast("passwords do not match");
+            return;
+        }
+        if(!isCollegeEmail())
+        {
+            toaster.toast("please use edu email");
             return;
         }
         vibrator.vibrate(200);
