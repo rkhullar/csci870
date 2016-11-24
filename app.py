@@ -47,9 +47,6 @@ fetch_scans = dec.corify(scan.dump)
 # Dump Methods
 dump_users = dec.corify(person.dump)
 
-# CSV Headers
-csvh_users = ';'.join(['id', 'fname', 'lname', 'email', 'token', 'salt', 'pswd'])+'\n'
-
 @app.route('/api/echo', methods=['GET', 'POST'])
 def api_echo():
     if request.method == 'GET':
@@ -152,7 +149,7 @@ def api_post_scans(userid):
 @dec.auth(admin)
 def download_users(userid):
     buffer = BytesIO()
-    buffer.write(csvh_users.encode('utf-8'))
+    buffer.write(person.csvh().encode('utf-8'))
     for x in dump_users():
         buffer.write(x.csv().encode('utf-8'))
     buffer.seek(0)

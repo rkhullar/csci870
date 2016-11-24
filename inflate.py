@@ -27,7 +27,23 @@ class inflate:
             for row in reader:
                 fn(row['abbr'], int(row['floor']), row['room'])
 
+    @staticmethod
+    def users():
+        fn = dec.corify(person.persist)
+        with open('data/user.csv') as csvfile:
+            reader = csv.DictReader(csvfile, delimiter=';')
+            x = person()
+            for row in reader:
+                x.id = int(row['id'])
+                x.fname  = row['fname']
+                x.lname  = row['lname']
+                x.email  = row['email']
+                x.token  = row['token']
+                x.salt   = row['salt']
+                x.pswd   = row['pswd']
+                fn(x)
 
 if __name__ == '__main__':
     inflate.admin()
     inflate.location()
+    inflate.users()

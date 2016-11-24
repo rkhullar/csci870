@@ -13,7 +13,7 @@ from base64 import urlsafe_b64encode as encurl64, urlsafe_b64decode as decurl64
 
 class person:
     def __init__(self, **kwargs):
-        for key in ['id', 'fname', 'lname', 'email', 'token', 'salt', 'pswd']:
+        for key in person.keys():
             setattr(self, key, None)
         for key, val in kwargs.items():
             setattr(self, key, val)
@@ -23,6 +23,14 @@ class person:
 
     def csv(self):
         return '%d;%s;%s;%s;%s;%s;%s\n' % (self.id, self.fname, self.lname, self.email, self.token, self.salt, self.pswd)
+
+    @staticmethod
+    def keys():
+        return ['id', 'fname', 'lname', 'email', 'token', 'salt', 'pswd']
+
+    @staticmethod
+    def csvh():
+        return ';'.join(person.keys())+'\n'
 
     @staticmethod
     def dump(o, user=True, actor=False):
@@ -42,8 +50,13 @@ class person:
         return l
 
     @staticmethod
+    def persist(o, x):
+        o.exe('insert into dbo.actor values(%s,%s,%s,%s,%s,%s,%s)', x.id, x.fname, x.lname, x.email, x.token, x.salt, x.pswd)
+        o.commit()
+
+    @staticmethod
     def login(o, email, secret, modeP=True, modeT=False):
-        t = o.exe('select fnd.user(%s, %s, %s, %s)', email, secret, modeP, modeT)
+        t = o.exe('select fnd.user(%s,%s,%s,%s)', email, secret, modeP, modeT)
         return t[0][0]
 
     @staticmethod

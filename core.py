@@ -32,7 +32,7 @@ class core:
             self.cur.execute(query, args)
             return self.cur.fetchall()
         except psycopg2.DatabaseError as e:
-            #print(e)
+            # print(e)
             pass
 
 class datalist:
