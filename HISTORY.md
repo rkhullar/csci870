@@ -209,3 +209,9 @@
 
 ## 2016-11-21
 1. improved user experience for app signup
+
+## 2016-11-23
+1. added download endpoint to backup database
+
+## 2016-11-24
+1. added inflate users function
