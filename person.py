@@ -12,23 +12,33 @@ from hashlib import sha256
 from base64 import urlsafe_b64encode as encurl64, urlsafe_b64decode as decurl64
 
 class person:
-    def __init__(self, id, fname, lname, email):
-        self.id = id
-        self.fname = fname
-        self.lname = lname
-        self.email = email
-        self.token = None
+    def __init__(self, **kwargs):
+        for key in ['id', 'fname', 'lname', 'email', 'token', 'salt', 'pswd']:
+            setattr(self, key, None)
+        for key, val in kwargs.items():
+            setattr(self, key, val)
 
     def __str__(self):
         return '%d %s %s %s' % (self.id, self.fname, self.lname, self.email)
+
+    def csv(self):
+        return '%d;%s;%s;%s;%s;%s;%s\n' % (self.id, self.fname, self.lname, self.email, self.token, self.salt, self.pswd)
 
     @staticmethod
     def dump(o, user=True, actor=False):
         t = 'dbv.user'
         t = 'dbo.actor' if actor else t
         l = []
-        for r in o.exe('select id, fname, lname, email from '+t):
-            l.append(person(int(r[0]), r[1], r[2], r[3]))
+        for r in o.exe('select * from '+t):
+            x = person()
+            x.id = int(r[0])
+            x.fname  = r[1]
+            x.lname  = r[2]
+            x.email  = r[3]
+            x.token  = r[4]
+            x.salt   = r[5]
+            x.pswd   = r[6]
+            l.append(x)
         return l
 
     @staticmethod
@@ -138,10 +148,10 @@ def test06(o):
 
 if __name__ == '__main__':
     o = core()
-    #test01(o)
+    test01(o)
     #test02(o)
     #test03(o)
     #test04(o)
     #test05(o)
-    test06(o)
+    #test06(o)
     o.close()

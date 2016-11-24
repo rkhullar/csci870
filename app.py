@@ -9,7 +9,8 @@
 import decor as dec
 
 from flask import Flask, jsonify, json, request, abort
-from flask import render_template
+from flask import render_template, send_file
+from io import BytesIO
 #from flask import Flask, Response, jsonify, json, request, abort, session, render_template, redirect, url_for
 
 from error import apierror
@@ -42,6 +43,12 @@ fetch_locations = dec.corify(location.dump)
 persist_scan = dec.corify(scan.persist)
 persist_scans = dec.corify(scan.persistMany)
 fetch_scans = dec.corify(scan.dump)
+
+# Dump Methods
+dump_users = dec.corify(person.dump)
+
+# CSV Headers
+csvh_users = ';'.join(['id', 'fname', 'lname', 'email', 'token', 'salt', 'pswd'])+'\n'
 
 @app.route('/api/echo', methods=['GET', 'POST'])
 def api_echo():
@@ -141,11 +148,16 @@ def api_post_scans(userid):
     resp = persist_scans(userid, l)
     return jsonify(resp)
 
-@app.route('/api/scans', methods=['GET'])
+@app.route('/download/users', methods=['GET'])
 @dec.auth(admin)
-def api_get_scans(userid):
-    l = fetch_scans()
-    return 'hello world'
+def download_users(userid):
+    buffer = BytesIO()
+    buffer.write(csvh_users.encode('utf-8'))
+    for x in dump_users():
+        buffer.write(x.csv().encode('utf-8'))
+    buffer.seek(0)
+    return send_file(buffer, as_attachment=True, attachment_filename='user.csv', mimetype='text/csv')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

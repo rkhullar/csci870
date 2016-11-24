@@ -3,3 +3,6 @@ __pycache__
 local
 .idea
 envvars
+data/user.csv
+data/wap.csv
+data/scan.csv
