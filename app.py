@@ -118,7 +118,7 @@ def api_post_scan(userid):
     data = request.json
     data['userID'] = userid
     resp = {'message': 'not ok'}
-    t = persist_scan(**data)
+    t = persist_scan(scan(**data))
     if t:
         resp['message'] = 'ok'
         for k in data:

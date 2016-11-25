@@ -51,10 +51,15 @@ class model:
     def __init__(self, **kwargs):
         for key in self.keys():
             setattr(self, key, None)
+        for key in self.extra():
+            setattr(self, key, None)
         for key, val in kwargs.items():
             setattr(self, key, val)
 
     def keys(self):
+        return []
+
+    def extra(self):
         return []
 
     def csvh(self):

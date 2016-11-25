@@ -45,4 +45,4 @@ if __name__ == '__main__':
     inflate.admin()
     inflate.locations()
     inflate.users()
-    inflate.waps()
+    #inflate.waps()

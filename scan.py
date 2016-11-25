@@ -14,26 +14,28 @@ from location import location
 
 class scan(model):
     def keys(self):
-        return ['uxt', 'userid', 'email', 'bssid', 'level', 'locationID', 'building', 'floor', 'room']
+        return ['uxt', 'userID', 'wapID', 'level', 'locationID']
+
+    def extra(self):
+        return ['email', 'bssid', 'building', 'floor', 'room']
 
     def __str__(self):
         return '%s %d' % (self.bssid, self.level)
 
+    def csv(self):
+        return '%s;%d;%d;%d;%d\n' % (str(self.uxt), self.userID, self.wapID, self.level, self.locationID)
+
     @staticmethod
     def dump(o):
         l = []
-        for r in o.exe('select * from dbv.scan'):
-            l.append(scan(uxt=r[0], email=r[1], bssid=r[2], level=r[3], building=r[4], floor=r[5], room=r[6]))
+        for r in o.exe('select * from dbo.scan'):
+            l.append(scan(uxt=r[0], userID=r[1], wapID=r[2], level=r[3], locationID=r[4]))
         return l
 
     @staticmethod
-    def persist(o, bssid, level, building='ANY', floor=0, room='any', uxt=None, userID=None):
-        if not userID:
-            userID = person.find(o, email='nydevteam@gmail.com')
-        if not uxt:
-            uxt = int(time.time())
-        locationID = location.find(o, building, floor, room)
-        t = o.exe('select new.scan(%s,%s,%s::macaddr,%s::smallint,%s)', uxt, userID, bssid, level, locationID)
+    def persist(o, x):
+        x.locationID = location.find(o, x.building, x.floor, x.room)
+        t = o.exe('select new.scan(%s,%s,%s::macaddr,%s::smallint,%s)', x.uxt, x.userID, x.bssid, x.level, x.locationID)
         if(t):
             o.commit()
             return True

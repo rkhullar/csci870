@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/08/16
-@updated :  11/07/16
+@updated :  11/25/16
 """
 
 import time, requests, json
@@ -70,11 +70,24 @@ def test06():
     r = requests.post(url, data=json.dumps(payload), headers=headers)
     print(r.content.decode('UTF-8'))
 
+def test07():
+    url = genurl('api', 'scan')
+    payload = {
+        'uxt'      : 1479354594,
+        'bssid'    : 'F0:00:00:00:00:00',
+        'level'    : 100,
+        'building' : 'ANY',
+        'floor'    : 0,
+        'room'     : 'any'}
+    post(url, payload)
+
+
 if __name__ == '__main__':
     call(['./refresh'])
     #test01()
     #test02()
     #test03()
     #test04()
-    #test05()
+    test05()
     #test06()
+    #test07()
