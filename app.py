@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  11/20/16
+@updated :  11/24/16
 """
 
 import decor as dec
@@ -19,6 +19,7 @@ from mail import send_thread_text
 from core import core
 from person import person
 from location import location
+from wap import wap
 from scan import scan
 from time import time
 
@@ -46,6 +47,8 @@ fetch_scans = dec.corify(scan.dump)
 
 # Dump Methods
 dump_users = dec.corify(person.dump)
+dump_waps = dec.corify(wap.dump)
+dump_scans = dec.corify(scan.dump)
 
 @app.route('/api/echo', methods=['GET', 'POST'])
 def api_echo():
@@ -145,15 +148,30 @@ def api_post_scans(userid):
     resp = persist_scans(userid, l)
     return jsonify(resp)
 
-@app.route('/download/users', methods=['GET'])
+@app.route('/download/user', methods=['GET'])
 @dec.auth(admin)
 def download_users(userid):
+    return download_csv('user.csv', dump_users, person.csvh)
+
+@app.route('/download/wap', methods=['GET'])
+@dec.auth(admin)
+def download_waps(userid):
+    return download_csv('wap.csv', dump_waps, wap.csvh)
+
+"""
+@app.route('/download/scan', methods=['GET'])
+@dec.auth(admin)
+def download_scans(userid):
+    return download_csv('scan.csv', dump_scans, scan.csvh)
+"""
+
+def download_csv(filename, dumper, header):
     buffer = BytesIO()
-    buffer.write(person.csvh().encode('utf-8'))
-    for x in dump_users():
+    buffer.write(header().encode('utf-8'))
+    for x in dumper():
         buffer.write(x.csv().encode('utf-8'))
     buffer.seek(0)
-    return send_file(buffer, as_attachment=True, attachment_filename='user.csv', mimetype='text/csv')
+    return send_file(buffer, as_attachment=True, attachment_filename=filename, mimetype='text/csv')
 
 
 if __name__ == '__main__':
