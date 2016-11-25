@@ -218,3 +218,4 @@
 2. added wap download endpoint
 3. added inflate waps function
 4. major code improvements with model class
+5. working on scan backup system
