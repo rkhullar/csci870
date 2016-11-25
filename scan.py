@@ -6,11 +6,13 @@
 @updated :  11/24/16
 """
 
-import time
+import datetime, time
 
 from core import core, datalist, model
 from person import person
 from location import location
+
+epoch = datetime.datetime(1970,1,1)
 
 class scan(model):
     def keys(self):
@@ -23,13 +25,14 @@ class scan(model):
         return '%s %d' % (self.bssid, self.level)
 
     def csv(self):
-        return '%s;%d;%d;%d;%d\n' % (str(self.uxt), self.userID, self.wapID, self.level, self.locationID)
+        return '%d;%d;%d;%d;%d\n' % (self.uxt, self.userID, self.wapID, self.level, self.locationID)
 
     @staticmethod
     def dump(o):
         l = []
         for r in o.exe('select * from dbo.scan'):
-            l.append(scan(uxt=r[0], userID=r[1], wapID=r[2], level=r[3], locationID=r[4]))
+            t = (r[0]-epoch).total_seconds()
+            l.append(scan(uxt=int(t), userID=r[1], wapID=r[2], level=r[3], locationID=r[4]))
         return l
 
     @staticmethod
@@ -72,13 +75,14 @@ class scan(model):
 
 def test01(o):
     for s in scan.dump(o):
-        print(s)
+        #print(s)
+        print(s.uxt, s.wapID, s.level)
 
 def test02(o):
     scan.persist(o, 'F0:00:00:00:00:00', -100)
 
 if __name__ == '__main__':
     o = core()
-    #test01(o)
+    test01(o)
     #test02(o)
     o.close()

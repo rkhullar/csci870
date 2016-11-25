@@ -41,8 +41,13 @@ class inflate:
     def waps():
         inflate.general('data/waps.csv', wap)
 
+    @staticmethod
+    def scans():
+        inflate.general('data/scans.csv', scan)
+
 if __name__ == '__main__':
     inflate.admin()
     inflate.locations()
     inflate.users()
-    #inflate.waps()
+    inflate.waps()
+    inflate.scans()
