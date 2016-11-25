@@ -215,3 +215,6 @@
 
 ## 2016-11-24
 1. added inflate users function
+2. added wap download endpoint
+3. added inflate waps function
+4. major code improvements with model class
