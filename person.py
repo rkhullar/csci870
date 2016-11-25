@@ -3,34 +3,23 @@
 """
 @author  :  Rajan Khullar
 @created :  10/15/16
-@updated :  10/25/16
+@updated :  11/24/16
 """
 
 from config import SECRET
-from core import core, datalist
+from core import core, datalist, model
 from hashlib import sha256
 from base64 import urlsafe_b64encode as encurl64, urlsafe_b64decode as decurl64
 
-class person:
-    def __init__(self, **kwargs):
-        for key in person.keys():
-            setattr(self, key, None)
-        for key, val in kwargs.items():
-            setattr(self, key, val)
+class person(model):
+    def keys(self):
+        return ['id', 'fname', 'lname', 'email', 'token', 'salt', 'pswd']
 
     def __str__(self):
         return '%d %s %s %s' % (self.id, self.fname, self.lname, self.email)
 
     def csv(self):
         return '%d;%s;%s;%s;%s;%s;%s\n' % (self.id, self.fname, self.lname, self.email, self.token, self.salt, self.pswd)
-
-    @staticmethod
-    def keys():
-        return ['id', 'fname', 'lname', 'email', 'token', 'salt', 'pswd']
-
-    @staticmethod
-    def csvh():
-        return ';'.join(person.keys())+'\n'
 
     @staticmethod
     def dump(o, user=True, actor=False):

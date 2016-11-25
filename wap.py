@@ -6,25 +6,14 @@
 @updated :  11/24/16
 """
 
-from core import core, datalist
+from core import core, datalist, model
 
-class wap:
-    def __init__(self, **kwargs):
-        for key in wap.keys():
-            setattr(self, key, None)
-        for key, val in kwargs.items():
-            setattr(self, key, val)
+class wap(model):
+    def keys(self):
+        return ['id', 'bssid']
 
     def __str__(self):
         return '%d %s' % (self.id, self.bssid)
-
-    @staticmethod
-    def keys():
-        return ['id', 'bssid']
-
-    @staticmethod
-    def csvh():
-        return ';'.join(wap.keys())+'\n'
 
     def csv(self):
         return ';'.join([str(self.id), self.bssid])+'\n'
@@ -38,4 +27,5 @@ class wap:
 
     @staticmethod
     def persist(o, x):
-        pass
+        o.exe('insert into dbo.wap values(%s,%s)', x.id, x.bssid)
+        o.commit()

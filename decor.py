@@ -31,11 +31,6 @@ def json(fn):
             abort(415)
         return fn(*args, **kwargs)
     return decorated
-    def decorated(*args, **kwargs):
-        o = core()
-        t = fn(o, *args, **kwargs)
-        o.close()
-        return t
 
 def corify(fn):
     def decorated(*args, **kwargs):
@@ -44,6 +39,7 @@ def corify(fn):
         o.close()
         return t
     return decorated
+
 
 if __name__ == '__main__':
     from person import person

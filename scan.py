@@ -3,21 +3,18 @@
 """
 @author  :  Rajan Khullar
 @created :  10/18/16
-@updated :  11/16/16
+@updated :  11/24/16
 """
 
 import time
 
-from core import core, datalist
+from core import core, datalist, model
 from person import person
 from location import location
 
-class scan:
-    def __init__(self, **kwargs):
-        for key in ['uxt', 'userid', 'email', 'bssid', 'level', 'locationID', 'building', 'floor', 'room']:
-            setattr(self, key, None)
-        for key, val in kwargs.items():
-            setattr(self, key, val)
+class scan(model):
+    def keys(self):
+        return ['uxt', 'userid', 'email', 'bssid', 'level', 'locationID', 'building', 'floor', 'room']
 
     def __str__(self):
         return '%s %d' % (self.bssid, self.level)

@@ -3,20 +3,17 @@
 """
 @author  :  Rajan Khullar
 @created :  10/18/16
-@updated :  10/28/16
+@updated :  11/24/16
 """
 
-from core import core, datalist
+from core import core, datalist, model
 
-class location:
-    def __init__(self, id, building, floor, room):
-        self.id       = id
-        self.building = building
-        self.floor    = floor
-        self.room     = room
+class location(model):
+    def keys(self):
+        return ['id', 'building', 'floor', 'room']
 
     def __str__(self):
-        return '%d %s %d %s' % (self.id, self.building, self.floor, self.room)
+        return '%s %d %s' % (self.building, self.floor, self.room)
 
     @staticmethod
     def dump(o):
@@ -33,12 +30,13 @@ class location:
         return False
 
     @staticmethod
-    def persist(o, building, floor, room):
-        t = o.exe('select new.location(%s,%s::smallint,%s)', building, floor, room)
+    def persist(o, x):
+        t = o.exe('select new.location(%s,%s::smallint,%s)', x.building, x.floor, x.room)
         o.commit()
         if t:
             return t[0][0]
         return False
+
 
 def test01(o):
     location.persist(o, 'ANY', 0, 'any')
@@ -55,5 +53,5 @@ if __name__ == '__main__':
     o = core()
     #test01(o)
     #test02(o)
-    #test03(o);
+    #test03(o)
     o.close()

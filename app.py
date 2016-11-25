@@ -45,10 +45,6 @@ persist_scan = dec.corify(scan.persist)
 persist_scans = dec.corify(scan.persistMany)
 fetch_scans = dec.corify(scan.dump)
 
-# Dump Methods
-dump_users = dec.corify(person.dump)
-dump_waps = dec.corify(wap.dump)
-dump_scans = dec.corify(scan.dump)
 
 @app.route('/api/echo', methods=['GET', 'POST'])
 def api_echo():
@@ -148,27 +144,26 @@ def api_post_scans(userid):
     resp = persist_scans(userid, l)
     return jsonify(resp)
 
-@app.route('/download/user', methods=['GET'])
+@app.route('/download/users', methods=['GET'])
 @dec.auth(admin)
 def download_users(userid):
-    return download_csv('user.csv', dump_users, person.csvh)
+    return download_csv('users.csv', person)
 
-@app.route('/download/wap', methods=['GET'])
+@app.route('/download/waps', methods=['GET'])
 @dec.auth(admin)
 def download_waps(userid):
-    return download_csv('wap.csv', dump_waps, wap.csvh)
+    return download_csv('waps.csv', wap)
 
-"""
-@app.route('/download/scan', methods=['GET'])
+@app.route('/download/scans', methods=['GET'])
 @dec.auth(admin)
 def download_scans(userid):
-    return download_csv('scan.csv', dump_scans, scan.csvh)
-"""
+    return download_csv('scans.csv', scan)
 
-def download_csv(filename, dumper, header):
+def download_csv(filename, kls):
+    fn = dec.corify(kls.dump)
     buffer = BytesIO()
-    buffer.write(header().encode('utf-8'))
-    for x in dumper():
+    buffer.write(kls().csvh().encode('utf-8'))
+    for x in fn():
         buffer.write(x.csv().encode('utf-8'))
     buffer.seek(0)
     return send_file(buffer, as_attachment=True, attachment_filename=filename, mimetype='text/csv')

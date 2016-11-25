@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/17/16
-@updated :  09/21/16
+@updated :  11/24/16
 """
 
 import psycopg2
@@ -46,6 +46,22 @@ class datalist:
     def add(self, *args):
         item = self.kls(*args)
         self.list.append(item)
+
+class model:
+    def __init__(self, **kwargs):
+        for key in self.keys():
+            setattr(self, key, None)
+        for key, val in kwargs.items():
+            setattr(self, key, val)
+
+    def keys(self):
+        return []
+
+    def csvh(self):
+        return ';'.join(self.keys())+'\n'
+
+    def csv(self):
+        pass
 
 if __name__ == '__main__':
     o = core()
