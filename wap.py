@@ -26,7 +26,7 @@ class wap:
     def csvh():
         return ';'.join(wap.keys())+'\n'
 
-    def csv():
+    def csv(self):
         return ';'.join([str(self.id), self.bssid])+'\n'
 
     @staticmethod
