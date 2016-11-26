@@ -3,36 +3,33 @@
 """
 @author  :  Rajan Khullar
 @created :  10/18/16
-@updated :  11/24/16
+@updated :  11/25/16
 """
-
-import datetime, time
 
 from core import core, datalist, model
 from person import person
 from location import location
 
-epoch = datetime.datetime(1970,1,1)
-
 class scan(model):
     def keys(self):
-        return ['uxt', 'userID', 'wapID', 'level', 'locationID']
+        return ['uxt', 'userID', 'bssid', 'level', 'building', 'floor', 'room']
 
     def extra(self):
-        return ['email', 'bssid', 'building', 'floor', 'room']
+        return ['email', 'wapID', 'locationID']
 
     def __str__(self):
         return '%s %d' % (self.bssid, self.level)
 
     def csv(self):
-        return '%d;%d;%d;%d;%d\n' % (self.uxt, self.userID, self.wapID, self.level, self.locationID)
+        return '%d;%d;%s;%d;%s;%d;%s\n' % (self.uxt, self.userID, self.bssid, self.level, self.building, self.floor, self.room)
 
     @staticmethod
     def dump(o):
         l = []
-        for r in o.exe('select * from dbo.scan'):
-            t = (r[0]-epoch).total_seconds()
-            l.append(scan(uxt=int(t), userID=r[1], wapID=r[2], level=r[3], locationID=r[4]))
+        for r in o.exe('select * from dbv.scan'):
+            x = scan(uxt=int(r[0]), email=r[1], bssid=r[2], level=r[3], building=r[4], floor=r[5], room=r[6])
+            x.userID = person.find(o, email=x.email)
+            l.append(x)
         return l
 
     @staticmethod
@@ -83,6 +80,6 @@ def test02(o):
 
 if __name__ == '__main__':
     o = core()
-    test01(o)
+    #test01(o)
     #test02(o)
     o.close()

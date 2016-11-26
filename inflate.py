@@ -23,11 +23,13 @@ class inflate:
 
     @staticmethod
     def general(source, kls):
-        fn = dec.corify(kls.persist)
+        o = core()
         with open(source) as csvfile:
             reader = csv.DictReader(csvfile, delimiter=';')
             for row in reader:
-                fn(kls(**row))
+                x = kls(**row)
+                kls.persist(o, x)
+        o.close()
 
     @staticmethod
     def locations():
