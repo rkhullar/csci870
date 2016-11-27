@@ -219,3 +219,11 @@
 3. added inflate waps function
 4. major code improvements with model class
 5. working on scan backup system
+
+## 2016-11-25
+1. completed scan backup system
+
+## 2016-11-27
+1. found and fixed login bug
+2. updated scan configuration interface
+3. removed apk from master branch

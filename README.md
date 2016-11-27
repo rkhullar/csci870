@@ -55,3 +55,4 @@ curl -X GET csci870.nydev.local/api/test
 [service]: https://developer.android.com/training/run-background-service/index.html
 [sqlite]: http://www.tutorialspoint.com/android/android_sqlite_database.htm
 [service]: https://www.javacodegeeks.com/2014/01/android-service-tutorial.html
+[spinner]: http://www.broculos.net/2013/09/how-to-change-spinner-text-size-color.html#.VdM8Opf4Xts
