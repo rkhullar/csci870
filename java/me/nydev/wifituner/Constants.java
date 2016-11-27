@@ -29,6 +29,10 @@ public final class Constants
         String SSID = "NYIT";
         int BUFFER = 100;
         //int BUFFER = 10;
+        String PROMPT = "[select]";
+        int DEFAULT_SPINNER_ITEM = R.layout.support_simple_spinner_dropdown_item;
+        int SPINNER_ITEM = R.layout.spinner_item;
+        int SPINNER_DROPDOWN = R.layout.spinner_dropdown;
     }
     public interface REQUEST
     {

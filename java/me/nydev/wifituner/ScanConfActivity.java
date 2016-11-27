@@ -20,9 +20,7 @@ import me.nydev.wifituner.support.PermissionManager;
 public class ScanConfActivity extends BaseActivity implements AdapterView.OnItemSelectedListener
 {
     private static final String TAG = "ScanConfActivity";
-    private static final int SPINLAYOUT = R.layout.support_simple_spinner_dropdown_item;
     private static final int[] SPINIDS = {R.id.scan_conf_building, R.id.scan_conf_floor, R.id.scan_conf_room};
-    private static final String PROMPT = "[select]";
 
     private Spinner[] spinners;
     private NumberPicker hourPicker, minutePicker;
@@ -53,10 +51,11 @@ public class ScanConfActivity extends BaseActivity implements AdapterView.OnItem
     private void fillSpinner(int x, Object[] objects)
     {
         ArrayList<String> al = new ArrayList<>();
-        al.add(PROMPT);
+        al.add(Constants.VAR.PROMPT);
         for(Object o: objects)
             al.add(o.toString());
-        ArrayAdapter<String> aa = new ArrayAdapter<>(context, SPINLAYOUT, al);
+        ArrayAdapter<String> aa = new ArrayAdapter<>(context, Constants.VAR.SPINNER_ITEM, al);
+        aa.setDropDownViewResource(Constants.VAR.SPINNER_DROPDOWN);
         spinners[x].setAdapter(aa);
     }
 
