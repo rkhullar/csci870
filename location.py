@@ -19,7 +19,7 @@ class location(model):
     def dump(o):
         l = []
         for r in o.exe('select * from dbv.location'):
-            l.append(location(r[0], r[1], r[2], r[3]))
+            l.append(location(id=r[0], building=r[1], floor=r[2], room=r[3]))
         return l
 
     @staticmethod
