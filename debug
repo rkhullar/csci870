@@ -1,2 +1,4 @@
-psql -d csci870 < rebuild.sql
-psql -d csci870 < methods.sql
+#psql -d csci870 < rebuild.sql
+#psql -d csci870 < methods.sql
+psql -d csci870 < extra.sql
+

@@ -1,2 +1,0 @@
-./debug
-psql -d csci870 < test.sql
