@@ -1,7 +1,8 @@
 ## Immediate
-1. add api endpoint to download datasets
-2. make seamless recovery system for database reset
-3. start analyze with sklearn
+1. add additional schema for stats
+2. generate bell curves of scan records for each major location-time
+3. filter outliers
+4. sklearn machine learning
 
 ## Main Activity (Login)
  * if logged in goto home activity

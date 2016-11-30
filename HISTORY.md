@@ -227,3 +227,6 @@
 1. found and fixed login bug
 2. updated scan configuration interface
 3. removed apk from master branch
+
+## 2016-11-29
+1. designed sql queries to get counts
