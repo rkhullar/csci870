@@ -1,0 +1,19 @@
+#!/bin/bash
+echo -n 'username: '
+read uname
+echo -n 'password: '
+read -s pswd
+echo
+
+url=https://csci870.nydev.me/download
+out=backup
+list=(user wap scan)
+
+mkdir -p $out
+
+x=0
+while [ "x${list[x]}" != "x" ]
+do
+    curl -u $uname:$pswd $url/${list[$x]}s > $out/${list[$x]}.csv
+    x=$(( $x + 1 ))
+done

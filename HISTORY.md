@@ -230,3 +230,6 @@
 
 ## 2016-11-29
 1. designed sql queries to get counts
+
+## 2016-11-30
+1. created backup script
