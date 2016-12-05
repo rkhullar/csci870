@@ -236,3 +236,4 @@
 
 ## 2016-12-04
 1. added extra views and functions to database
+2. initialized analysis branch

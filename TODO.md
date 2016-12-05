@@ -1,8 +1,7 @@
 ## Immediate
-1. add additional schema for stats
-2. generate bell curves of scan records for each major location-time
-3. filter outliers
-4. sklearn machine learning
+1. generate bell curves of scan records for each major location-time
+2. filter outliers
+3. sklearn machine learning
 
 ## Main Activity (Login)
  * if logged in goto home activity
