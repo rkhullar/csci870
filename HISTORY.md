@@ -233,3 +233,6 @@
 
 ## 2016-11-30
 1. created backup script
+
+## 2016-12-04
+1. added extra views and functions to database
