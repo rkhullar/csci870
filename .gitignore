@@ -1,0 +1,8 @@
+__pycache__
+*.pyc
+local
+.idea
+envvars
+data/users.csv
+data/waps.csv
+data/scans.csv
