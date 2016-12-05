@@ -3,12 +3,21 @@
 """
 @author  :  Rajan Khullar
 @created :  10/18/16
-@updated :  11/25/16
+@updated :  12/04/16
 """
 
 from core import core, datalist, model
 from person import person
 from location import location
+
+count_modes = ['W', 'L', 'T', 'TT', 'LT']
+count_fns = {
+    'W'  : lambda r: {'bssid':r[0], 'count':r[1]},
+    'L'  : lambda r: {'building':r[0], 'floor':r[1], 'room':r[2], 'count':r[3]},
+    'T'  : lambda r: {'hour':r[0], 'count':r[1]},
+    'TT' : lambda r: {'day':r[0], 'hour':r[1], 'quarter':r[2], 'count':r[3]},
+    'LT' : lambda r: {'building':r[0], 'floor':r[1], 'room':r[2], 'hour':r[3], 'count':r[4]}
+    }
 
 class scan(model):
     def keys(self):
@@ -68,6 +77,17 @@ class scan(model):
                 o.commit()
                 z.append(s)
         return scan.prepMany(z)
+
+
+    @staticmethod
+    def count(o, mode):
+        if mode not in count_modes:
+            return []
+        l = []
+        for row in o.exe('select * from cnt.%s' % mode):
+            d = count_fns[mode](row)
+            l.append(d)
+        return l
 
 
 def test01(o):

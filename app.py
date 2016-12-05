@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  09/06/16
-@updated :  11/24/16
+@updated :  12/04/16
 """
 
 import decor as dec
@@ -168,6 +168,11 @@ def download_csv(filename, kls):
     buffer.seek(0)
     return send_file(buffer, as_attachment=True, attachment_filename=filename, mimetype='text/csv')
 
+@app.route('/api/count/<mode>', methods=['GET'])
+def api_count(mode):
+    fn = dec.corify(scan.count)
+    resp = fn(mode)
+    return jsonify(resp)
 
 if __name__ == '__main__':
     app.run(debug=True)
