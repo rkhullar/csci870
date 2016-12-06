@@ -237,3 +237,7 @@
 ## 2016-12-04
 1. added extra views and functions to database
 2. initialized analysis branch
+
+## 2016-12-05
+1. added api call system to analysis
+2. working on structuring the dataset with filters
