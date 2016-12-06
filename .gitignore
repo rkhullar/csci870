@@ -2,7 +2,7 @@ __pycache__
 *.pyc
 local
 .idea
-envvars
+config.py
 data/users.csv
 data/waps.csv
 data/scans.csv
