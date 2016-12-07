@@ -38,6 +38,18 @@ curl -X POST -d 'data=one' csci870.nydev.local/api/test
 curl -X GET csci870.nydev.local/api/test
 ```
 
+2. check sequence numbers
+``` sql
+select last_value from dbo.actor_id_seq;
+select last_value from dbo.wap_id_seq;
+```
+
+3. update sequence after restore
+``` sql
+select setval('dbo.actor_id_seq', (select max(id) from dbo.actor));
+select setval('dbo.wap_id_seq', (select max(id) from dbo.wap));
+```
+
 ## References
 1. [https]
 2. [email]

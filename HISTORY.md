@@ -241,3 +241,9 @@
 ## 2016-12-05
 1. added api call system to analysis
 2. working on structuring the dataset with filters
+
+## 2016-12-06
+1. fixed restoration bug with id numbers
+
+## 2016-12-07
+1. reimplementing dataset parsing
