@@ -1,10 +1,15 @@
 #!local/bin/python
 
+"""
+@author  :  Rajan Khullar
+@created :  12/04/16
+@updated :  12/07/16
+"""
+
 import requests, json, csv
 
 BASEURL = 'https://csci870.nydev.me/api'
 SCANS = 'data/scans.csv'
-
 
 cntx = lambda m: stat.parse(m, api.count(m))
 

@@ -3,6 +3,4 @@ __pycache__
 local
 .idea
 config.py
-data/users.csv
-data/waps.csv
-data/scans.csv
+data

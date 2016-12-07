@@ -1,0 +1,9 @@
+#!/bin/bash
+echo -n 'username: '
+read uname
+echo -n 'password: '
+read -s pswd
+echo
+rm -rf data
+mkdir data
+curl -u $uname:$pswd https://csci870.nydev.me/download/scans > data/scans.csv
