@@ -15,7 +15,7 @@ count_fns = {
     'W'  : lambda r: {'bssid':r[0], 'count':r[1]},
     'L'  : lambda r: {'building':r[0], 'floor':r[1], 'room':r[2], 'count':r[3]},
     'T'  : lambda r: {'hour':r[0], 'count':r[1]},
-    'TT' : lambda r: {'day':r[0], 'hour':r[1], 'quarter':r[2], 'count':r[3]},
+    'TT' : lambda r: {'dow':r[0], 'hour':r[1], 'quarter':r[2], 'count':r[3]},
     'LT' : lambda r: {'building':r[0], 'floor':r[1], 'room':r[2], 'hour':r[3], 'count':r[4]}
     }
 
