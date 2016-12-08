@@ -8,6 +8,7 @@
 
 ## NOTES
 * The individual scan lists should not be used in the classification.
+* Day of Week in Python and Postgres are different.
 
 ## Main Activity (Login)
  * if logged in goto home activity
