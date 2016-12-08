@@ -55,7 +55,7 @@ create view cnt.T as
 
 create view cnt.TT as
     select
-      to_char(time - interval '5 hours', 'd')::smallint as day,
+      to_char(time - interval '5 hours', 'd')::smallint as dow,
       to_char(time - interval '5 hours', 'HH24')::smallint as hour,
       to_char(time - interval '5 hours', 'MI')::smallint/15 as quarter,
       count(*)
