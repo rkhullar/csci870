@@ -60,7 +60,7 @@ create view cnt.TT as
       to_char(time - interval '5 hours', 'MI')::smallint/15 as quarter,
       count(*)
     from dbo.scan
-    group by day, hour, quarter
+    group by dow, hour, quarter
     having count(*) >= 1000
     order by count(*) desc;
 /************************************************/
