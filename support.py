@@ -6,11 +6,10 @@
 @updated :  12/07/16
 """
 
-import requests, json, csv
+import requests, json, csv, os, shutil
 from datetime import datetime as dt
 
 BASEURL = 'https://csci870.nydev.me/api'
-SCANS = 'data/scans.csv'
 MODES = ['W', 'L', 'T', 'TT', 'LT']
 ATTRS = {
     'W'  : ['bssid'],
@@ -109,7 +108,7 @@ class dec:
     @staticmethod
     def scanify(fn):
         def decorated():
-            with open(SCANS) as csvfile:
+            with open('data/scans.csv') as csvfile:
                 reader = csv.DictReader(csvfile, delimiter=';')
                 for row in reader:
                     fn(row)
@@ -117,7 +116,29 @@ class dec:
 
 class dsv:
     @staticmethod
-    def scan(row):
+    def genpath(*args):
+        return os.path.sep.join(['data', *args])
+
+    @staticmethod
+    def ispath(*args):
+        p = dsv.genpath(*args)
+        return os.path.exists(p)
+
+    @staticmethod
+    def rmdir(*args):
+        p = dsv.genpath(*args)
+        if os.path.exists(p):
+            shutil.rmtree(p)
+        return p
+
+    @staticmethod
+    def mkdir(*args):
+        p = dsv.rmdir(*args)
+        os.mkdir(p)
+        return p
+
+    @staticmethod
+    def rawscan(row):
         f = ['bssid', 'level', 'building', 'floor', 'room']
         d = mod.dictslice(row, f)
         d['floor'] = int(d['floor'])
