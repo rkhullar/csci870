@@ -53,8 +53,8 @@ for m in MODES:
             out[m][tj].append(d)
 
 # generate json file
-with open(ext.genpath('scans.json'), 'w') as outfile:
-    json.dumps(out, outfile)
+with open(ext.genpath('scans.json'), 'w') as f:
+    json.dump(out, f)
 
 
 '''
