@@ -247,3 +247,5 @@
 
 ## 2016-12-07
 1. reimplementing dataset parsing
+2. able to organize original dataset into json
+3. upload test json file to github

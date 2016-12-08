@@ -1,7 +1,13 @@
 ## Immediate
-1. generate bell curves of scan records for each major location-time
-2. filter outliers
-3. sklearn machine learning
+1. graph raw distributions
+2. graph filtered distributions
+3. generate local filtered data files
+4. train classifiers with sklearn
+5. test classifiers
+6. more graphs
+
+## NOTES
+* The individual scan lists should not be used in the classification.
 
 ## Main Activity (Login)
  * if logged in goto home activity
