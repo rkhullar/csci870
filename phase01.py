@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  12/04/16
-@updated :  12/07/16
+@updated :  12/08/16
 """
 
 import csv, json
@@ -47,10 +47,7 @@ for m in MODES:
     out[m] = {}
     for f in flt[m]:
         tj = json.dumps(f)
-        out[m][tj] = []
-        for x in dat[m][f]:
-            d = dsv.scan2dict(x)
-            out[m][tj].append(d)
+        out[m][tj] = dsv.scans2dict(dat[m][f])
 
 # generate json file
 with open(ext.genpath('scans.json'), 'w') as f:
@@ -67,4 +64,20 @@ for f in flt['LT']:
 for f in flt['W']:
     x = dat['W'][f][0]
     print(x.bssid, x.level, x.room)
+'''
+
+'''
+m = 'TT'
+for f in flt[m]:
+    d1 = dat[m][f]
+    d2 = dsv.scans2dict(d1)
+    print(f, len(d2['level']))
+'''
+
+'''
+for m in MODES:
+    for f in flt[m]:
+        d1 = dat[m][f]
+        d2 = dsv.scans2dict(d1)
+        print(f, len(d2['level']))
 '''

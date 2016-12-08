@@ -12,18 +12,18 @@ from datetime import datetime as dt
 BASEURL = 'https://csci870.nydev.me/api'
 MODES = ['W', 'L', 'T', 'TT', 'LT']
 ATTRS = {
-    'X'  : ['building', 'floor', 'room', 'day', 'hour', 'quarter', 'bssid', 'level'],
+    'X'  : ['building', 'floor', 'room', 'dow', 'hour', 'quarter', 'bssid', 'level'],
     'W'  : ['bssid'],
     'L'  : ['building', 'floor', 'room'],
     'T'  : ['hour'],
-    'TT' : ['day', 'hour', 'quarter'],
+    'TT' : ['dow', 'hour', 'quarter'],
     'LT' : ['building', 'floor', 'room', 'hour']
 }
 TUPLES = {
     'W'  : lambda x: (x.bssid),
     'L'  : lambda x: (x.building, x.floor, x.room),
     'T'  : lambda x: (x.hour),
-    'TT' : lambda x: (x.day, x.hour, x.quarter),
+    'TT' : lambda x: (x.dow, x.hour, x.quarter),
     'LT' : lambda x: (x.building, x.floor, x.room, x.hour)
 }
 
@@ -105,6 +105,17 @@ class mod:
             z[k] = d[k]
         return z
 
+    @staticmethod
+    def objects2dict(l, keys):
+        d = {}
+        for k in keys:
+            d[k] = []
+        for o in l:
+            for k in keys:
+                v = getattr(o, k)
+                d[k].append(v)
+        return d
+
 class dec:
     @staticmethod
     def scanify(fn):
@@ -124,7 +135,7 @@ class dsv:
         d['level'] = int(d['level'])
         uxt = int(row['uxt'])
         t = dt.fromtimestamp(uxt)
-        d['day'] = t.day
+        d['dow'] = (t.weekday() + 2) % 7
         d['hour'] = t.hour
         d['quarter'] = int(t.minute/15)
         return d
@@ -132,6 +143,10 @@ class dsv:
     @staticmethod
     def scan2dict(o):
         return mod.object2dict(o, ATTRS['X'])
+
+    @staticmethod
+    def scans2dict(l):
+        return mod.objects2dict(l, ATTRS['X'])
 
 class ext:
     @staticmethod
