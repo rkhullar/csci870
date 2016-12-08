@@ -6,8 +6,8 @@
 @updated :  12/07/16
 """
 
-import csv
-from support import api, mod, dsv
+import csv, json
+from support import api, mod, dsv, ext
 from support import MODES, ATTRS
 
 # make api call
@@ -28,8 +28,8 @@ for m in MODES:
     for f in flt[m]:
         dat[m][f] = []
 
-# organize csv file
-with open(dsv.genpath('scans.csv')) as csvfile:
+# read and organize csv file
+with open(ext.genpath('scans.csv'), 'r') as csvfile:
     reader = csv.DictReader(csvfile, delimiter=';')
     for r in reader:
         d = dsv.rawscan(r)
@@ -41,9 +41,21 @@ with open(dsv.genpath('scans.csv')) as csvfile:
             if k in flt[m]:
                 dat[m][k].append(o)
 
-# make output directories
+# prepare for json serialization
+out = {}
 for m in MODES:
-    dsv.mkdir(m)
+    out[m] = {}
+    for f in flt[m]:
+        tj = json.dumps(f)
+        out[m][tj] = []
+        for x in dat[m][f]:
+            d = dsv.scan2dict(x)
+            out[m][tj].append(d)
+
+# generate json file
+with open(ext.genpath('scans.json'), 'w') as outfile:
+    json.dumps(out, outfile)
+
 
 '''
 for f in flt['LT']:
@@ -51,8 +63,8 @@ for f in flt['LT']:
     print(f, n)
 '''
 
-#'''
+'''
 for f in flt['W']:
     x = dat['W'][f][0]
     print(x.bssid, x.level, x.room)
-#'''
+'''

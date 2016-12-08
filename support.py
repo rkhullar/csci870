@@ -12,6 +12,7 @@ from datetime import datetime as dt
 BASEURL = 'https://csci870.nydev.me/api'
 MODES = ['W', 'L', 'T', 'TT', 'LT']
 ATTRS = {
+    'X'  : ['building', 'floor', 'room', 'day', 'hour', 'quarter', 'bssid', 'level'],
     'W'  : ['bssid'],
     'L'  : ['building', 'floor', 'room'],
     'T'  : ['hour'],
@@ -116,6 +117,24 @@ class dec:
 
 class dsv:
     @staticmethod
+    def rawscan(row):
+        f = ['bssid', 'level', 'building', 'floor', 'room']
+        d = mod.dictslice(row, f)
+        d['floor'] = int(d['floor'])
+        d['level'] = int(d['level'])
+        uxt = int(row['uxt'])
+        t = dt.fromtimestamp(uxt)
+        d['day'] = t.day
+        d['hour'] = t.hour
+        d['quarter'] = int(t.minute/15)
+        return d
+
+    @staticmethod
+    def scan2dict(o):
+        return mod.object2dict(o, ATTRS['X'])
+
+class ext:
+    @staticmethod
     def genpath(*args):
         return os.path.sep.join(['data', *args])
 
@@ -136,19 +155,6 @@ class dsv:
         p = dsv.rmdir(*args)
         os.mkdir(p)
         return p
-
-    @staticmethod
-    def rawscan(row):
-        f = ['bssid', 'level', 'building', 'floor', 'room']
-        d = mod.dictslice(row, f)
-        d['floor'] = int(d['floor'])
-        d['level'] = int(d['level'])
-        uxt = int(row['uxt'])
-        t = dt.fromtimestamp(uxt)
-        d['day'] = t.day
-        d['hour'] = t.hour
-        d['quarter'] = int(t.minute/15)
-        return d
 
 
 if __name__ == '__main__':
