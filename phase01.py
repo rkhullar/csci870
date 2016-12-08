@@ -7,16 +7,18 @@
 """
 
 import csv
-from support import api, mod
+from support import api, mod, dsv
 from support import SCANS, MODES, ATTRS
 
 cnt = api.cnts()
 
 flt = mod.vectorlist()
-for a in ATTRS:
-    z = ATTRS[a]
-    for x in cnt[a]:
-        flt[a].append(mod.objectslice(x, z))
+for m in MODES:
+    z = ATTRS[m]
+    for x in cnt[m]:
+        o = mod.objectslice(x, z)
+        t = mod.object2tuple(o, m)
+        flt[m].append(t)
 
 dat = mod.vectordict()
 for m in MODES:
@@ -26,15 +28,23 @@ for m in MODES:
 with open(SCANS) as csvfile:
     reader = csv.DictReader(csvfile, delimiter=';')
     for r in reader:
-        r['hour'] = 0
-        r['day'] = 0
-        r['quarter'] = 0
+        d = dsv.scan(r)
         for m in MODES:
             z = ATTRS[m]
-            k = mod.dict2object(r, z)
+            o = mod(**d)
+            p = mod.objectslice(o, z)
+            k = mod.object2tuple(p, m)
             if k in flt[m]:
-                dat[m][k].append(r)
+                dat[m][k].append(o)
 
+'''
+for f in flt['LT']:
+    n = len(dat['LT'][f])
+    print(f, n)
+'''
+
+'''
 for f in flt['W']:
-    n = len(dat['W'][f])
-    print(f.bssid, n)
+    x = dat['W'][f][0]
+    print(x.bssid, x.level, x.room)
+'''
