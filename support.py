@@ -36,7 +36,7 @@ class api:
 
     @staticmethod
     def cntx(m):
-        return mod.parse(m, api.count(m))
+        return mod.parseJSON(m, api.count(m))
 
     @staticmethod
     def cnts():
@@ -65,12 +65,26 @@ class mod:
         return d
 
     @staticmethod
-    def parse(mode, ja):
+    def parseJSON(mode, ja):
         l = []
         for jo in ja:
             x = mod(**jo)
             l.append(x)
         return l
+
+    @staticmethod
+    def parseTuple(mode, t):
+        m = mod()
+
+        if mode in ['W', 'T']:
+            a = ATTRS[mode][0]
+            setattr(m, a, t)
+            return m
+
+        l = ATTRS[mode]
+        for i in range(len(l)):
+            setattr(m, l[i], t[i])
+        return m
 
     @staticmethod
     def object2tuple(o, mode):

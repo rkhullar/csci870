@@ -50,7 +50,7 @@ for m in MODES:
         out[m][tj] = dsv.scans2dict(dat[m][f])
 
 # generate json file
-with open(ext.genpath('scans.json'), 'w') as f:
+with open(ext.genpath('scans-1.json'), 'w') as f:
     json.dump(out, f)
 
 
