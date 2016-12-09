@@ -249,3 +249,7 @@
 1. reimplementing dataset parsing
 2. able to organize original dataset into json
 3. fixed bug with day of week parsing
+
+## 2016-12-08
+1. able to organize dataset grouped by bssid
+2. ensured each block's size is greater than 100

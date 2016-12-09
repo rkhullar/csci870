@@ -1,7 +1,7 @@
 ## Immediate
-1. graph raw distributions
-2. graph filtered distributions
-3. generate local filtered data files
+1. bar graphs for counts
+2. box-whisker for blocks
+3. bell curve samples for major blocks
 4. train classifiers with sklearn
 5. test classifiers
 6. more graphs
