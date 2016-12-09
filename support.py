@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  12/04/16
-@updated :  12/07/16
+@updated :  12/08/16
 """
 
 import requests, json, csv, os, shutil
@@ -44,6 +44,10 @@ class api:
         for m in MODES:
             d[m] = api.cntx(m)
         return d
+
+    @staticmethod
+    def waps():
+        return list(map(lambda o: o.bssid, api.cntx('W')))
 
 class mod:
     def __init__(self, **kwargs):
@@ -161,6 +165,22 @@ class dsv:
     @staticmethod
     def scans2dict(l):
         return mod.objects2dict(l, ATTRS['X'])
+
+    @staticmethod
+    def groupscans(vector, waps, minsize=100):
+        n = len(vector['level'])
+        d = {}
+        for w in waps:
+            d[w] = []
+        for i in range(n):
+            w = vector['bssid'][i]
+            v = vector['level'][i]
+            if w in waps:
+                d[w].append(v)
+        for w in waps:
+            if len(d[w]) < minsize:
+                del d[w]
+        return d
 
 class ext:
     @staticmethod
