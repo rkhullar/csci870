@@ -1,0 +1,5 @@
+#!/bin/bash
+./clean
+rm -rf data/*.json
+./phase01.py
+./phase02.py

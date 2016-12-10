@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  12/04/16
-@updated :  12/08/16
+@updated :  12/09/16
 """
 
 import csv, json
@@ -34,7 +34,7 @@ with open(ext.genpath('scans.csv'), 'r') as csvfile:
     for r in reader:
         d = dsv.rawscan(r)
         for m in MODES:
-            z = ATTRS[m]
+            z = ATTRS[m] + ['uxt']
             o = mod(**d)
             p = mod.objectslice(o, z)
             k = mod.object2tuple(p, m)

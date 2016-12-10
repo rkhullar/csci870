@@ -1,10 +1,11 @@
 cycler==0.10.0
 matplotlib==1.5.3
 numpy==1.11.2
+pandas==0.19.1
 psycopg2==2.6.2
 pyparsing==2.1.10
 python-dateutil==2.6.0
-pytz==2016.7
+pytz==2016.10
 requests==2.12.3
 scikit-learn==0.18.1
 scipy==0.18.1

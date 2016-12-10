@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  12/04/16
-@updated :  12/08/16
+@updated :  12/09/16
 """
 
 import requests, json, csv, os, shutil
@@ -12,7 +12,7 @@ from datetime import datetime as dt
 BASEURL = 'https://csci870.nydev.me/api'
 MODES = ['W', 'L', 'T', 'TT', 'LT']
 ATTRS = {
-    'X'  : ['building', 'floor', 'room', 'dow', 'hour', 'quarter', 'bssid', 'level'],
+    'X'  : ['building', 'floor', 'room', 'dow', 'hour', 'quarter', 'uxt', 'bssid', 'level'],
     'W'  : ['bssid'],
     'L'  : ['building', 'floor', 'room'],
     'T'  : ['hour'],
@@ -151,8 +151,8 @@ class dsv:
         d = mod.dictslice(row, f)
         d['floor'] = int(d['floor'])
         d['level'] = int(d['level'])
-        uxt = int(row['uxt'])
-        t = dt.fromtimestamp(uxt)
+        d['uxt'] = int(row['uxt'])
+        t = dt.fromtimestamp(d['uxt'])
         d['dow'] = (t.weekday() + 2) % 7
         d['hour'] = t.hour
         d['quarter'] = int(t.minute/15)
@@ -171,14 +171,16 @@ class dsv:
         n = len(vector['level'])
         d = {}
         for w in waps:
-            d[w] = []
+            d[w] = {'uxt':[], 'level':[]}
         for i in range(n):
             w = vector['bssid'][i]
+            t = vector['uxt'][i]
             v = vector['level'][i]
             if w in waps:
-                d[w].append(v)
+                d[w]['uxt'].append(t)
+                d[w]['level'].append(v)
         for w in waps:
-            if len(d[w]) < minsize:
+            if len(d[w]['level']) < minsize:
                 del d[w]
         return d
 
