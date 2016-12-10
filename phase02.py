@@ -25,7 +25,7 @@ for m in MODES:
 
 # generate json file
 with open(ext.genpath('scans-2.json'), 'w') as f:
-    json.dump(dout, f)
+    json.dump(dout, f, separators=(',', ':'))
 
 ''' print dataset
 for m in MODES:

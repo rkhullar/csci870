@@ -3,12 +3,12 @@
 """
 @author  :  Rajan Khullar
 @created :  12/08/16
-@updated :  12/09/16
+@updated :  12/10/16
 """
 
 import csv, json
-from support import api, mod, dsv, ext
-from support import MODES, ATTRS
+from support import api, mod, fmtHQ
+from support import MODES, DAYS
 
 import numpy as np
 import pandas as pd
@@ -16,57 +16,61 @@ import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 
 from matplotlib import style, animation
-#style.use('fivethirtyeight')
 style.use('ggplot')
 
-df = pd.read_json('https://csci870.nydev.me/api/count/W', 'records')
-print(df)
+FLABELS = {
+    'W'  : lambda x,i: 'W%02d' % i,
+    'L'  : lambda x,i: x.building+': '+x.room,
+    'T'  : lambda x,i: fmtHQ(x.hour),
+    'TT' : lambda x,i: DAYS[x.dow] + ' @ ' + fmtHQ(x.hour, x.quarter),
+    'LT' : lambda x,i: x.building + ': ' + x.room + ' @ ' + fmtHQ(x.hour)
+}
 
+TITLES = {
+    'W'  : 'Raw Record Counts for WiFi Access Points',
+    'L'  : 'Raw Record Counts for Locations',
+    'T'  : 'Raw Record Counts for Time',
+    'TT' : 'Raw Record Counts for Days and Times',
+    'LT' : 'Raw Record Counts for Locations and Times'
+}
 
-
-'''
-# make api call
 cnt = {}
 for m in MODES:
     cnt[m] = api.count(m)
 
+gcd = {}
+for m in MODES:
+    size = len(cnt[m])
+    gcd[m] = mod(groups=[], counts=[], size=size)
+    i = 1
+    flabel = FLABELS[m]
+    for d in cnt[m]:
+        o = mod(**d)
+        v = flabel(o, i)
+        gcd[m].groups.append(v)
+        gcd[m].counts.append(o.count)
+        i += 1
 
-# graph wifi access point distribution
-m = 'W'
-size = len(cnt[m])
-bssids = []
-counts = []
-labels = []
-i = 1
-for d in cnt[m]:
-    v = d['bssid']
-    bssids.append(v)
-    v = d['count']
-    counts.append(v)
-    v = 'W%02d' % i
-    labels.append(v)
-    i += 1
-
-for i in range(size):
-    print(bssids[i], counts[i])
-
-fig, ax = plt.subplots()
-factor = 10
-index = np.arange(0, factor*size, factor)
-
-bar_width = 5.0
-opacity = 0.5
-
-rects = plt.bar(index, counts, bar_width,
-                 alpha=opacity,
-                 color='b')
-
-plt.xlabel('WiFi Access Point')
-plt.ylabel('Count')
-plt.title('Raw Sample Sizes for WiFi Access Points')
-plt.xticks(index + bar_width, labels)
-plt.legend()
-
-plt.tight_layout()
-plt.show()
 '''
+for m in MODES:
+    x = gcd[m]
+    for i in range(x.size):
+        print(x.groups[i], x.counts[i])
+'''
+
+for m in MODES:
+    fig, ax = plt.subplots()
+    index = np.arange(gcd[m].size)
+    bar_width = 0.5
+    opacity = 0.5
+    plt.bar(index, gcd[m].counts, bar_width,
+                 alpha=opacity,
+                 color='c')
+    plt.title(TITLES[m])
+    plt.xticks(index + bar_width, gcd[m].groups)
+    for label in ax.xaxis.get_ticklabels():
+        label.set_rotation(90)
+    plt.tight_layout()
+    #plt.show()
+    fig.savefig('figures/count-'+m+'.png')
+    plt.close()

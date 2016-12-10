@@ -4,4 +4,5 @@ local
 .idea
 config.py
 data
+figures
 test*.py

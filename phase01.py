@@ -51,7 +51,7 @@ for m in MODES:
 
 # generate json file
 with open(ext.genpath('scans-1.json'), 'w') as f:
-    json.dump(out, f)
+    json.dump(out, f, separators=(',', ':'))
 
 
 '''

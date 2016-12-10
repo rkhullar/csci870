@@ -11,6 +11,7 @@ from datetime import datetime as dt
 
 BASEURL = 'https://csci870.nydev.me/api'
 MODES = ['W', 'L', 'T', 'TT', 'LT']
+DAYS = ['X', 'Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa']
 ATTRS = {
     'X'  : ['building', 'floor', 'room', 'dow', 'hour', 'quarter', 'uxt', 'bssid', 'level'],
     'W'  : ['bssid'],
@@ -207,6 +208,18 @@ class ext:
         os.mkdir(p)
         return p
 
+def fmtHQ(h, q=None):
+    if h < 12:
+        sfx = 'AM'
+    else:
+        sfx = 'PM'
+    t = h % 12
+    if t == 0:
+        t = 12
+    if q:
+        return  '%d:%02d%s' % (t, q*15, sfx)
+    else:
+        return  '%d%s' % (t, sfx)
 
 if __name__ == '__main__':
     for x in api.cntx('L'):
