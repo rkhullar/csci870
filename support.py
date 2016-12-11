@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  12/04/16
-@updated :  12/09/16
+@updated :  12/11/16
 """
 
 import requests, json, csv, os, shutil
@@ -61,6 +61,23 @@ class api:
             d[x] = i
             i += 1
         return d
+
+    @staticmethod
+    def lsti(ld):
+        di = {}
+        for v in ld:
+            k = ld[v]
+            di[k] = v
+        return di
+
+    @staticmethod
+    def lstr(ld):
+        di, l = api.lsti(ld), []
+        a, z = min(di), max(di)
+        for i in range(a, z+1):
+            l.append(di[i])
+        return l
+
 
 class mod:
     def __init__(self, **kwargs):
