@@ -50,6 +50,14 @@ class api:
     def waps():
         return list(map(lambda o: o.bssid, api.cntx('W')))
 
+    @staticmethod
+    def wapd(ws, start=0):
+        d = {}; i = start
+        for w in ws:
+            d[w] = i
+            i += 1
+        return d
+
 class mod:
     def __init__(self, **kwargs):
         for key, val in kwargs.items():

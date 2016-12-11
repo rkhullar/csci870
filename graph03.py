@@ -27,12 +27,7 @@ FLABELS = {
 }
 
 WAPS = api.waps()
-
-WAPD = {}
-i = 1
-for w in WAPS:
-    WAPD[w] = i
-    i += 1
+WAPD = api.wapd(WAPS, start=1)
 
 def boxplot_helper(xs, ws, title=None, fname=None):
     fig, ax = plt.subplots()
@@ -43,7 +38,7 @@ def boxplot_helper(xs, ws, title=None, fname=None):
     if title:
         plt.title(title)
     plt.xlabel('WiFi Access Point')
-    plt.ylabel('Signal Strength')
+    plt.ylabel('Signal Strength (dB)')
     plt.tight_layout()
     if fname:
         fig.savefig(fname)
