@@ -267,3 +267,4 @@
 
 ## 2016-12-11
 1. preprocess dataset further into matrix of scans
+2. generate csv file as input to classifier
