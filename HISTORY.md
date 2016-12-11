@@ -253,3 +253,12 @@
 ## 2016-12-08
 1. able to organize dataset grouped by bssid
 2. ensured each block's size is greater than 100
+
+## 2016-12-09
+1. made one bar graph
+2. looked into pandas
+
+## 2016-12-10
+1. able to graph raw counts for modes
+2. able to filter each group with z score range
+3. graphed total distribution of signal strength levels
