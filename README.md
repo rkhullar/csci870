@@ -69,3 +69,5 @@ select setval('dbo.wap_id_seq', (select max(id) from dbo.wap));
 [service]: https://www.javacodegeeks.com/2014/01/android-service-tutorial.html
 [spinner]: http://www.broculos.net/2013/09/how-to-change-spinner-text-size-color.html#.VdM8Opf4Xts
 [sql-ret]: http://www.postgresqltutorial.com/plpgsql-function-returns-a-table/
+[skl-tut]: https://youtu.be/KTeVOb8gaD4?list=PLQVvvaa0QuDd0flgGphKCej-9jp-QdzZ3
+[skl-fig]: http://scikit-learn.org/stable/tutorial/machine_learning_map/

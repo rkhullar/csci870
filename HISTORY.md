@@ -264,3 +264,6 @@
 3. graphed total distribution of signal strength levels
 4. graphed boxplots for each group
 5. graphed overall fingerprint
+
+## 2016-12-11
+1. preprocess dataset further into matrix of scans
