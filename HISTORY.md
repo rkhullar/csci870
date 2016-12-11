@@ -262,3 +262,4 @@
 1. able to graph raw counts for modes
 2. able to filter each group with z score range
 3. graphed total distribution of signal strength levels
+4. graphed boxplots for each group

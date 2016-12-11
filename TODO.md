@@ -1,10 +1,7 @@
 ## Immediate
-1. bar graphs for counts
-2. box-whisker for blocks
-3. bell curve samples for major blocks
-4. train classifiers with sklearn
-5. test classifiers
-6. more graphs
+1. train classifiers with sklearn
+2. test classifiers
+3. more graphs
 
 ## NOTES
 * The individual scan lists should not be used in the classification.
