@@ -91,7 +91,7 @@ for m in MODES:
         drv[m][i] = subset(lin=mst[m], mean=std[m].avg, dev=std[m].dev, zl=zrs[i].zl, zr=zrs[i].zr)
 
 # graph master histogram
-m = 'L'
+m = 'W'
 mu, sigma, vals = std[m].avg, std[m].dev, mst[m]
 bins = list(range(-120, 5, 5))
 fig, ax = plt.subplots()
@@ -122,17 +122,3 @@ for m in MODES:
     o = std[m]
     print(m, o.len, o.avg, o.dev)
 '''
-
-"""
-0 0.0 0.0
-10 -0.125661346855 0.125661346855
-20 -0.253347103136 0.253347103136
-30 -0.385320466408 0.385320466408
-40 -0.524400512708 0.524400512708
-50 -0.674489750196 0.674489750196
-60 -0.841621233573 0.841621233573
-70 -1.03643338949 1.03643338949
-80 -1.28155156554 1.28155156554
-90 -1.64485362695 1.64485362695
-100 -inf inf
-"""
