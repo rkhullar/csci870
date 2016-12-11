@@ -51,10 +51,14 @@ class api:
         return list(map(lambda o: o.bssid, api.cntx('W')))
 
     @staticmethod
-    def wapd(ws, start=0):
+    def locs():
+        return list(map(TUPLES['L'], api.cntx('L')))
+
+    @staticmethod
+    def lstd(l, start=0):
         d = {}; i = start
-        for w in ws:
-            d[w] = i
+        for x in l:
+            d[x] = i
             i += 1
         return d
 
@@ -228,6 +232,13 @@ def fmtHQ(h, q=None):
         return  '%d:%02d%s' % (t, q*15, sfx)
     else:
         return  '%d%s' % (t, sfx)
+
+def extUXT(uxt):
+    t = dt.fromtimestamp(uxt)
+    dow = (t.weekday() + 2) % 7
+    hr = t.hour
+    qt = int(t.minute/15)
+    return mod(uxt=uxt, dow=dow, hour=hr, quarter=qt)
 
 if __name__ == '__main__':
     for x in api.cntx('L'):

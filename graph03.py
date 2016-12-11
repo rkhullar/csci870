@@ -27,7 +27,7 @@ FLABELS = {
 }
 
 WAPS = api.waps()
-WAPD = api.wapd(WAPS, start=1)
+WAPD = api.lstd(WAPS, start=1)
 
 def boxplot_helper(xs, ws, title=None, fname=None):
     fig, ax = plt.subplots()
