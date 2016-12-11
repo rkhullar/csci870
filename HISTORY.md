@@ -263,3 +263,4 @@
 2. able to filter each group with z score range
 3. graphed total distribution of signal strength levels
 4. graphed boxplots for each group
+5. graphed overall fingerprint
