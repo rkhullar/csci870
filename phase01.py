@@ -46,7 +46,7 @@ out = {}
 for m in MODES:
     out[m] = {}
     for f in flt[m]:
-        tj = json.dumps(f)
+        tj = json.dumps(f, separators=(',', ':'))
         out[m][tj] = dsv.scans2dict(dat[m][f])
 
 # generate json file

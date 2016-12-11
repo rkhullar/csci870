@@ -19,28 +19,13 @@ import matplotlib.pyplot as plt
 from matplotlib import style, animation
 style.use('ggplot')
 
-FLABELS = {
-    'W'  : lambda x,i: 'W%02d' % i,
-    'L'  : lambda x,i: x.building+': '+x.room,
-    'T'  : lambda x,i: fmtHQ(x.hour),
-    'TT' : lambda x,i: DAYS[x.dow] + ' @ ' + fmtHQ(x.hour, x.quarter),
-    'LT' : lambda x,i: x.building + ': ' + x.room + ' @ ' + fmtHQ(x.hour)
-}
-
-TITLES = {
-    'W'  : 'Raw Sample Sizes for WiFi Access Points',
-    'L'  : 'Raw Sample Sizes for Locations',
-    'T'  : 'Raw Sample Sizes for Time',
-    'TT' : 'Raw Sample Sizes for Days and Times',
-    'LT' : 'Raw Sample Sizes for Locations and Times'
-}
 
 # function to filter list in z score bound
-def subset(lin, mean, dev, zl, zr):
+def subset(lin, mean, dev, zl, zr, zt=0.01):
     lout = []
     for x in lin:
         z = (mean-x)/dev
-        if zl <= z and z <= zr:
+        if (zl-zt) <= z and z <= (zr+zt):
             lout.append(x)
     return lout
 
@@ -71,7 +56,8 @@ for m in MODES:
     std[m].dev = math.sqrt(std[m].var)
 
 # pick middle percentile values
-R = range(0, 110, 10)
+# R = range(0, 110, 10)
+R = range(0, 101)
 
 # compute z score bound for each percentile
 zrs = {}
@@ -101,20 +87,37 @@ plt.plot(bins, curve, 'r--', linewidth=1)
 plt.xlabel('Signal Strength')
 plt.ylabel('Probability')
 plt.title('Distribution of Signal Strength Levels')
+plt.tight_layout()
 #plt.show()
 fig.savefig('figures/dist-x.png')
 plt.close()
 
-'''
-for m in drv:
-    for i in range(0, 110, 10):
-        print(m, i, len(drv[m][i]))
-'''
+# compute counts for percentiles
+drn = {}
+for m in MODES:
+    drn[m] = mod(x=[], y=[])
+    for i in R:
+        drn[m].x.append(i)
+        drn[m].y.append(len(drv[m][i]))
+
+# generate line graph
+fig, ax = plt.subplots()
+for m in MODES:
+    plt.plot(drn[m].x, drn[m].y, label=m)
+plt.xticks(np.arange(0, 110, 10))
+plt.title('Filtered Record Counts for Middle Percentiles')
+plt.xlabel('Percentile')
+plt.ylabel('Count')
+plt.legend(loc='best')
+plt.tight_layout()
+#plt.show()
+fig.savefig('figures/zfilter.png')
+plt.close()
 
 '''
-dat = mod.vectordict()
-for m in MODES:
-    dat[m]
+for m in drv:
+    for i in R:
+        print(m, i, len(drv[m][i]))
 '''
 
 '''

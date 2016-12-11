@@ -216,7 +216,7 @@ def fmtHQ(h, q=None):
     t = h % 12
     if t == 0:
         t = 12
-    if q:
+    if q != None:
         return  '%d:%02d%s' % (t, q*15, sfx)
     else:
         return  '%d%s' % (t, sfx)

@@ -20,10 +20,10 @@ style.use('ggplot')
 
 FLABELS = {
     'W'  : lambda x,i: 'W%02d' % i,
-    'L'  : lambda x,i: x.building+': '+x.room,
+    'L'  : lambda x,i: x.building + ' ' + x.room,
     'T'  : lambda x,i: fmtHQ(x.hour),
-    'TT' : lambda x,i: DAYS[x.dow] + ' @ ' + fmtHQ(x.hour, x.quarter),
-    'LT' : lambda x,i: x.building + ': ' + x.room + ' @ ' + fmtHQ(x.hour)
+    'TT' : lambda x,i: DAYS[x.dow] + ' at ' + fmtHQ(x.hour, x.quarter),
+    'LT' : lambda x,i: x.building + ' ' + x.room + ' at ' + fmtHQ(x.hour)
 }
 
 TITLES = {
