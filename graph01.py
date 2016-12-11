@@ -38,6 +38,7 @@ cnt = {}
 for m in MODES:
     cnt[m] = api.count(m)
 
+# generate group-count dictionary
 gcd = {}
 for m in MODES:
     size = len(cnt[m])
@@ -58,6 +59,7 @@ for m in MODES:
         print(x.groups[i], x.counts[i])
 '''
 
+# generate bar graphs
 for m in MODES:
     fig, ax = plt.subplots()
     index = np.arange(gcd[m].size)

@@ -35,6 +35,7 @@ TITLES = {
     'LT' : 'Raw Sample Sizes for Locations and Times'
 }
 
+# function to filter list in z score bound
 def subset(lin, mean, dev, zl, zr):
     lout = []
     for x in lin:
@@ -47,6 +48,7 @@ def subset(lin, mean, dev, zl, zr):
 with open('data/scans-2.json', 'r') as f:
     din = json.load(f)
 
+# read all levels into master dictionary
 mst = {}
 for m in MODES:
     mst[m] = []
@@ -54,6 +56,7 @@ for m in MODES:
         for w in din[m][tj]:
             mst[m] = mst[m] + din[m][tj][w]['level']
 
+# compute stats for each group
 std = {}
 for m in MODES:
     std[m] = mod(len=0, sum=0, avg=0, var=0, dev=0)
@@ -67,20 +70,46 @@ for m in MODES:
     std[m].var = tdx / (std[m].len - 1)
     std[m].dev = math.sqrt(std[m].var)
 
+# pick middle percentile values
+R = range(0, 110, 10)
+
+# compute z score bound for each percentile
 zrs = {}
-for i in range(0, 110, 10):
+for i in R:
     p = i/100
     d = (1 - p)/2
     l = st.norm.ppf(d)
     r = st.norm.ppf(1-d)
-    zrs[m] = mod(zl=l, zr=r)
-    #print(i, l, r)
+    zrs[i] = mod(zl=l, zr=r)
+    #print(i, zrs[i].zl, zrs[i].zr)
 
+# derive lists for each group and percentile
 drv = {}
 for m in MODES:
     drv[m] = {}
     for i in zrs:
-        drv[m][i] = subset(mst[m], zrs[m].zl, zrs[m].zr)
+        drv[m][i] = subset(lin=mst[m], mean=std[m].avg, dev=std[m].dev, zl=zrs[i].zl, zr=zrs[i].zr)
+
+# graph master histogram
+m = 'L'
+mu, sigma, vals = std[m].avg, std[m].dev, mst[m]
+bins = list(range(-120, 5, 5))
+fig, ax = plt.subplots()
+n, bout, patches = plt.hist(vals, bins, normed=1, histtype='bar', rwidth=0.8, color='c')
+curve = mlab.normpdf(bout, mu, sigma)
+plt.plot(bins, curve, 'r--', linewidth=1)
+plt.xlabel('Signal Strength')
+plt.ylabel('Probability')
+plt.title('Distribution of Signal Strength Levels')
+#plt.show()
+fig.savefig('figures/dist-x.png')
+plt.close()
+
+'''
+for m in drv:
+    for i in range(0, 110, 10):
+        print(m, i, len(drv[m][i]))
+'''
 
 '''
 dat = mod.vectordict()
