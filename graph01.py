@@ -74,5 +74,5 @@ for m in MODES:
         label.set_rotation(90)
     plt.tight_layout()
     #plt.show()
-    fig.savefig('figures/count-'+m+'.png')
+    fig.savefig('figures/count/'+m+'.png')
     plt.close()

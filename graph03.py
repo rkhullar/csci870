@@ -34,17 +34,7 @@ for w in WAPS:
     WAPD[w] = i
     i += 1
 
-with open('data/scans-2.json', 'r') as f:
-    din = json.load(f)
-
-def genOneBoxPlot(data, title=None, fname=None):
-    ws = []; xs = []
-    for w in WAPS:
-        if w in data:
-            x = data[w]['level']
-            wf = 'W%02d' % WAPD[w]
-            ws.append(wf)
-            xs.append(x)
+def boxplot_helper(xs, ws, title=None, fname=None):
     fig, ax = plt.subplots()
     ax.boxplot(xs)
     ax.set_xticklabels(ws)
@@ -61,7 +51,43 @@ def genOneBoxPlot(data, title=None, fname=None):
     else:
         plt.show()
 
-# generate boxplots
+
+def boxplot_group(data, title=None, fname=None):
+    ws = []; xs = []
+    for w in WAPS:
+        if w in data:
+            x = data[w]['level']
+            wf = 'W%02d' % WAPD[w]
+            ws.append(wf)
+            xs.append(x)
+    boxplot_helper(xs, ws, title, fname)
+
+with open('data/scans-2.json', 'r') as f:
+    din = json.load(f)
+
+
+# generate overall fingerprint
+def boxplot_master(title=None, fname=None):
+    mst = {}
+    for w in WAPS:
+        mst[w] = []
+    for j in din['W']:
+        d = json.loads(j)
+        o = mod.parseTuple('W', d)
+        w = o.bssid
+        mst[w] = mst[w] + din['W'][j][w]['level']
+    ws = []; xs = []
+    for w in WAPS:
+        if w in mst:
+            x = mst[w]
+            wf = 'W%02d' % WAPD[w]
+            ws.append(wf)
+            xs.append(x)
+    boxplot_helper(xs, ws, title, fname)
+
+boxplot_master(fname='figures/boxplots/master.png')
+
+# generate individual group boxplots
 del din['W']
 for m in din:
     flabel = FLABELS[m]
@@ -70,8 +96,8 @@ for m in din:
         td = json.loads(tj)
         to = mod.parseTuple(m, td)
         title = flabel(to)
-        fname = 'figures/boxplots/'+title.replace(' ', '_')+'.png'
+        fname = 'figures/boxplots/'+m+'/'+title.replace(' ', '_')+'.png'
         try:
-            genOneBoxPlot(data, title, fname)
+            boxplot_group(data, title, fname)
         except:
             print('failure:', title)
