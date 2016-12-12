@@ -1,4 +1,4 @@
-# Indoor Localization via WiFi Fingerprinting Framework
+# Indoor Localization Framework with WiFi Fingerprinting
 
 ## Setup
 * distribution files
