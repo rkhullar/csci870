@@ -1,9 +1,9 @@
 ## Indoor Localization Framework with WiFi Fingerprinting
 
-![icon](docs/images/icon.png)
+<img src='docs/images/icon.png' alt='icon' style='width:256px;height:256px;'>
 
 |                 |                   |
-| --------------- | ----------------- |
+| :-------------- | :---------------- |
 | Project Member  | Rajan Khullar     |
 | Project Advisor | Dr. Ziqian Dong   |
 | Date            | December 15, 2016 |
