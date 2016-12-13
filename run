@@ -1,6 +1,6 @@
 #!/bin/bash
 ./clean
-rm -rf data/*.json
+rm -rf data/*.json data/input.csv
 ./phase01.py
 ./phase02.py
 ./phase03.py
@@ -9,4 +9,4 @@ rm -rf data/*.json
 ./graph02.py
 ./graph03.py
 ./learn01.py
-./graph05.py
+#./graph05.py

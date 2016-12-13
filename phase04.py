@@ -37,7 +37,7 @@ target = din['target']
 size = len(target)
 
 # generate csv file
-with open(ext.genpath('scans-4.csv'), 'w') as f:
+with open(ext.genpath('input.csv'), 'w') as f:
     HEAD = TCOLS + WAPS + LCOLS
     f.write(';'.join(HEAD)+'\n')
     for i in range(size):
