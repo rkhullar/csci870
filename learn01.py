@@ -90,9 +90,10 @@ def t02(mode):
                 out[k].append(d[k])
         out['n'].append(j)
     for i in range(n, -1, -1):
+        print(i)
         d = t02_help(i, mode)
         add2out(d, i)
-        break
+        #break
     return out
 
 def t02_help(n, mode=None):
@@ -160,7 +161,7 @@ def prod():
     del d['pred']
     save['all_waps'] = d
     # try n waps w/o time
-    save['n_waps'] = t02()
+    save['n_waps'] = t02(None)
     save['n_waps_plus_time'] = t02(True)
     # save to disk
     with open('data/perf.json', 'w') as f:
