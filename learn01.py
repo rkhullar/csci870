@@ -108,7 +108,7 @@ def reduce_waps():
     for i in range(n, -1, -1):
         d = time_n_waps(i)
         add2out(d, i)
-        break
+        #break
     return out
 
 
