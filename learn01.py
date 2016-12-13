@@ -66,7 +66,8 @@ def svm_svc(X, y, C=1, cv=10):
     return {'mean': scores.mean(), 'std': scores.std(), 'ascore': ascore,
         'true': y, 'pred': pred}
 
-def all_waps():
+def t01():
+    """ALL WAPS"""
     X = []
     for w in WAPS:
         X.append(data['waps'][w])
@@ -75,29 +76,12 @@ def all_waps():
     #print(x.shape, len(WAPS))
     d = svm_svc(X, y)
     make_cnf_mtx(d['true'], d['pred'], d['ascore'],
-        title='Performance with all WAPS: %.2f' % ( d['ascore']),
-        fname='figures/matrices/w.png')
+        title='Performance With All WAPS: %.2f' % ( d['ascore']),
+        fname='figures/matrices/all_waps.png')
     return d
 
-def time_n_waps(n):
-    X = []
-    for k in ['dow', 'hour']:
-        X.append(data['time'][k])
-    for w in WAPS[0:n]:
-        X.append(data['waps'][w])
-    X = np.array(X).T
-    y = np.array(target)
-    d = svm_svc(X, y)
-    if n > 1:
-        title = 'Performance with Top %d WAPS and Time: %.2f' % (n, d['ascore'])
-    else:
-        title = 'Performance with Only Time: %.2f' % (d['ascore'])
-    make_cnf_mtx(d['true'], d['pred'], d['ascore'],
-        title=title,
-        fname='figures/matrices/'+str(n)+'.png')
-    return d
-
-def reduce_waps():
+def t02(mode):
+    """N WAPS W/O TIME"""
     n = len(WAPS)
     out = {'n':[], 'mean':[], 'std':[], 'ascore':[]}
     def add2out(d, j):
@@ -106,10 +90,43 @@ def reduce_waps():
                 out[k].append(d[k])
         out['n'].append(j)
     for i in range(n, -1, -1):
-        d = time_n_waps(i)
+        d = t02_help(i, mode)
         add2out(d, i)
-        #break
+        break
     return out
+
+def t02_help(n, mode=None):
+    """N WAPS W/O TIME HELPER"""
+    X = []
+    if mode:
+        for k in ['dow', 'hour']:
+            X.append(data['time'][k])
+    for w in WAPS[0:n]:
+        X.append(data['waps'][w])
+    X = np.array(X).T
+    y = np.array(target)
+    d = svm_svc(X, y)
+    ascore = d['ascore']
+    title, fname = t02_extra(n, ascore, mode)
+    make_cnf_mtx(d['true'], d['pred'], ascore, title=title, fname=fname)
+    return d
+
+def t02_extra(n, s, mode=None):
+    """N WAPS W/O TIME EXTRA"""
+    if mode:
+        if n > 1:
+            title = 'Performance With Top %d WAPS and Time: %.2f' % (n, s)
+        else:
+            title = 'Performance With Only Time: %.2f' % (s)
+    else:
+        if n > 1:
+            title = 'Performance With Top %d WAPS: %.2f' % (n, s)
+        else:
+            title = 'Performance With Top WAP: %.2f' % (s)
+    t1 = 'WT' if mode else 'W'
+    t2 = '%02d' % n
+    fname = 'figures/matrices/%s/%s.png' % (t1, t2)
+    return title, fname
 
 
 def make_cnf_mtx(vtrue, vpred, ascore, title='Confusion Matrix', fname=None):
@@ -117,30 +134,17 @@ def make_cnf_mtx(vtrue, vpred, ascore, title='Confusion Matrix', fname=None):
     sp.plot_confusion_matrix(cnf_mtx, classes=LABS, normalize=True, title=title, fname=fname)
 
 
-def make_decay_graph(v, vmean, vstd, fname=None):
-    fig = plt.figure()
-    plt.errorbar(v, vmean, xerr=0.2, yerr=vstd, color='b')
-    plt.title('Determination of Performance over WAP Utilization')
-    plt.xlabel('WAP Utilization')
-    plt.ylabel('Score')
-    plt.tight_layout()
-    if fname:
-        fig.savefig(fname)
-        plt.close()
-    else:
-        plt.show()
-    plt.show()
-
-
 if __name__ == '__main__':
+    # prepare to store metrics
     save = {}
-    d = all_waps()
+    # try all waps
+    d = t01()
     del d['true']
     del d['pred']
-    save['all'] = d
-    #time_n_waps(0)
-    d = reduce_waps()
-    make_decay_graph(d['n'], d['mean'], d['std'], fname='figures/pdecay.png')
-    save['red'] = d
+    save['all_waps'] = d
+    # try n waps w/o time
+    save['n_waps'] = t02()
+    save['n_waps_plus_time'] = t03(True)
+    # save to disk
     with open('data/perf.json', 'w') as f:
         json.dump(save, f, separators=(',', ':'))
