@@ -273,3 +273,8 @@
 1. made linear svn classifier with 10 fold cross validation
 2. able to automatically generate and test classifiers
 3. created confusion matrices and bar graph to show performance
+
+## 2016-12-13
+1. improved matrix and decay graph code
+2. added deacreasing matrices for WAPS without time
+
