@@ -76,7 +76,7 @@ def t01():
     #print(x.shape, len(WAPS))
     d = svm_svc(X, y)
     make_cnf_mtx(d['true'], d['pred'], d['ascore'],
-        title='Performance With All WAPS: %.2f' % ( d['ascore']),
+        title='Performance With All WAPS: %.2f' % d['ascore'],
         fname='figures/matrices/all_waps.png')
     return d
 
@@ -97,6 +97,8 @@ def t02(mode):
 
 def t02_help(n, mode=None):
     """N WAPS W/O TIME HELPER"""
+    if not mode and n == 0:
+        return
     X = []
     if mode:
         for k in ['dow', 'hour']:
@@ -114,10 +116,12 @@ def t02_help(n, mode=None):
 def t02_extra(n, s, mode=None):
     """N WAPS W/O TIME EXTRA"""
     if mode:
-        if n > 1:
-            title = 'Performance With Top %d WAPS and Time: %.2f' % (n, s)
-        else:
+        if n == 0:
             title = 'Performance With Only Time: %.2f' % (s)
+        elif n == 1:
+            title = 'Performance With Top WAP and Time: %.2f' % (s)
+        else:
+            title = 'Performance With Top %d WAPS and Time: %.2f' % (n, s)
     else:
         if n > 1:
             title = 'Performance With Top %d WAPS: %.2f' % (n, s)
@@ -134,7 +138,20 @@ def make_cnf_mtx(vtrue, vpred, ascore, title='Confusion Matrix', fname=None):
     sp.plot_confusion_matrix(cnf_mtx, classes=LABS, normalize=True, title=title, fname=fname)
 
 
-if __name__ == '__main__':
+def test():
+    '''
+    t02_help(0)
+    t02_help(1)
+    t02_help(2)
+    t02_help(0, True)
+    t02_help(1, True)
+    t02_help(2, True)
+    '''
+    #'''
+    t02_help(10, True)
+    #'''
+
+def prod():
     # prepare to store metrics
     save = {}
     # try all waps
@@ -144,7 +161,12 @@ if __name__ == '__main__':
     save['all_waps'] = d
     # try n waps w/o time
     save['n_waps'] = t02()
-    save['n_waps_plus_time'] = t03(True)
+    save['n_waps_plus_time'] = t02(True)
     # save to disk
     with open('data/perf.json', 'w') as f:
         json.dump(save, f, separators=(',', ':'))
+
+
+if __name__ == '__main__':
+    #test()
+    prod()
