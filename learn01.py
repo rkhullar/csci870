@@ -66,8 +66,9 @@ def svm_svc(X, y, C=1, cv=10):
     return {'mean': scores.mean(), 'std': scores.std(), 'ascore': ascore,
         'true': y, 'pred': pred}
 
-def t01():
+def m01():
     """ALL WAPS"""
+    print('ALL WAPS:')
     X = []
     for w in WAPS:
         X.append(data['waps'][w])
@@ -75,13 +76,18 @@ def t01():
     y = np.array(target)
     #print(x.shape, len(WAPS))
     d = svm_svc(X, y)
+    vprint(d)
     make_cnf_mtx(d['true'], d['pred'], d['ascore'],
         title='Performance With All WAPS: %.2f' % d['ascore'],
         fname='figures/matrices/all_waps.png')
     return d
 
-def t02(mode):
+def m02(mode):
     """N WAPS W/O TIME"""
+    if mode:
+        print('N WAPS W TIME:')
+    else:
+        print('N WAPS:')
     n = len(WAPS)
     out = {'n':[], 'mean':[], 'std':[], 'ascore':[]}
     def add2out(d, j):
@@ -90,13 +96,14 @@ def t02(mode):
                 out[k].append(d[k])
         out['n'].append(j)
     for i in range(n, -1, -1):
-        print(i)
-        d = t02_help(i, mode)
-        add2out(d, i)
+        d = m02_help(i, mode)
+        if d:
+            vprint(d, i)
+            add2out(d, i)
         #break
     return out
 
-def t02_help(n, mode=None):
+def m02_help(n, mode=None):
     """N WAPS W/O TIME HELPER"""
     if not mode and n == 0:
         return
@@ -108,13 +115,16 @@ def t02_help(n, mode=None):
         X.append(data['waps'][w])
     X = np.array(X).T
     y = np.array(target)
+    #'''
     d = svm_svc(X, y)
     ascore = d['ascore']
-    title, fname = t02_extra(n, ascore, mode)
+    title, fname = m02_extra(n, ascore, mode)
     make_cnf_mtx(d['true'], d['pred'], ascore, title=title, fname=fname)
     return d
+    #'''
+    #return {'mean': n, 'std': n/10, 'ascore': 10/(n+1)}
 
-def t02_extra(n, s, mode=None):
+def m02_extra(n, s, mode=None):
     """N WAPS W/O TIME EXTRA"""
     if mode:
         if n == 0:
@@ -134,40 +144,50 @@ def t02_extra(n, s, mode=None):
     return title, fname
 
 
+def vprint(d, i=None):
+    if i:
+        print(i, d['mean'], d['std'], d['ascore'])
+    else:
+        print(d['mean'], d['std'], d['ascore'])
+
 def make_cnf_mtx(vtrue, vpred, ascore, title='Confusion Matrix', fname=None):
     cnf_mtx = confusion_matrix(vtrue, vpred)
     sp.plot_confusion_matrix(cnf_mtx, classes=LABS, normalize=True, title=title, fname=fname)
 
 
-def test():
-    '''
-    t02_help(0)
-    t02_help(1)
-    t02_help(2)
-    t02_help(0, True)
-    t02_help(1, True)
-    t02_help(2, True)
-    '''
-    #'''
-    t02_help(10, True)
-    #'''
+def test01():
+    m02_help(0)
+    m02_help(1)
+    m02_help(2)
+    m02_help(0, True)
+    m02_help(1, True)
+    m02_help(2, True)
+
+def test02():
+    m02_help(10, True)
+
+def test03():
+    m02(None)
+    m02(True)
 
 def prod():
     # prepare to store metrics
     save = {}
     # try all waps
-    d = t01()
+    d = m01()
     del d['true']
     del d['pred']
     save['all_waps'] = d
     # try n waps w/o time
-    save['n_waps'] = t02(None)
-    save['n_waps_plus_time'] = t02(True)
+    save['n_waps'] = m02(None)
+    save['n_waps_plus_time'] = m02(True)
     # save to disk
     with open('data/perf.json', 'w') as f:
         json.dump(save, f, separators=(',', ':'))
 
 
 if __name__ == '__main__':
-    #test()
+    #test01()
+    #test02()
+    #test03()
     prod()
