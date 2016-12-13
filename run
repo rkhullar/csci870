@@ -1,0 +1,12 @@
+#!/bin/bash
+./clean
+rm -rf data/*.json
+./phase01.py
+./phase02.py
+./phase03.py
+./phase04.py
+./graph01.py
+./graph02.py
+./graph03.py
+./learn01.py
+./graph05.py
