@@ -18,24 +18,36 @@ def load_perf(key, fname='data/perf.json'):
     with open(fname, 'r') as f:
         return json.load(f)[key]
 
-def graph_decay(v, vmean, vstd, title='Performance Decay', fname=None):
-    fig = plt.figure()
-    plt.errorbar(v, vmean, yerr=vstd, color='g')
-    plt.xlim(max(v))
-    plt.xlim(1)
-    if title:
-        plt.title(title)
-    plt.xlabel('WAP Utilization')
-    plt.ylabel('Score')
-    plt.tight_layout()
-    if fname:
-        fig.savefig(fname)
-        plt.close()
-    else:
+class DecayView:
+    def __init__(self, fname='data/perf.json'):
+        for k in ['all_waps', 'n_waps', 'n_waps_plus_time']:
+            setattr(self, k, load_perf(k, fname))
+
+    def fetch(self, k):
+        d = getattr(self, k)
+        return d['n'], d['mean'], d['std']
+
+    def graph(self, title='Performance Decay', fname=None):
+        fig = plt.figure()
+        x, y, s = self.fetch('n_waps')
+        plt.errorbar(x, y, yerr=s, color='r', label='No Time')
+        x, y, s = self.fetch('n_waps_plus_time')
+        plt.errorbar(x, y, yerr=s, color='g', label='With Time')
+        #plt.xlim(max(x))
+        #plt.xlim(1)
+        if title:
+            plt.title(title)
+        plt.xlabel('WAP Utilization')
+        plt.ylabel('Score')
+        plt.legend(loc='best')
+        plt.tight_layout()
+        if fname:
+            fig.savefig(fname)
+            plt.close()
+        else:
+            plt.show()
         plt.show()
-    plt.show()
 
 if __name__ == '__main__':
-    #d = load_perf('all_waps')
-    d = load_perf('n_waps_plus_time')
-    graph_decay(d['n'], d['mean'], d['std'], title='Determination of Performance over WAP Utilization')
+    dv = DecayView()
+    dv.graph(title='Determination of Performance over WAP Utilization', fname='figures/pdecay.png')
