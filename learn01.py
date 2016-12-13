@@ -100,13 +100,14 @@ def time_n_waps(n):
 def reduce_waps():
     n = len(WAPS)
     out = {'n':[], 'mean':[], 'std':[], 'ascore':[]}
-    def add2out(d):
+    def add2out(d, j):
         for k in d:
             if k in out:
                 out[k].append(d[k])
+        out['n'].append(j)
     for i in range(n, -1, -1):
         d = time_n_waps(i)
-        add2out(d)
+        add2out(d, i)
         break
     return out
 
@@ -116,7 +117,7 @@ def make_cnf_mtx(vtrue, vpred, ascore, title='Confusion Matrix', fname=None):
     sp.plot_confusion_matrix(cnf_mtx, classes=LABS, normalize=True, title=title, fname=fname)
 
 
-def make_bar_graph(v, vmean, vstd, fname=None):
+def make_decay_graph(v, vmean, vstd, fname=None):
     fig = plt.figure()
     plt.errorbar(v, vmean, xerr=0.2, yerr=vstd, color='b')
     plt.title('Determination of Performance over WAP Utilization')
@@ -132,8 +133,14 @@ def make_bar_graph(v, vmean, vstd, fname=None):
 
 
 if __name__ == '__main__':
-    #d = all_waps()
+    save = {}
+    d = all_waps()
+    del d['true']
+    del d['pred']
+    save['all'] = d
     #time_n_waps(0)
     d = reduce_waps()
-    make_bar_graph(d['n'], d['mean'], d['std'], fname='figures/pdecay.png')
-    pass
+    make_decay_graph(d['n'], d['mean'], d['std'], fname='figures/pdecay.png')
+    save['red'] = d
+    with open('data/perf.json', 'w') as f:
+        json.dump(save, f, separators=(',', ':'))
