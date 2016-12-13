@@ -1,0 +1,4 @@
+#!/bin/bash
+rm -rf *.png boxplots count matrices
+mkdir boxplots count matrices
+cd boxplots && mkdir T TT L LT

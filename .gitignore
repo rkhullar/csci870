@@ -4,5 +4,6 @@ local
 .idea
 config.py
 data
-figures
+figures/*
+!figures/clean
 test*.py
