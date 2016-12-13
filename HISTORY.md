@@ -268,3 +268,8 @@
 ## 2016-12-11
 1. preprocess dataset further into matrix of scans
 2. generate csv file as input to classifier
+
+## 2016-12-12
+1. made linear svn classifier with 10 fold cross validation
+2. able to automatically generate and test classifiers
+3. created confusion matrices and bar graph to show performance
