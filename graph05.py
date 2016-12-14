@@ -30,15 +30,15 @@ class DecayView:
     def graph(self, title='Performance Decay', fname=None):
         fig = plt.figure()
         x, y, s = self.fetch('n_waps')
-        plt.errorbar(x, y, yerr=s, color='r', label='No Time')
+        plt.errorbar(x, y, yerr=s, color='r', label='Without Time Features')
         x, y, s = self.fetch('n_waps_plus_time')
-        plt.errorbar(x, y, yerr=s, color='g', label='With Time')
+        plt.errorbar(x, y, yerr=s, color='g', label='With Time Features')
         #plt.xlim(max(x))
         #plt.xlim(1)
         if title:
             plt.title(title)
-        plt.xlabel('WAP Utilization')
-        plt.ylabel('Score')
+        plt.xlabel('Number of WAP Features')
+        plt.ylabel('Prediction Accuracy')
         plt.legend(loc='best')
         plt.tight_layout()
         if fname:
@@ -50,4 +50,4 @@ class DecayView:
 
 if __name__ == '__main__':
     dv = DecayView()
-    dv.graph(title='Determination of Performance over WAP Utilization', fname='figures/pdecay.png')
+    dv.graph(title='Prediction Accuracy vs. Number of WAP Features', fname='figures/pdecay.png')
