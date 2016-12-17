@@ -1,7 +1,7 @@
 # Indoor Localization Framework with WiFi Fingerprinting
 
-<p align='center'>
-  <img src=https://rkhullar.github.io/csci870/images/icon.png style='width:256px;height:256px;''/>
+<p align="center">
+  <img src=https://rkhullar.github.io/csci870/images/icon.png width="256" height="256" />
 </p>
 
 |                 |                   |
