@@ -37,10 +37,10 @@ Indoor Localization has been attempted through the use of Wi-Fi signal strength 
 <table>
   <tr>
     <td>
-<img src=https://rkhullar.github.io/csci870/images/reu-2013.png  width="151" height="100" />
+<img src=https://rkhullar.github.io/csci870/images/reu-2013.png  width="302" height="200" />
     </td>
     <td>
-<img src=https://rkhullar.github.io/csci870/images/reu-2015.png  width="136" height="100" />
+<img src=https://rkhullar.github.io/csci870/images/reu-2015.png  width="272" height="200" />
     </td>
   </tr>
   <tr>
