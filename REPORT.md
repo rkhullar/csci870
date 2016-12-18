@@ -1,11 +1,16 @@
-<img src=http://www.nyit.edu/files/communications_and_marketing/DIGITAL_LOGO_Engineering_RGB_HORIZ.png width="359" height="127" />
+<img src=http://www.nyit.edu/files/communications_and_marketing/DIGITAL_LOGO_Engineering_RGB_HORIZ.png width="179" height="63" />
 
+<br>
 
 # Indoor Localization Framework with WiFi Fingerprinting
 
 <p align="center">
   <img src=https://rkhullar.github.io/csci870/images/icon.png width="256" height="256" />
 </p>
+
+<br>
+
+<br>
 
 | Project Member  | **Rajan Khullar** |
 | --------------- | ----------------- |
@@ -14,4 +19,23 @@
 
 <div style="page-break-after: always;"></div>
 
-## Test
+## Introduction
+### Abstract
+As with most studies, the results of WiFi fingerprinting are much more meaningful if there is a large sample size. For this project I created an Android app that helps researchers in this field build their dataset  efficiently. After collecting two weeks worth of data I studied how many access points are ideal to predict a user's location from a single WiFi scan.
+
+### Background
+Global Positioning Systems (GPS) have been the standard technology used to obtain location of electronic devices. GPS devices are essential for the functionality of many of today’s devices, appearing in vehicles, drones, and smart phones. They have a wide range of applications, from helping people navigate the roads to assisting the military in navigating planes and drones. Moreover, the popularity of smartphones with their inbuilt GPS devices has made GPS easily available.
+
+Unfortunately localization using GPS is ineffective indoors and in highly metropolitan environments because of GPS signal fading. Signal fading occurs when signals penetrate building materials causing a decrease in intensity. This causes a decrease in signal-to-noise ratio making it difficult for GPS devices to differentiate between signals and noise. Signal fading is also a result of multipath phenomenon, which is caused by reflection and refraction of signals when they encounter walls [1]. Because of these reasons GPS signal is often lost entirely on smartphones in indoor environments, causing a pressing need for indoor localization.
+
+Indoor Localization may be utilized similarly to outdoor localization. This includes commercial applications such as real-time maps to help people navigate within malls or museums, and more technical applications such as guiding drones through indoor environments or locating cars inside tunnels. An indoor positioning system will open a new market of applications.
+Indoor Localization may be utilized similarly to outdoor localization. This includes commercial applications such as real-time maps to help people navigate within malls or museums, and more technical applications such as guiding drones through indoor environments or locating cars inside tunnels. An indoor positioning system will open a new market of applications.
+
+### Related Work
+Indoor Localization has been attempted through the use of Wi-Fi signal strength and Sensor fusion. Kothari et al (2012) [2] have successfully used dead reckoning and Wi-Fi signal strength fingerprinting to find the location of a smartphone. Dead reckoning was their method of using the accelerometer, gyroscope, compass and a particle filter in order to track walking and thereby track location. Both of these methods are prone to large errors. Wi-Fi signal strength is affected by obstacles and by the myriad of other Wi-Fi signals in an urban environment, while the accelerometer and gyroscope sensors are likely to generate random noise in the data.
+
+In Summer 2015 a student from Cooper Union and I attempted to correlate energy consumption of a Nexus 5 to physical distance from an access point. We setup one router as a fixed access point and designed an Android application that records the current and voltage of the phone while pinging the router. We took 10 samples at 60 points in a large classroom, however we were unable to find any significant correlation.
+
+<div style="page-break-after: always;"></div>
+
+## Implementation
