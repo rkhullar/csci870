@@ -75,16 +75,16 @@ First the table of scan records is downloaded from the server by an administrato
 #### Input
 | UXT  | BSSID | Signal Strength | Location |
 | :--: | :---: | :-------------: | :------: |
-|  T1  |  W1   |        W        |    L1    |
-|  T1  |  W2   |        X        |    L1    |
-|  T2  |  W2   |        Y        |    L2    |
-|  T2  |  W3   |        Z        |    L2    |
+|  T1  |  W1   |       *W*       |    L1    |
+|  T1  |  W2   |       *X*       |    L1    |
+|  T2  |  W2   |       *Y*       |    L2    |
+|  T2  |  W3   |       *Z*       |    L2    |
 
 #### Output
 |   DoW   |   Hour   |  W1  |  W2  |  W3  | Location |
 | :-----: | :------: | :--: | :--: | :--: | :------: |
-| dow(T1) | hour(T1) |  W   |  X   |  -   |    L1    |
-| dow(T2) | hour(T2) |  -   |  Y   |  Z   |    L2    |
+| dow(T1) | hour(T1) | *W*  | *X*  | *-*  |    L1    |
+| dow(T2) | hour(T2) | *-*  | *Y*  | *Z*  |    L2    |
 
 [reu13]: https://rkhullar.github.io/csci870/images/report/reu-2013.png
 [reu15]: https://rkhullar.github.io/csci870/images/report/reu-2015.png
