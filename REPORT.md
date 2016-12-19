@@ -52,9 +52,25 @@ In Summer 2016 two fellows studied multifloor localization with four consecutive
 |  ***Figure 2.1***  | ***Figure 2.2***  |
 
 ## Implementation
-The Digital Ocean server has Apache and PostgreSQL installed. A python library called Flask was used to create a REST api. Java was used to create the Android application. As shown in Figure 2.1, once user's sign up and login they can choose theie classroom and setup a scan for the duration of that class. The scans will occur in the background so the user can close the app and use their phone normally. The scans can be paused or canceled in case the user needs to change their location. Finally once the scans are complete, then the user can upload their local dataset to the server - Figure 2.2.
+The Digital Ocean server has Apache and PostgreSQL installed. A python library called Flask was used to create a REST api. Java was used to create the Android application. As shown in Figure 2.1, once users sign up and login they can choose their classroom and setup a scan for the duration of that class. The scans will occur in the background so the users can close the app and use their phone normally. The scans can be paused or canceled in case the users needs to change their location. Finally once the scans are complete, then each user can upload their local dataset to the server.
+
+### Database
+| ![erd][erd] |
+| :---------: |
+| Figure 3.1  |
+
+One scan record contains the following information:
+* mac address to an access point
+* signal strength to that access point
+* location (building, floor, room)
+* time stamp
+* owner
+
+In order to reduce redundancy a table of unique access points is maintained as well as one for unique locations. The actor table contains information for all people in the system including normal users, administrators, and new unverified signups.
 
 [reu13]: https://rkhullar.github.io/csci870/images/report/reu-2013.png
 [reu15]: https://rkhullar.github.io/csci870/images/report/reu-2015.png
 [app1]: https://rkhullar.github.io/csci870/images/report/app-setup.png
 [app2]: https://rkhullar.github.io/csci870/images/report/app-push.png
+[erd]: https://rkhullar.github.io/csci870/images/report/erd.png
+[pre]: https://rkhullar.github.io/csci870/images/report/preprocessing.png
