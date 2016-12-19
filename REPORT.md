@@ -60,7 +60,7 @@ The Digital Ocean server has Apache and PostgreSQL installed. A python library c
 | ***Figure 3.1*** |
 
 One scan record contains the following information:
-* mac address to an access point
+* mac address to one access point
 * signal strength to that access point
 * location (building, floor, room)
 * time stamp
