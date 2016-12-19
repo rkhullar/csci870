@@ -34,6 +34,12 @@ Indoor Localization may be utilized similarly to outdoor localization. This incl
 ### Related Work
 Indoor Localization has been attempted through the use of Wi-Fi signal strength and Sensor fusion. Kothari et al (2012) [2] have successfully used dead reckoning and Wi-Fi signal strength fingerprinting to find the location of a smartphone. Dead reckoning was their method of using the accelerometer, gyroscope, compass and a particle filter in order to track walking and thereby track location. Both of these methods are prone to large errors. Wi-Fi signal strength is affected by obstacles and by the myriad of other Wi-Fi signals in an urban environment, while the accelerometer and gyroscope sensors are likely to generate random noise in the data.
 
+<!--
+| ![REU 2013](https://rkhullar.github.io/csci870/images/reu-2013.png) | ![REU 2015](https://rkhullar.github.io/csci870/images/reu-2015.png) |
+| :--------------------------------------: | :--------------------------------------: |
+|                 Figure 1                 |                 Figure 2                 |
+-->
+
 <table>
   <tr>
     <td>
@@ -44,10 +50,11 @@ Indoor Localization has been attempted through the use of Wi-Fi signal strength 
     </td>
   </tr>
   <tr>
-    <td>Figure 1</td>
-    <td>Figure 2</td>
+    <td><p align="center"><i>Figure 1</i></p></td>
+    <td><p align="center"><i>Figure 2</i></p></td>
   </tr>
 </table>
+
 
 Thanks to the National Science Foundation's Research Experience Undergraduate (REU) program, research fellows have been able to study indoor localization at NYIT. As shown in Figure 1, students in the summer of 2013 chose three access points on a single floor and measured signal strengths from twenty six spots evenly distributed in the hallways.
 
