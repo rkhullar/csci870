@@ -138,10 +138,41 @@ The best and worst signal strength's recorded in my dataset were -20 dB and -95 
 <div style="page-break-after: always;"></div>
 
 ### Prediction Accuracy
+|  ![max1][max1]   |
+| :--------------: |
+| ***Figure 8.1*** |
+
+
+|  ![max2][max2]   |  ![max3][max3]   |
+| :--------------: | :--------------: |
+| ***Figure 8.2*** | ***Figure 8.3*** |
+
+|  ![max4][max4]   |  ![max5][max5]   |
+| :--------------: | :--------------: |
+| ***Figure 8.4*** | ***Figure 8.5*** |
+
+<div style="page-break-after: always;"></div>
+
 | ![decay][decay] |
 | :-------------: |
-| ***Figure N***  |
+| ***Figure 9***  |
 
+Prediction accuracy is significantly improved by including time features in the classification algorithm. With my dataset 100% accuracy can be achieved by using time and 11 access points. Without time the 28 most common access points are required to get close to the same accuracy. However as shown in Figure 5.1 and Figure 5.2, my dataset is highly unbalanced with regard to both time and location. That might be the reason we see such high improvement by using time as a feature.
+
+## Future Projects
+
+The app should be modifed to record the phone’s model number. This is important since the signal reading is dependant on the antenna and each modle of phone may have it's own.
+
+In order to easily balance the dataset, raspberry pi’s should be placed in each room and be programed to collect training data. Then the classifiers should be tested with samples from the app.
+
+## Learning Outcomes
+| Server            | Android             | Machine Learning     |
+|-------------------|---------------------|----------------------|
+| Database          | SQLite              | Training Classifiers |
+| REST API in Flask | Broadcast Receivers | Cross Validation     |
+| Apache with HTTPS | Background Services | Confusion Matrices   |
+| Sending Email     | Making HTTPRequests | Matplotlib           |
+|                   | Notifications       |                      |
 
 [reu13]: https://rkhullar.github.io/csci870/images/report/reu-2013.png
 [reu15]: https://rkhullar.github.io/csci870/images/report/reu-2015.png
@@ -159,3 +190,8 @@ The best and worst signal strength's recorded in my dataset were -20 dB and -95 
 [box2]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_601_lab_at_12PM.png
 [box3]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_DL3_704_at_6PM.png
 [box4]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_DL3_704_at_7PM.png
+[max1]: https://rkhullar.github.io/csci870/figures/matrices/all_waps.png
+[max2]: https://rkhullar.github.io/csci870/figures/matrices/W/01.png
+[max3]: https://rkhullar.github.io/csci870/figures/matrices/WT/01.png
+[max4]: https://rkhullar.github.io/csci870/figures/matrices/W/11.png
+[max5]: https://rkhullar.github.io/csci870/figures/matrices/WT/11.png
