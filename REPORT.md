@@ -86,9 +86,76 @@ First the table of scan records is downloaded from the server by an administrato
 | dow(T1) | hour(T1) | *W*  | *X*  | *-*  |    L1    |
 | dow(T2) | hour(T2) | *-*  | *Y*  | *Z*  |    L2    |
 
+<div style="page-break-after: always;"></div>
+
+## Results and Analysis
+
+### Group Cardinality
+| ![location][cntL] |
+| :---------------: |
+| ***Figure 5.1***  |
+
+<div style="page-break-after: always;"></div>
+
+|  ![hour][cntT]   |
+| :--------------: |
+| ***Figure 5.2*** |
+
+<div style="page-break-after: always;"></div>
+
+| ![access point][cntW] |
+| :-------------------: |
+|   ***Figure 5.3***    |
+
+Forty access points passed the intitial filter which means their are forty three features for access points.
+
+<div style="page-break-after: always;"></div>
+
+| ![location-hour][cntLT] |
+| :---------------------: |
+|    ***Figure 5.4***     |
+
+<div style="page-break-after: always;"></div>
+
+### Signal Strength
+| ![dist][dist]  |
+| :------------: |
+| ***Figure 6*** |
+
+The best and worst signal strength's recorded in my dataset were -20 dB and -95 dB respectively. The signal strength is normally distributed.
+
+<div style="page-break-after: always;"></div>
+
+### Fingerprints
+|  ![box1][box1]   |  ![box2][box2]   |
+| :--------------: | :--------------: |
+| ***Figure 7.1*** | ***Figure 7.2*** |
+
+|  ![box3][box3]   |  ![box4][box4]   |
+| :--------------: | :--------------: |
+| ***Figure 7.3*** | ***Figure 7.4*** |
+
+<div style="page-break-after: always;"></div>
+
+### Prediction Accuracy
+| ![decay][decay] |
+| :-------------: |
+| ***Figure N***  |
+
+
 [reu13]: https://rkhullar.github.io/csci870/images/report/reu-2013.png
 [reu15]: https://rkhullar.github.io/csci870/images/report/reu-2015.png
 [app1]: https://rkhullar.github.io/csci870/images/report/app-setup.png
 [app2]: https://rkhullar.github.io/csci870/images/report/app-push.png
 [erd]: https://rkhullar.github.io/csci870/images/report/erd.png
 [pre]: https://rkhullar.github.io/csci870/images/report/preprocessing.png
+[cntL]: https://rkhullar.github.io/csci870/figures/count/L.png
+[cntT]: https://rkhullar.github.io/csci870/figures/count/T.png
+[cntW]: https://rkhullar.github.io/csci870/figures/count/W.png
+[cntLT]: https://rkhullar.github.io/csci870/figures/count/LT.png
+[dist]: https://rkhullar.github.io/csci870/figures/dist-x.png
+[decay]: https://rkhullar.github.io/csci870/figures/pdecay.png
+[box1]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_601_lab_at_10AM.png
+[box2]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_601_lab_at_12PM.png
+[box3]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_DL3_704_at_6PM.png
+[box4]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_DL3_704_at_7PM.png
