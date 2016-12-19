@@ -30,24 +30,31 @@ Unfortunately localization using GPS is ineffective indoors and in highly metrop
 Indoor Localization may be utilized similarly to outdoor localization. This includes commercial applications such as real-time maps to help people navigate within malls or museums, and more technical applications such as guiding drones through indoor environments or locating cars inside tunnels. An indoor positioning system will open a new market of applications.
 Indoor Localization may be utilized similarly to outdoor localization. This includes commercial applications such as real-time maps to help people navigate within malls or museums, and more technical applications such as guiding drones through indoor environments or locating cars inside tunnels. An indoor positioning system will open a new market of applications.
 
-<!--<div style="page-break-after: always;"></div>-->
+<div style="page-break-after: always;"></div>
+
+| ![REU 2013][reu13] | ***Figure 2***   \|![REU 2015][reu15] |
+| :----------------: | :-----------------------------------: |
+|  ***Figure 1.1***  |           ***Figure 2.1***            |
 
 ### Related Work
 Indoor Localization has been attempted through the use of Wi-Fi signal strength and Sensor fusion. Kothari et al (2012) [2] have successfully used dead reckoning and Wi-Fi signal strength fingerprinting to find the location of a smartphone. Dead reckoning was their method of using the accelerometer, gyroscope, compass and a particle filter in order to track walking and thereby track location. Both of these methods are prone to large errors. Wi-Fi signal strength is affected by obstacles and by the myriad of other Wi-Fi signals in an urban environment, while the accelerometer and gyroscope sensors are likely to generate random noise in the data.
 
-| ![REU 2013][reu13] | ![REU 2015][reu15] |
-| :----------------: | :----------------: |
-|     *Figure 1*     |     *Figure 2*     |
+Thanks to the National Science Foundation's Research Experience Undergraduate (REU) program, research fellows have been able to study indoor localization at NYIT. As shown in Figure 1.1, students in the summer of 2013 chose three access points on a single floor and measured signal strengths from twenty six spots evenly distributed in the hallways.
 
-Thanks to the National Science Foundation's Research Experience Undergraduate (REU) program, research fellows have been able to study indoor localization at NYIT. As shown in Figure 1, students in the summer of 2013 chose three access points on a single floor and measured signal strengths from twenty six spots evenly distributed in the hallways.
-
-In Summer 2015 a student from Cooper Union and I were two of the REU fellows. We attempted to correlate energy consumption of a Nexus 5 to physical distance from an access point. We setup one router as a fixed access point and designed an Android application that records the current and voltage of the phone while pinging the router. We took ten samples at sixty points in a large classroom, however we were unable to find any significant correlation as shown in Figure 2. 
+In Summer 2015 a student from Cooper Union and I were two of the REU fellows. We attempted to correlate energy consumption of a Nexus 5 to physical distance from an access point. We setup one router as a fixed access point and designed an Android application that records the current and voltage of the phone while pinging the router. We took ten samples at sixty points in a large classroom, however we were unable to find any significant correlation as shown in Figure 1.2. 
 
 In Summer 2016 two fellows studied multifloor localization with four consecutive floors in NYIT's main building. They were able to distinguish between thirty locations in their dataset with high accuracy. In all three REU studies the process of data collection proved difficult. The third project had a sample size of around 300 WiFi scans. After realizing this I was inspired to create a framework to help automate the process of gathering samples.
 
 <div style="page-break-after: always;"></div>
 
+| ![app-setup][app1] | ![app-push][app2] |
+| :----------------: | :---------------: |
+|  ***Figure 2.1***  | ***Figure 2.2***  |
+
 ## Implementation
+The Digital Ocean server has Apache and PostgreSQL installed. A python library called Flask was used to create a REST api. Java was used to create the Android application. As shown in Figure 2.1, once user's sign up and login they can choose theie classroom and setup a scan for the duration of that class. The scans will occur in the background so the user can close the app and use their phone normally. The scans can be paused or canceled in case the user needs to change their location. Finally once the scans are complete, then the user can upload their local dataset to the server - Figure 2.2.
 
 [reu13]: https://rkhullar.github.io/csci870/images/report/reu-2013.png
 [reu15]: https://rkhullar.github.io/csci870/images/report/reu-2015.png
+[app1]: https://rkhullar.github.io/csci870/images/report/app-setup.png
+[app2]: https://rkhullar.github.io/csci870/images/report/app-push.png
