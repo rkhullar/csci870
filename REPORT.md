@@ -55,9 +55,9 @@ In Summer 2016 two fellows studied multifloor localization with four consecutive
 The Digital Ocean server has Apache and PostgreSQL installed. A python library called Flask was used to create a REST api. Java was used to create the Android application. As shown in Figure 2.1, once users sign up and login they can choose their classroom and setup a scan for the duration of that class. The scans will occur in the background so the users can close the app and use their phone normally. The scans can be paused or canceled in case the users needs to change their location. Finally once the scans are complete, then each user can upload their local dataset to the server.
 
 ### Database
-| ![erd][erd] |
-| :---------: |
-| Figure 3.1  |
+|   ![erd][erd]    |
+| :--------------: |
+| ***Figure 3.1*** |
 
 One scan record contains the following information:
 * mac address to an access point
