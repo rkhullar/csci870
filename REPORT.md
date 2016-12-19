@@ -46,7 +46,7 @@ In Summer 2015 a student from Cooper Union and I were two of the REU fellows. We
 In Summer 2016 two fellows studied multifloor localization with four consecutive floors in NYIT's main building. They were able to distinguish between thirty locations in their dataset with high accuracy. In all three REU studies the process of data collection proved difficult. The third project had a sample size of around 300 WiFi scans. After realizing this I was inspired to create a framework to help automate the process of gathering samples.
 
 <div style="page-break-after: always;"></div>
-"Hello"
+
 | ![app-setup][app1] | ![app-push][app2] |
 | :----------------: | :---------------: |
 |  ***Figure 2.1***  | ***Figure 2.2***  |
@@ -55,18 +55,36 @@ In Summer 2016 two fellows studied multifloor localization with four consecutive
 The Digital Ocean server has Apache and PostgreSQL installed. A python library called Flask was used to create a REST api. Java was used to create the Android application. As shown in Figure 2.1, once users sign up and login they can choose their classroom and setup a scan for the duration of that class. The scans will occur in the background so the users can close the app and use their phone normally. The scans can be paused or canceled in case the users needs to change their location. Finally once the scans are complete, then each user can upload their local dataset to the server.
 
 ### Database
-|   ![erd][erd]   |
-| :--------------: |
-| ***Figure 3.1*** |
+One WiFi scan or sample results in one or more scan records. Each scan record contains information about the mac address to one access point, the signal strength to that access point, the location (building, floor, room), the unix time stamp, and the user who performed the scan.
 
-One scan record contains the following information:
-* mac address to one access point
-* signal strength to that access point
-* location (building, floor, room)
-* time stamp
-* owner
+In order to reduce redundancy a table of unique access points is maintained as well as one for unique locations. The actor table contains information for all people in the system including normal users, administrators, and new unverified signups. Figure 3 shows the simplified entity relation diagram.
 
-In order to reduce redundancy a table of unique access points is maintained as well as one for unique locations. The actor table contains information for all people in the system including normal users, administrators, and new unverified signups.
+|  ![erd][erd]   |
+| :------------: |
+| ***Figure 3*** |
+
+### Preprocessing
+|  ![pre][pre]   |
+| :------------: |
+| ***Figure 4*** |
+
+First the table of scan records is downloaded from the server by an administrator. The program groups each record by location and hour. Groups that do not have at least 1000 records are ignored. Each passing group is further grouped by the WiFi access point into blocks. Each block must contain at least 100 records. Then all the passing access points become columns and the passing records are combined by their timestamps into complete scans. The day of week and hour are also extracted from each timestamp. The new table serves as input for the machine learning algorithms.
+
+<div style="page-break-after: always;"></div>
+
+#### Input
+| UXT  | BSSID | Signal Strength | Location |
+| :--: | :---: | :-------------: | :------: |
+|  T1  |  W1   |        W        |    L1    |
+|  T1  |  W2   |        X        |    L1    |
+|  T2  |  W2   |        Y        |    L2    |
+|  T2  |  W3   |        Z        |    L2    |
+
+#### Output
+|   DoW   |   Hour   |  W1  |  W2  |  W3  | Location |
+| :-----: | :------: | :--: | :--: | :--: | :------: |
+| dow(T1) | hour(T1) |  W   |  X   |  -   |    L1    |
+| dow(T2) | hour(T2) |  -   |  Y   |  Z   |    L2    |
 
 [reu13]: https://rkhullar.github.io/csci870/images/report/reu-2013.png
 [reu15]: https://rkhullar.github.io/csci870/images/report/reu-2015.png
