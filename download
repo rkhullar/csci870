@@ -4,6 +4,8 @@ read uname
 echo -n 'password: '
 read -s pswd
 echo
-rm -rf data
-mkdir data
+rm -rf data models
+mkdir data models
+mkdir data/W data/WT
+mkdir models/W models/WT
 curl -u $uname:$pswd https://csci870.nydev.me/download/scans > data/scans.csv

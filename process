@@ -1,5 +1,5 @@
 #!/bin/bash
 ./clean
 rm -rf data/*.json data/input.csv
-./learn01.py
+./train.py
 ./graph05.py
