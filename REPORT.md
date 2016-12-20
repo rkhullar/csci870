@@ -32,9 +32,9 @@ Indoor Localization may be utilized similarly to outdoor localization. This incl
 
 <div style="page-break-after: always;"></div>
 
-| ![REU 2013][reu13] | ![REU 2015][reu15] |
-| :----------------: | :----------------: |
-|  ***Figure 1.1***  |  ***Figure 2.1***  |
+|        ![REU 2013][reu13]         |         ![REU 2015][reu15]         |
+| :-------------------------------: | :--------------------------------: |
+| ***Figure 1.1 - EGGC 6th Floor*** | ***Figure 2.1 - MC16 Auditorium*** |
 
 ### Related Work
 Indoor Localization has been attempted through the use of Wi-Fi signal strength and Sensor fusion. Kothari et al (2012) [2] have successfully used dead reckoning and Wi-Fi signal strength fingerprinting to find the location of a smartphone. Dead reckoning was their method of using the accelerometer, gyroscope, compass and a particle filter in order to track walking and thereby track location. Both of these methods are prone to large errors. Wi-Fi signal strength is affected by obstacles and by the myriad of other Wi-Fi signals in an urban environment, while the accelerometer and gyroscope sensors are likely to generate random noise in the data.
@@ -47,9 +47,9 @@ In Summer 2016 two fellows studied multifloor localization with four consecutive
 
 <div style="page-break-after: always;"></div>
 
-| ![app-setup][app1] | ![app-push][app2] |
-| :----------------: | :---------------: |
-|  ***Figure 2.1***  | ***Figure 2.2***  |
+|      ![app-setup][app1]       |          ![app-push][app2]           |
+| :---------------------------: | :----------------------------------: |
+| ***Figure 2.1 - Setup Scan*** | ***Figure 2.2 - Push Scan Results*** |
 
 ## Implementation
 The Digital Ocean server has Apache and PostgreSQL installed. A python library called Flask was used to create a REST api. Java was used to create the Android application. As shown in Figure 2.1, once users sign up and login they can choose their classroom and setup a scan for the duration of that class. The scans will occur in the background so the users can close the app and use their phone normally. The scans can be paused or canceled in case the users needs to change their location. Finally once the scans are complete, then each user can upload their local dataset to the server.
@@ -59,14 +59,14 @@ One WiFi scan or sample results in one or more scan records. Each scan record co
 
 In order to reduce redundancy a table of unique access points is maintained as well as one for unique locations. The actor table contains information for all people in the system including normal users, administrators, and new unverified signups. Figure 3 shows the simplified entity relation diagram.
 
-|  ![erd][erd]   |
-| :------------: |
-| ***Figure 3*** |
+|               ![erd][erd]                |
+| :--------------------------------------: |
+| ***Figure 3 - Entity Relation Diagram*** |
 
 ### Preprocessing
-|  ![pre][pre]   |
-| :------------: |
-| ***Figure 4*** |
+|              ![pre][pre]              |
+| :-----------------------------------: |
+| ***Figure 4 - Preprocessing Module*** |
 
 First the table of scan records is downloaded from the server by an administrator. The program groups each record by location and hour. Groups that do not have at least 1000 records are ignored. Each passing group is further grouped by the WiFi access point into blocks. Each block must contain at least 100 records. Then all the passing access points become columns and the passing records are combined by their timestamps into complete scans. The day of week and hour are also extracted from each timestamp. The new table serves as input for the machine learning algorithms.
 
@@ -91,49 +91,49 @@ First the table of scan records is downloaded from the server by an administrato
 ## Results and Analysis
 
 ### Group Cardinality
-| ![location][cntL] |
-| :---------------: |
-| ***Figure 5.1***  |
+|            ![location][cntL]             |
+| :--------------------------------------: |
+| ***Figure 5.1 - Scan Records grouped by Location*** |
 
 <div style="page-break-after: always;"></div>
 
-|  ![hour][cntT]   |
-| :--------------: |
-| ***Figure 5.2*** |
+|              ![hour][cntT]               |
+| :--------------------------------------: |
+| ***Figure 5.2 Scan Records grouped by Location- Scan Records grouped by Hour*** |
 
 <div style="page-break-after: always;"></div>
 
-| ![access point][cntW] |
-| :-------------------: |
-|   ***Figure 5.3***    |
+|          ![access point][cntW]           |
+| :--------------------------------------: |
+| ***Figure 5.3 - Scan Records grouped by Access Point*** |
 
 Forty access points passed the intitial filter which means their are forty three features for access points.
 
 <div style="page-break-after: always;"></div>
 
-| ![location-hour][cntLT] |
-| :---------------------: |
-|    ***Figure 5.4***     |
+|         ![location-hour][cntLT]          |
+| :--------------------------------------: |
+| ***Figure 5.4 - Scan Records grouped by Location and Hour*** |
 
 <div style="page-break-after: always;"></div>
 
 ### Signal Strength
-| ![dist][dist]  |
-| :------------: |
-| ***Figure 6*** |
+|              ![dist][dist]               |
+| :--------------------------------------: |
+| ***Figure 6 - Overall Distribution of Signal Strengths*** |
 
 The best and worst signal strength's recorded in my dataset were -20 dB and -95 dB respectively. The signal strength is normally distributed.
 
 <div style="page-break-after: always;"></div>
 
 ### Fingerprints
-|  ![box1][box1]   |  ![box2][box2]   |
-| :--------------: | :--------------: |
-| ***Figure 7.1*** | ***Figure 7.2*** |
+|              ![box1][box1]               |              ![box2][box2]               |
+| :--------------------------------------: | :--------------------------------------: |
+| ***Figure 7.1 - Fingerprint for EGGC 601 at 10 AM*** | ***Figure 7.2 - Fingerprint for EGGC 601 at 12 PM*** |
 
-|  ![box3][box3]   |  ![box4][box4]   |
-| :--------------: | :--------------: |
-| ***Figure 7.3*** | ***Figure 7.4*** |
+|              ![box3][box3]               |              ![box4][box4]               |
+| :--------------------------------------: | :--------------------------------------: |
+| ***Figure 7.3 - Fingerprint for EGGC 704 at 6 PM*** | ***Figure 7.4 - Fingerprint for EGGC 704 at 7 PM*** |
 
 <div style="page-break-after: always;"></div>
 
@@ -153,13 +153,13 @@ The best and worst signal strength's recorded in my dataset were -20 dB and -95 
 
 <div style="page-break-after: always;"></div>
 
-| ![decay][decay] |
-| :-------------: |
-| ***Figure 9***  |
+|             ![decay][decay]              |
+| :--------------------------------------: |
+| ***Figure 9 - Prediction Accuracy vs Number of WAP Features*** |
 
 Prediction accuracy is significantly improved by including time features in the classification algorithm. With my dataset 100% accuracy can be achieved by using time and 11 access points. Without time the 28 most common access points are required to get close to the same accuracy. However as shown in Figure 5.1 and Figure 5.2, my dataset is highly unbalanced with regard to both time and location. That might be the reason we see such high improvement by using time as a feature.
 
-## Future Projects
+## Future Work
 
 The app should be modifed to record the phone’s model number. This is important since the signal reading is dependant on the antenna and each modle of phone may have it's own.
 
@@ -167,7 +167,7 @@ In order to easily balance the dataset, raspberry pi’s should be placed in eac
 
 ## Learning Outcomes
 | Server            | Android             | Machine Learning     |
-|-------------------|---------------------|----------------------|
+| ----------------- | ------------------- | -------------------- |
 | Database          | SQLite              | Training Classifiers |
 | REST API in Flask | Broadcast Receivers | Cross Validation     |
 | Apache with HTTPS | Background Services | Confusion Matrices   |
