@@ -1,8 +1,7 @@
 ## TODO
-1. save classifiers to disk
-2. try to export datasets
-3. calculate precision, recall, and f1 score
-4. roc curve?
+1. redo confusion matrices
+2. calculate precision, recall, and f1 score
+3. roc curve?
 
 ## NOTES
 * Day of Week in Python and Postgres are different.

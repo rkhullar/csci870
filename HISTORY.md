@@ -270,7 +270,7 @@
 2. generate csv file as input to classifier
 
 ## 2016-12-12
-1. made linear svn classifier with 10 fold cross validation
+1. made linear svm classifier with 10 fold cross validation
 2. able to automatically generate and test classifiers
 3. created confusion matrices and bar graph to show performance
 
@@ -283,3 +283,6 @@
 
 ## 2016-12-18
 1. report
+
+## 2016-12-20
+1. saving datasets and models to disk
