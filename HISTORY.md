@@ -285,4 +285,6 @@
 1. report
 
 ## 2016-12-20
-1. saving datasets and models to disk
+1. saved datasets and models to disk
+2. added percentages to matrices
+3. regenerating matrices
