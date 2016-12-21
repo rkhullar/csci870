@@ -79,7 +79,9 @@ def get_extra(mode, n, score):
         else:
             title = 'Performance With Top %d WAPS and Time: %.2f' % (n, score)
     if mode == 'W':
-        if n > 1:
+        if n == -1:
+            title = 'Performance With All WAPS: %.2f' % (score)
+        elif n > 1:
             title = 'Performance With Top %d WAPS: %.2f' % (n, score)
         else:
             title = 'Performance With Top WAP: %.2f' % (score)
@@ -114,10 +116,14 @@ def m02_n_waps(mode):
     return out
 
 
-if __name__ == '__main__':
+def main():
     save = {}
     save['all_waps'] = m01_all_waps()
     save['n_waps'] = m02_n_waps('W')
     save['n_waps_plus_time'] = m02_n_waps('WT')
     with open('data/perf.json', 'w') as f:
         json.dump(save, f, separators=(',', ':'))
+
+if __name__ == '__main__':
+    #main()
+    get_one_score('W', -1)
