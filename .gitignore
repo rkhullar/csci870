@@ -5,5 +5,6 @@ local
 config.py
 data
 figures/*
+models
 !figures/clean
 test*.py

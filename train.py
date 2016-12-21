@@ -87,7 +87,7 @@ def test03():
     m02(True)
 
 def prod():
-    d = m01() # all waps
+    m01()     # all waps
     m02(None) # increasing waps
     m02(True) # increasing waps with time
 
@@ -96,4 +96,5 @@ if __name__ == '__main__':
     #test01()
     #test02()
     #test03()
-    prod()
+    #prod()
+    m01()
