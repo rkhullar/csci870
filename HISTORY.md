@@ -288,3 +288,5 @@
 1. saved datasets and models to disk
 2. added percentages to matrices
 3. regenerating matrices
+4. created diagram for framework
+5. fixed axis label for distribution graph
