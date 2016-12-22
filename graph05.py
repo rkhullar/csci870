@@ -2,11 +2,14 @@
 
 """
 @author  :  Rajan Khullar
-@created :  12/13/16
-@updated :  12/13/16
+@created :  12/21/16
+@updated :  12/21/16
 """
 
 import json
+
+import numpy as np
+from sklearn import datasets
 
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
@@ -14,40 +17,56 @@ import matplotlib.pyplot as plt
 from matplotlib import style, animation
 style.use('ggplot')
 
-def load_perf(key, fname='data/perf.json'):
-    with open(fname, 'r') as f:
-        return json.load(f)[key]
+data = datasets.load_svmlight_file('data/W/-1.dat', dtype=int)
+X = data[0].todense()
+y = data[1]
 
-class DecayView:
-    def __init__(self, fname='data/perf.json'):
-        for k in ['all_waps', 'n_waps', 'n_waps_plus_time']:
-            setattr(self, k, load_perf(k, fname))
+locs =  list(range(int(min(y)), int(max(y)+1)))
+labL = list(map(lambda l: 'L%02d' % l, locs))
 
-    def fetch(self, k):
-        d = getattr(self, k)
-        return d['n'], d['mean'], d['std']
+N, W = X.shape[0],X.shape[1]
+waps = list(range(1, W+1))
+labW = list(map(lambda w: 'W%02d' % w, waps))
 
-    def graph(self, title='Performance Decay', fname=None):
-        fig = plt.figure()
-        x, y, s = self.fetch('n_waps')
-        plt.errorbar(x, y, yerr=s, color='r', label='Without Time Features')
-        x, y, s = self.fetch('n_waps_plus_time')
-        plt.errorbar(x, y, yerr=s, color='g', label='With Time Features')
-        #plt.xlim(max(x))
-        #plt.xlim(1)
-        if title:
-            plt.title(title)
-        plt.xlabel('Number of WAP Features')
-        plt.ylabel('Prediction Accuracy')
-        plt.legend(loc='best')
-        plt.tight_layout()
-        if fname:
-            fig.savefig(fname)
-            plt.close()
-        else:
-            plt.show()
-        plt.show()
+dist = {}
+for loc in locs:
+    dist[loc] = {}
+    for wap in waps:
+        dist[loc][wap] = 0
 
-if __name__ == '__main__':
-    dv = DecayView()
-    dv.graph(title='Prediction Accuracy vs. Number of WAP Features', fname='figures/pdecay.png')
+for i in range(N):
+    scan = X[i]
+    loc = int(y[i])
+    for w in range(W):
+        lvl = scan.item(w)
+        if lvl > -150:
+            dist[loc][w+1] += 1
+
+print(dist)
+
+'''
+title = 'Filtered Number of Scans per Location'
+
+fig, ax = plt.subplots()
+
+index = np.arange(len(x))
+bar_width = 0.5
+opacity = 0.5
+
+plt.bar(index, y, bar_width, alpha=opacity, color='r')
+
+plt.xticks(index + bar_width, labs)
+for label in ax.xaxis.get_ticklabels():
+    label.set_rotation(45)
+
+plt.title(title)
+plt.xlabel('Location')
+plt.ylabel('Number of Scans')
+
+plt.tight_layout()
+'''
+
+#plt.show()
+
+#fig.savefig('figures/count/F.png')
+#plt.close()

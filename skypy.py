@@ -20,12 +20,13 @@ def plot_confusion_matrix(y, p, classes=None, normalize=False, title='Confusion 
         plt.yticks(tick_marks, classes)
 
     if normalize:
-        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        ncm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
 
-    thresh = cm.max() / 2.
-    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-        s = '%.2f' % cm[i, j]
-        plt.text(j, i, s, horizontalalignment="center", color="white" if cm[i, j] > thresh else "black")
+        thresh = cm.max() / 2.
+        for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+            if ncm[i, j] >= 0.005:
+                c = 'white' if cm[i, j] > thresh else 'black'
+                plt.text(j, i, '%.2f' % ncm[i, j], horizontalalignment='center', color=c)
 
     plt.xlabel('Predicted Location')
     plt.ylabel('True Location')

@@ -1,5 +1,8 @@
 #!/bin/bash
 ./clean
-rm -rf data/*.json data/input.csv
+rm -rf data/*.json
 ./train.py
+./graph04.py
 ./graph05.py
+./predict.py
+./graph06.py

@@ -3,7 +3,7 @@
 """
 @author  :  Rajan Khullar
 @created :  12/20/16
-@updated :  12/20/16
+@updated :  12/21/16
 """
 
 import json
@@ -53,7 +53,7 @@ for i in range(min(target), max(target)+1):
 
 CV = 10
 
-def get_one_score(mode, n):
+def get_one_score(mode, n, save=True):
     if mode == 'W' and n == 0:
         return
     out = {}
@@ -67,6 +67,8 @@ def get_one_score(mode, n):
     p = cross_val_predict(clf, X, y, cv=CV)
     out['A'] = metrics.accuracy_score(y, p)
     t, f = get_extra(mode, n, out['A'])
+    if not save:
+        f = None
     make_cnf_mtx(y, p, t, f)
     return out
 
@@ -88,6 +90,7 @@ def get_extra(mode, n, score):
     fname = 'figures/matrices/%s/%02d.png' % (mode, n)
     return title, fname
 
+
 def make_cnf_mtx(vtrue, vpred, title='Confusion Matrix', fname=None):
     sp.plot_confusion_matrix(vtrue, vpred, classes=LABS, normalize=True, title=title, fname=fname)
 
@@ -97,10 +100,11 @@ def vprint(d, i=None):
     else:
         print(d['mean'], d['std'], d['A'])
 
-def m01_all_waps():
-    return get_one_score('W', -1)
 
-def m02_n_waps(mode):
+def m01_all_waps(save=True):
+    return get_one_score('W', -1, save)
+
+def m02_n_waps(mode, save=True):
     out = {'n':[], 'mean':[], 'std':[], 'A':[]}
     def add2out(d, j):
         for k in d:
@@ -109,7 +113,7 @@ def m02_n_waps(mode):
         out['n'].append(j)
     N = len(WAPS)
     for i in range(N, -1, -1):
-        d = get_one_score(mode, i)
+        d = get_one_score(mode, i, True)
         if d:
             add2out(d, i)
             vprint(d, i)
@@ -125,5 +129,6 @@ def main():
         json.dump(save, f, separators=(',', ':'))
 
 if __name__ == '__main__':
-    #main()
-    get_one_score('W', -1)
+    main()
+    #get_one_score('W', -1, save=False)
+    #get_one_score('WT', 2, save=False)
