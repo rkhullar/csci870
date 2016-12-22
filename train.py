@@ -96,5 +96,5 @@ if __name__ == '__main__':
     #test01()
     #test02()
     #test03()
-    #prod()
-    m01()
+    prod()
+    #m01()
