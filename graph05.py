@@ -24,15 +24,16 @@ y = data[1]
 locs =  list(range(int(min(y)), int(max(y)+1)))
 labL = list(map(lambda l: 'L%02d' % l, locs))
 
-N, W = X.shape[0],X.shape[1]
+N, W = X.shape[0], X.shape[1]
 waps = list(range(1, W+1))
 labW = list(map(lambda w: 'W%02d' % w, waps))
 
-dist = {}
+
+m = []
 for loc in locs:
-    dist[loc] = {}
+    m.append([])
     for wap in waps:
-        dist[loc][wap] = 0
+        m[loc-1].append(0)
 
 for i in range(N):
     scan = X[i]
@@ -40,33 +41,30 @@ for i in range(N):
     for w in range(W):
         lvl = scan.item(w)
         if lvl > -150:
-            dist[loc][w+1] += 1
+            m[loc-1][w] += 1
 
-print(dist)
 
-'''
-title = 'Filtered Number of Scans per Location'
+title = 'Density of Scans for Location and Access Point'
+cmap = plt.cm.Blues
 
 fig, ax = plt.subplots()
+plt.imshow(m, interpolation='nearest', cmap=cmap)
 
-index = np.arange(len(x))
-bar_width = 0.5
-opacity = 0.5
+plt.colorbar()
 
-plt.bar(index, y, bar_width, alpha=opacity, color='r')
+tick_marks = lambda labs: np.arange(len(labs))
 
-plt.xticks(index + bar_width, labs)
-for label in ax.xaxis.get_ticklabels():
-    label.set_rotation(45)
+plt.xticks(tick_marks(labW), labW, rotation=90)
+plt.yticks(tick_marks(labL), labL)
 
 plt.title(title)
-plt.xlabel('Location')
-plt.ylabel('Number of Scans')
+
+plt.xlabel('Access Point')
+plt.ylabel('Location')
 
 plt.tight_layout()
-'''
 
 #plt.show()
 
-#fig.savefig('figures/count/F.png')
-#plt.close()
+fig.savefig('figures/dist-WL.png')
+plt.close()
