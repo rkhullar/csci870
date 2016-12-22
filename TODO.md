@@ -1,5 +1,5 @@
 ## TODO
-1. redo confusion matrices
+1. create persistable cross validation model
 2. calculate precision, recall, and f1 score
 3. roc curve?
 

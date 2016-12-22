@@ -290,3 +290,8 @@
 3. regenerating matrices
 4. created diagram for framework
 5. fixed axis label for distribution graph
+
+## 2016-12-21
+1. created boxplot for filtered location samples
+2. improved confusion matrices again
+3. added scan distribution for location and wap
