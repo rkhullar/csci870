@@ -48,9 +48,9 @@ title = 'Density of Scans for Location and Access Point'
 cmap = plt.cm.Blues
 
 fig, ax = plt.subplots()
-plt.imshow(m, interpolation='nearest', cmap=cmap)
+cax = plt.imshow(m, interpolation='nearest', cmap=cmap)
 
-plt.colorbar()
+plt.colorbar(cax, orientation='horizontal')
 
 tick_marks = lambda labs: np.arange(len(labs))
 
