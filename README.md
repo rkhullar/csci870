@@ -34,7 +34,7 @@ Indoor Localization may be utilized similarly to outdoor localization. This incl
 
 |        ![REU 2013][reu13]         |         ![REU 2015][reu15]         |
 | :-------------------------------: | :--------------------------------: |
-| ***Figure 1.1 - EGGC 6th Floor*** | ***Figure 2.1 - MC16 Auditorium*** |
+| ***Figure 1.1 - EGGC 6th Floor*** | ***Figure 1.2 - MC16 Auditorium*** |
 
 ### Related Work
 Indoor Localization has been attempted through the use of Wi-Fi signal strength and Sensor fusion. Kothari et al (2012) [2] have successfully used dead reckoning and Wi-Fi signal strength fingerprinting to find the location of a smartphone. Dead reckoning was their method of using the accelerometer, gyroscope, compass and a particle filter in order to track walking and thereby track location. Both of these methods are prone to large errors. Wi-Fi signal strength is affected by obstacles and by the myriad of other Wi-Fi signals in an urban environment, while the accelerometer and gyroscope sensors are likely to generate random noise in the data.
@@ -47,26 +47,35 @@ In Summer 2016 two fellows studied multifloor localization with four consecutive
 
 <div style="page-break-after: always;"></div>
 
-|      ![app-setup][app1]       |          ![app-push][app2]           |
-| :---------------------------: | :----------------------------------: |
-| ***Figure 2.1 - Setup Scan*** | ***Figure 2.2 - Push Scan Results*** |
+### Machine Learning
+|   ![svm-linear][svm-linear]   |       ![svm-poly][svm-poly]       |   ![svm-radial][svm-radial]   |
+| :---------------------------: | :-------------------------------: | :---------------------------: |
+| ***Figure 2.1 - Linear SVM*** | ***Figure 2.2 - Polynomial SVM*** | ***Figure 2.3 - Radial SVM*** |
 
 ## Implementation
-The Digital Ocean server has Apache and PostgreSQL installed. A python library called Flask was used to create a REST api. Java was used to create the Android application. As shown in Figure 2.1, once users sign up and login they can choose their classroom and setup a scan for the duration of that class. The scans will occur in the background so the users can close the app and use their phone normally. The scans can be paused or canceled in case the users needs to change their location. Finally once the scans are complete, then each user can upload their local dataset to the server.
+|               ![frw][frw]                |
+| :--------------------------------------: |
+| ***Figure 3.1 - High Level System Design*** |
+
+|      ![app-setup][app1]       |          ![app-push][app2]           |
+| :---------------------------: | :----------------------------------: |
+| ***Figure 4.1 - Setup Scan*** | ***Figure 4.2 - Push Scan Results*** |
+
+The Digital Ocean server has Apache and PostgreSQL installed. A python library called Flask was used to create a REST api. Java was used to create the Android application. As shown in Figure 4.1, once users sign up and login they can choose their classroom and setup a scan for the duration of that class. The scans will occur in the background so the users can close the app and use their phone normally. The scans can be paused or canceled in case the users needs to change their location. Finally once the scans are complete, then each user can upload their local dataset to the server.
 
 ### Database
 One WiFi scan or sample results in one or more scan records. Each scan record contains information about the mac address to one access point, the signal strength to that access point, the location (building, floor, room), the unix time stamp, and the user who performed the scan.
 
-In order to reduce redundancy a table of unique access points is maintained as well as one for unique locations. The actor table contains information for all people in the system including normal users, administrators, and new unverified signups. Figure 3 shows the simplified entity relation diagram.
+In order to reduce redundancy a table of unique access points is maintained as well as one for unique locations. The actor table contains information for all people in the system including normal users, administrators, and new unverified signups. Figure 3.2 shows the simplified entity relation diagram.
 
 |               ![erd][erd]                |
 | :--------------------------------------: |
-| ***Figure 3 - Entity Relation Diagram*** |
+| ***Figure 3.2 - Entity Relation Diagram*** |
 
 ### Preprocessing
-|              ![pre][pre]              |
-| :-----------------------------------: |
-| ***Figure 4 - Preprocessing Module*** |
+|               ![pre][pre]               |
+| :-------------------------------------: |
+| ***Figure 3.3 - Preprocessing Module*** |
 
 First the table of scan records is downloaded from the server by an administrator. The program groups each record by location and hour. Groups that do not have at least 1000 records are ignored. Each passing group is further grouped by the WiFi access point into blocks. Each block must contain at least 100 records. Then all the passing access points become columns and the passing records are combined by their timestamps into complete scans. The day of week and hour are also extracted from each timestamp. The new table serves as input for the machine learning algorithms.
 
@@ -99,7 +108,7 @@ First the table of scan records is downloaded from the server by an administrato
 
 |              ![hour][cntT]               |
 | :--------------------------------------: |
-| ***Figure 5.2 Scan Records grouped by Location- Scan Records grouped by Hour*** |
+| ***Figure 5.2 - Scan Records grouped by Hour*** |
 
 <div style="page-break-after: always;"></div>
 
@@ -186,24 +195,36 @@ In order to easily balance the dataset, raspberry pi’s should be placed in eac
 | Sending Email     | Making HTTPRequests | Matplotlib           |
 |                   | Notifications       |                      |
 
+
+[R2]: http://www.scipy-lectures.org/advanced/scikit-learn/
+
 [reu13]: https://rkhullar.github.io/csci870/images/report/reu-2013.png
 [reu15]: https://rkhullar.github.io/csci870/images/report/reu-2015.png
 [app1]: https://rkhullar.github.io/csci870/images/report/app-setup.png
 [app2]: https://rkhullar.github.io/csci870/images/report/app-push.png
 [erd]: https://rkhullar.github.io/csci870/images/report/erd.png
 [pre]: https://rkhullar.github.io/csci870/images/report/preprocessing.png
+[frw]: https://rkhullar.github.io/csci870/images/report/framework.png
+
+[svm-linear]: http://www.scipy-lectures.org/_images/svm_kernel_linear.png
+[svm-poly]: http://www.scipy-lectures.org/_images/svm_kernel_poly.png
+[svm-radial]: http://www.scipy-lectures.org/_images/svm_kernel_rbf.png
+
 [cntL]: https://rkhullar.github.io/csci870/figures/count/L.png
 [cntT]: https://rkhullar.github.io/csci870/figures/count/T.png
 [cntW]: https://rkhullar.github.io/csci870/figures/count/W.png
 [cntLT]: https://rkhullar.github.io/csci870/figures/count/LT.png
 [cntF]: https://rkhullar.github.io/csci870/figures/count/F.png
+
 [distX]: https://rkhullar.github.io/csci870/figures/dist-x.png
 [distWL]: https://rkhullar.github.io/csci870/figures/dist-WL.png
 [decay]: https://rkhullar.github.io/csci870/figures/pdecay.png
+
 [box1]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_601_lab_at_10AM.png
 [box2]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_601_lab_at_12PM.png
 [box3]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_DL3_704_at_6PM.png
 [box4]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_DL3_704_at_7PM.png
+
 [mtx1]: https://rkhullar.github.io/csci870/figures/matrices/W/-1.png
 [mtx2]: https://rkhullar.github.io/csci870/figures/matrices/W/01.png
 [mtx3]: https://rkhullar.github.io/csci870/figures/matrices/WT/01.png
