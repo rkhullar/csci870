@@ -117,8 +117,14 @@ Forty access points passed the intitial filter which means their are forty three
 
 <div style="page-break-after: always;"></div>
 
+|          ![location-wap][cntF]           |
+| :--------------------------------------: |
+| ***Figure 5.5 - Filtered Scans grouped by Location*** |
+
+<div style="page-break-after: always;"></div>
+
 ### Signal Strength
-|              ![dist][dist]               |
+|             ![distX][distX]              |
 | :--------------------------------------: |
 | ***Figure 6 - Overall Distribution of Signal Strengths*** |
 
@@ -135,21 +141,27 @@ The best and worst signal strength's recorded in my dataset were -20 dB and -95 
 | :--------------------------------------: | :--------------------------------------: |
 | ***Figure 7.3 - Fingerprint for EGGC 704 at 6 PM*** | ***Figure 7.4 - Fingerprint for EGGC 704 at 7 PM*** |
 
+|            ![dist-WL][distWL]            |
+| :--------------------------------------: |
+| ***Figure 7.5 - Scan Density per Location and Access Point*** |
+
+<div style="page-break-after: always;"></div>
+
 <div style="page-break-after: always;"></div>
 
 ### Prediction Accuracy
-|  ![max1][max1]   |
-| :--------------: |
-| ***Figure 8.1*** |
+|              ![mtx1][mtx1]               |
+| :--------------------------------------: |
+| ***Figure 8.1 - Performance with All Access Points*** |
 
 
-|  ![max2][max2]   |  ![max3][max3]   |
-| :--------------: | :--------------: |
-| ***Figure 8.2*** | ***Figure 8.3*** |
+|              ![mtx2][mtx2]               |              ![mtx3][mtx3]               |
+| :--------------------------------------: | :--------------------------------------: |
+| ***Figure 8.2 - Performance with One WAP*** | ***Figure 8.3 - Performance with One WAP and Time*** |
 
-|  ![max4][max4]   |  ![max5][max5]   |
-| :--------------: | :--------------: |
-| ***Figure 8.4*** | ***Figure 8.5*** |
+|              ![mtx4][mtx4]               |              ![mtx5][mtx5]               |
+| :--------------------------------------: | :--------------------------------------: |
+| ***Figure 8.4- Performance with 11 WAPs*** | ***Figure 8.5 - Performance with 11 WAPs and Time*** |
 
 <div style="page-break-after: always;"></div>
 
@@ -184,14 +196,16 @@ In order to easily balance the dataset, raspberry pi’s should be placed in eac
 [cntT]: https://rkhullar.github.io/csci870/figures/count/T.png
 [cntW]: https://rkhullar.github.io/csci870/figures/count/W.png
 [cntLT]: https://rkhullar.github.io/csci870/figures/count/LT.png
-[dist]: https://rkhullar.github.io/csci870/figures/dist-x.png
+[cntF]: https://rkhullar.github.io/csci870/figures/count/F.png
+[distX]: https://rkhullar.github.io/csci870/figures/dist-x.png
+[distWL]: https://rkhullar.github.io/csci870/figures/dist-WL.png
 [decay]: https://rkhullar.github.io/csci870/figures/pdecay.png
 [box1]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_601_lab_at_10AM.png
 [box2]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_601_lab_at_12PM.png
 [box3]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_DL3_704_at_6PM.png
 [box4]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_DL3_704_at_7PM.png
-[max1]: https://rkhullar.github.io/csci870/figures/matrices/all_waps.png
-[max2]: https://rkhullar.github.io/csci870/figures/matrices/W/01.png
-[max3]: https://rkhullar.github.io/csci870/figures/matrices/WT/01.png
-[max4]: https://rkhullar.github.io/csci870/figures/matrices/W/11.png
-[max5]: https://rkhullar.github.io/csci870/figures/matrices/WT/11.png
+[mtx1]: https://rkhullar.github.io/csci870/figures/matrices/W/-1.png
+[mtx2]: https://rkhullar.github.io/csci870/figures/matrices/W/01.png
+[mtx3]: https://rkhullar.github.io/csci870/figures/matrices/WT/01.png
+[mtx4]: https://rkhullar.github.io/csci870/figures/matrices/W/11.png
+[mtx5]: https://rkhullar.github.io/csci870/figures/matrices/WT/11.png
