@@ -199,7 +199,7 @@ In order to easily balance the dataset, raspberry pi’s should be placed in eac
 |                   | Notifications        |                      |
 
 ## References
-1. Kj&230;rgaard et al. Indoor Positioning Using GPS Revisited. In *Proceedings of the 8th International Conference on Pervasive Computing*, Helsinki, Finland. Springer-Verlag, 2010. 38-56
+1. Kj&aelig;rgaard et al. Indoor Positioning Using GPS Revisited. In *Proceedings of the 8th International Conference on Pervasive Computing*, Helsinki, Finland. Springer-Verlag, 2010. 38-56
 
 
 [R1]: http://dx.doi.org/10.1007/978-3-642-12654-3_3
