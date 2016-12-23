@@ -28,6 +28,7 @@ Global Positioning Systems (GPS) have been the standard technology used to obtai
 Unfortunately localization using GPS is ineffective indoors and in highly metropolitan environments because of GPS signal fading. Signal fading occurs when signals penetrate building materials causing a decrease in intensity. This causes a decrease in signal-to-noise ratio making it difficult for GPS devices to differentiate between signals and noise. Signal fading is also a result of multipath phenomenon, which is caused by reflection and refraction of signals when they encounter walls [1]. Because of these reasons GPS signal is often lost entirely on smartphones in indoor environments, causing a pressing need for indoor localization.
 
 Indoor Localization may be utilized similarly to outdoor localization. This includes commercial applications such as real-time maps to help people navigate within malls or museums, and more technical applications such as guiding drones through indoor environments or locating cars inside tunnels. An indoor positioning system will open a new market of applications.
+
 Indoor Localization may be utilized similarly to outdoor localization. This includes commercial applications such as real-time maps to help people navigate within malls or museums, and more technical applications such as guiding drones through indoor environments or locating cars inside tunnels. An indoor positioning system will open a new market of applications.
 
 <div style="page-break-after: always;"></div>
@@ -45,12 +46,14 @@ In Summer 2015 a student from Cooper Union and I were two of the REU fellows. We
 
 In Summer 2016 two fellows studied multifloor localization with four consecutive floors in NYIT's main building. They were able to distinguish between thirty locations in their dataset with high accuracy. In all three REU studies the process of data collection proved difficult. The third project had a sample size of around 300 WiFi scans. After realizing this I was inspired to create a framework to help automate the process of gathering samples.
 
-<div style="page-break-after: always;"></div>
-
 ### Machine Learning
 |   ![svm-linear][svm-linear]   |       ![svm-poly][svm-poly]       |   ![svm-radial][svm-radial]   |
 | :---------------------------: | :-------------------------------: | :---------------------------: |
 | ***Figure 2.1 - Linear SVM*** | ***Figure 2.2 - Polynomial SVM*** | ***Figure 2.3 - Radial SVM*** |
+
+In this study we use the linear support vector machine classifier to perform location prediction. As shown above lines are gnerated to divide the hyperplane into labeled classes. Figure 2.3 shows an example of radial classifcation, but this usually leads to overfitting. [2]
+
+<div style="page-break-after: always;"></div>
 
 ## Implementation
 |               ![frw][frw]                |
@@ -195,7 +198,11 @@ In order to easily balance the dataset, raspberry pi’s should be placed in eac
 | Sending Email     | Making HTTP Requests | Matplotlib           |
 |                   | Notifications        |                      |
 
+## References
+1. Kj&230;rgaard et al. Indoor Positioning Using GPS Revisited. In *Proceedings of the 8th International Conference on Pervasive Computing*, Helsinki, Finland. Springer-Verlag, 2010. 38-56
 
+
+[R1]: http://dx.doi.org/10.1007/978-3-642-12654-3_3
 [R2]: http://www.scipy-lectures.org/advanced/scikit-learn/
 
 [reu13]: https://rkhullar.github.io/csci870/images/report/reu-2013.png
