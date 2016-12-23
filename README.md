@@ -187,13 +187,13 @@ The app should be modifed to record the phone’s model number. This is importan
 In order to easily balance the dataset, raspberry pi’s should be placed in each room and be programed to collect training data. Then the classifiers should be tested with samples from the app.
 
 ## Learning Outcomes
-| Server            | Android             | Machine Learning     |
-| ----------------- | ------------------- | -------------------- |
-| Database          | SQLite              | Training Classifiers |
-| REST API in Flask | Broadcast Receivers | Cross Validation     |
-| Apache with HTTPS | Background Services | Confusion Matrices   |
-| Sending Email     | Making HTTPRequests | Matplotlib           |
-|                   | Notifications       |                      |
+| Server            | Android              | Machine Learning     |
+| ----------------- | -------------------- | -------------------- |
+| PostgreSQL        | SQLite               | Training Classifiers |
+| REST API in Flask | Broadcast Receivers  | Cross Validation     |
+| Apache with HTTPS | Background Services  | Confusion Matrices   |
+| Sending Email     | Making HTTP Requests | Matplotlib           |
+|                   | Notifications        |                      |
 
 
 [R2]: http://www.scipy-lectures.org/advanced/scikit-learn/
