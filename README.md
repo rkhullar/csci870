@@ -29,6 +29,12 @@ Unfortunately localization using GPS is ineffective indoors and in highly metrop
 
 Indoor Localization may be utilized similarly to outdoor localization. This includes commercial applications such as real-time maps to help people navigate within malls or museums, and more technical applications such as guiding drones through indoor environments or locating cars inside tunnels. An indoor positioning system will open a new market of applications.
 
+The most accurate way to express WiFi signal strength is with dBm, which stands for decibels relative to one milliwatt. Another common meaurement is the Received Signal Strength Indicator (RSSI). The RSSI measures the relative quality of the signal and is expressed with dB. The Android API provides the signal strength as the latter. [5]
+
+| $$\textrm{dBm}=10\times\log{\dfrac{P}{1\quad\textrm{mW}}}$$ | $$\textrm{dB}=\log{\dfrac{P_1}{P_2}}$$ |
+| :--------------------------------------: | :------------------------------------: |
+|           ***Absolute Power***           |         ***Ratio of Powers***          |
+
 <div style="page-break-after: always;"></div>
 
 |        ![REU 2013][reu13]         |         ![REU 2015][reu15]         |
@@ -209,15 +215,17 @@ The signal strengths picked up by each type of mobile device may have a fixed of
 
 ## References
 1. Kjærgaard et al. "Indoor Positioning Using GPS Revisited," *Proceedings of the 8th International Conference on Pervasive Computing*, Helsinki, Finland. Springer-Verlag, 2010. 38-56
-2. N. Kothari, B. Kannan, E. Glasgwow, M. Dias, "Robust Indoor Localization on a Commercial Smart Phone," *Procedia Computer Science*,  2012. 1114-1120
-3. N. Gutierrez, C. Belmonte, J. Hanvey, R. Espejo, Z. Dong, "Indoor localization for mobile devices," *Proceedings of the 11th IEEE International Conference on Networking, Sensing and Control*, Miami, FL, 2014. 173-178.
+2. N. Kothari, B. Kannan, E. Glasgwow, M. Dias, Robust Indoor Localization on a Commercial Smart Phone. *Procedia Computer Science*,  2012. 1114-1120
+3. N. Gutierrez, C. Belmonte, J. Hanvey, R. Espejo, Z. Dong, Indoor localization for mobile devices. *Proceedings of the 11th IEEE International Conference on Networking, Sensing and Control*, Miami, FL, 2014. 173-178.
 4. [Scikit-learn: Machine Learning in Python][R3], Pedregosa et al., JMLR 12, pp. 2825-2830, 2011.
+5. DB vs. DBm. Editorial. *InTech Magazine*, 1 Nov. 2002. ISA. 
 
 [R1]: http://dx.doi.org/10.1007/978-3-642-12654-3_3
 [R2]: http://www.sciencedirect.com/science/article/pii/S1877050912005157
 [R3]: http://ieeexplore.ieee.org/document/6819620/
 [G4]: http://www.scipy-lectures.org/advanced/scikit-learn/
 [R4]: http://jmlr.csail.mit.edu/papers/v12/pedregosa11a.html
+[R5]: https://www.isa.org/standards-publications/isa-publications/intech-magazine/2002/november/db-vs-dbm/
 
 [reu13]: https://rkhullar.github.io/csci870/images/report/reu-2013.png
 [reu15]: https://rkhullar.github.io/csci870/images/report/reu-2015.png
