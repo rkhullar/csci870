@@ -107,11 +107,15 @@ First the table of scan records is downloaded from the server by an administrato
 | :--------------------------------------: |
 | ***Figure 5.1 - Scan Records grouped by Location*** |
 
+Figure 5.1 shows that 17 locations passed the intial filter of having at least 1000 scan records. The top four locations have over 15,000 records.
+
 <div style="page-break-after: always;"></div>
 
 |              ![hour][cntT]               |
 | :--------------------------------------: |
 | ***Figure 5.2 - Scan Records grouped by Hour*** |
+
+Figure 5.2 shows that most of the scans were performed between 4 PM and 7 PM.
 
 <div style="page-break-after: always;"></div>
 
@@ -119,7 +123,7 @@ First the table of scan records is downloaded from the server by an administrato
 | :--------------------------------------: |
 | ***Figure 5.3 - Scan Records grouped by Access Point*** |
 
-Forty access points passed the intitial filter which means their are forty three features for access points.
+Forty three access points passed the intitial filter which means there are that many features plus two in total. The most common access point is nearly twice as prevalent as the second most common access point. 
 
 <div style="page-break-after: always;"></div>
 
@@ -133,6 +137,8 @@ Forty access points passed the intitial filter which means their are forty three
 | :--------------------------------------: |
 | ***Figure 5.5 - Filtered Scans grouped by Location*** |
 
+Before preprocessing there were 17 locations that passed the initial filter. After preprocessing only 14 locations are available to train the classifiers. Figure 5.5 shows how many scans there are for earch of those 14 locations. L01 through L05 have at least 3000 scans and the rest have under 1500 scans.
+
 <div style="page-break-after: always;"></div>
 
 ### Signal Strength
@@ -140,7 +146,7 @@ Forty access points passed the intitial filter which means their are forty three
 | :--------------------------------------: |
 | ***Figure 6 - Overall Distribution of Signal Strengths*** |
 
-The best and worst signal strength's recorded in my dataset were -20 dB and -95 dB respectively. The signal strength is normally distributed.
+The best and worst signal strength's recorded in my dataset were -20 dB and -95 dB respectively. The signal strength is normally distributed with mean of -70 dB.
 
 <div style="page-break-after: always;"></div>
 
@@ -156,6 +162,8 @@ The best and worst signal strength's recorded in my dataset were -20 dB and -95 
 |            ![dist-WL][distWL]            |
 | :--------------------------------------: |
 | ***Figure 7.5 - Scan Density per Location and Access Point*** |
+
+Figures 7.1 through 7.4  show that WiFi scan fingerpints for individaul locations are similar regardless of time, and that they are different for unique locations. The last figure shows how many samples are in each location and access point group. Each row can be interpreted as the fingerpring for one location as well.
 
 <div style="page-break-after: always;"></div>
 
@@ -175,19 +183,25 @@ The best and worst signal strength's recorded in my dataset were -20 dB and -95 
 | :--------------------------------------: | :--------------------------------------: |
 | ***Figure 8.4- Performance with 11 WAPs*** | ***Figure 8.5 - Performance with 11 WAPs and Time*** |
 
+The figures above compare the location predicators that were trained from my dataset. Since 43 access points passed the inital filter there are a total of 45 features that can be used. Two of them are the day of week and hour of day which are extracted from the timestamp for a scan. By using all the access points the location can be predicted with 99% accuracy. Most of the false predictions come from classifying scans from L10 as L07.
+
+If only the most common access point is utilized then nearly all of the locations for each scan are predicted incorrectly as L05. The exceptions are samples from L02 and L05 which are still predicted correctly at least 90% of the time. By using the most common access point along with day of week and hour, the prediction accuracy significantly improves from 37% to 84%. By using the top eleven most common access points along with time, the prediction accuracy becomes 100%. Without time the accuracy is still less than when using time with only one access point.
+
 <div style="page-break-after: always;"></div>
 
 |             ![decay][decay]              |
 | :--------------------------------------: |
 | ***Figure 9 - Prediction Accuracy vs Number of WAP Features*** |
 
-Prediction accuracy is significantly improved by including time features in the classification algorithm. With my dataset 100% accuracy can be achieved by using time and 11 access points. Without time the 28 most common access points are required to get close to the same accuracy. However as shown in Figure 5.1 and Figure 5.2, my dataset is highly unbalanced with regard to both time and location. That might be the reason we see such high improvement by using time as a feature.
+Prediction accuracy is significantly improved by including time features in the classification algorithm. With my dataset 100% accuracy can be achieved by using time and 11 access points. Without time the 28 most common access points are required to get close to the same accuracy. However as shown in Figures 5.1 and Figure 5.2, my dataset is highly unbalanced with regard to both time and location. That might be the reason we see such high improvement by using time as a feature.
 
 ## Future Work
 
-The app should be modifed to record the phone’s model number. This is important since the signal reading is dependant on the antenna and each modle of phone may have it's own.
+The Android application should be modified to record the phone’s model number. This is important since the signal reading is dependant on the antenna and each model of phone may have a unique type of antenna. For example if an iphone and a nexus were to perform a WiFi scan at the exact same time and location, the results may not be the same. They should pick up the same access points but the signal strengths to each access point might be offset. 
 
-In order to easily balance the dataset, raspberry pi’s should be placed in each room and be programed to collect training data. Then the classifiers should be tested with samples from the app.
+In order to easily balance the dataset, raspberry pi’s can be placed in the perimeter of each room and be programed to automatically perform WiFi scans at a set time interval. When creating the location classifiers, the scans from the pi's should be used as training data. The scans from the mobile devices can be used as testing data. It would be interesting to see how accurate the predictors would be in that situation.
+
+Also the signal strengths picked up by each type of mobile device may have a fixed offset to those picked up by the pi's. If that is the case then the training data would not need to come from phones at all and using one kind of device would suffice. Before predicting location with a scan from a phone, the signal strengths received would simply be offset appropriately.
 
 ## Learning Outcomes
 | Server            | Android              | Machine Learning     |
