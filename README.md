@@ -29,7 +29,7 @@ Unfortunately localization using GPS is ineffective indoors and in highly metrop
 
 Indoor Localization may be utilized similarly to outdoor localization. This includes commercial applications such as real-time maps to help people navigate within malls or museums, and more technical applications such as guiding drones through indoor environments or locating cars inside tunnels. An indoor positioning system will open a new market of applications.
 
-The most accurate way to express WiFi signal strength is with dBm, which stands for decibels relative to one milliwatt. Another common meaurement is the Received Signal Strength Indicator (RSSI). The RSSI measures the relative quality of the signal and is expressed with dB. The Android API provides the signal strength as the latter. [5]
+The most accurate way to express WiFi signal strength is with dBm, which stands for decibels relative to one milliwatt. Another common meaurement is the Received Signal Strength Indicator (RSSI). The RSSI measures the relative quality of the signal and is expressed with dB. The Android API provides signal strength as the latter. [5]
 
 | $$\textrm{dBm}=10\times\log{\dfrac{P}{1\quad\textrm{mW}}}$$ | $$\textrm{dB}=\log{\dfrac{P_1}{P_2}}$$ |
 | :--------------------------------------: | :------------------------------------: |
@@ -192,6 +192,8 @@ Figure 9 shows how the prediction accuracy changes with the number of access poi
 
 Since the classifier were trained and tested using 10 fold cross validation, there actually 10 accuracies for each one. The figure shows the average and and standard deviation for each classifier. The error bars on the green line are much larger then in the red line, which means that the scores for each individual classifier are much more consistent when only using the access points as features.
 
+<div style="page-break-after: always;"></div>
+
 ## Conclusion
 
 Prediction accuracy is significantly improved by including time features in the classification algorithm. With my dataset 100% accuracy can be achieved by using time and 11 access points. Without time the 28 most common access points are required to get close to the same accuracy. However as shown in Figures 5.1 and Figure 5.2, my dataset is highly unbalanced with regard to both time and location. That might be the reason we see such high improvement by using time as a feature.
@@ -212,6 +214,8 @@ The signal strengths picked up by each type of mobile device may have a fixed of
 | Apache with HTTPS | Background Services  | Confusion Matrices   |
 | Sending Email     | Making HTTP Requests | Matplotlib           |
 |                   | Notifications        |                      |
+
+<div style="page-break-after: always;"></div>
 
 ## References
 1. Kjærgaard et al. "Indoor Positioning Using GPS Revisited," *Proceedings of the 8th International Conference on Pervasive Computing*, Helsinki, Finland. Springer-Verlag, 2010. 38-56
