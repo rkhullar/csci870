@@ -59,7 +59,7 @@ In Summer 2016 two REU fellows studied multifloor localization with four consecu
 
 The Digital Ocean server has Apache and PostgreSQL installed. A python library called Flask was used to create a REST api. Java was used to create the Android application. As shown in Figure 3.1, once users sign up and login they can choose their classroom and setup a scan for the duration of that class. The scans will occur in the background so the users can close the app and use their phone normally. The scans can be paused or canceled in case the users needs to change their location. Finally once the scans are complete, then each user can upload their local dataset to the server.
 
-For my analysis, the table of scan records if first downloaded from my server. Then it is preprocessed in before being used to train the location classifiers. Before testing the prediction accuracy of the classification models, we analyze how much data we have in terms of both scan records and complete scans. We also are able to visualize the WiFi fingerprints for each location.
+For my analysis, the table of scan records if first downloaded from my server. Then it is preprocessed before being used to train the location classifiers. Before testing the prediction accuracy of the classification models, we analyze how much data we have in terms of both scan records and complete scans. We are also able to visualize the WiFi fingerprints for each location.
 
 The graphs shown in this report represent only a small portion of all the graphs generated. All the graphs are stored on github with the following URL: [rkhullar.github.io/csci870/][M]
 
