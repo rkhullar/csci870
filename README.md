@@ -42,13 +42,13 @@ The most accurate way to express WiFi signal strength is with dBm, which stands 
 | ***Figure 1.1 - EGGC 6th Floor*** | ***Figure 1.2 - MC16 Auditorium*** |
 
 ### Related Work
-Indoor Localization has been attempted through the use of Wi-Fi signal strength and Sensor fusion. Kothari et al (2012) [2] have successfully used dead reckoning and Wi-Fi signal strength fingerprinting to find the location of a smartphone. Dead reckoning was their method of using the accelerometer, gyroscope, compass and a particle filter in order to track walking and thereby track location. Both of these methods are prone to large errors. Wi-Fi signal strength is affected by obstacles and by the myriad of other Wi-Fi signals in an urban environment, while the accelerometer and gyroscope sensors are likely to generate random noise in the data.
+Indoor Localization has been attempted through the use of Wi-Fi signal strength and Sensor fusion. Kothari et al (2012) [2] have successfully used dead reckoning and Wi-Fi signal strength fingerprinting to find the location of a smartphone. Dead reckoning was their method of using the accelerometer, gyroscope, compass and a particle filter in order to track walking and thereby track location. Both of these methods are prone to large errors. Wi-Fi signal strength is affected by obstacles and a myriad of other Wi-Fi signals in an urban environment, while the accelerometer and gyroscope sensors are likely to generate random noise in the data.
 
 Thanks to the National Science Foundation's Research Experience Undergraduate (REU) program, research fellows have been able to study indoor localization at NYIT. As shown in Figure 1.1, students in the summer of 2013 chose three access points on a single floor and measured signal strengths from twenty six spots evenly distributed in the hallways. [3]
 
 In Summer 2015 a student from Cooper Union and I were two of the REU fellows. We attempted to correlate energy consumption of a Nexus 5 to physical distance from an access point. We setup one router as a fixed access point and designed an Android application that records the current and voltage of the phone while pinging the router. We took ten samples at sixty points in a large classroom, however we were unable to find any significant correlation as shown in Figure 1.2. 
 
-In Summer 2016 two fellows studied multifloor localization with four consecutive floors in NYIT's main building. They were able to distinguish between thirty locations in their dataset with high accuracy. In all three REU studies the process of data collection proved difficult. The third project had a sample size of around 300 WiFi scans. After realizing this I was inspired to create a framework to help automate the process of gathering samples.
+In Summer 2016 two REU fellows studied multifloor localization with four consecutive floors in NYIT's main building. They were able to distinguish between thirty locations in their dataset with high accuracy. In all three REU studies the process of data collection proved difficult. The third project had a sample size of around 300 WiFi scans. After realizing this I was inspired to create a framework to help automate the process of gathering samples.
 
 <div style="page-break-after: always;"></div>
 
@@ -58,6 +58,10 @@ In Summer 2016 two fellows studied multifloor localization with four consecutive
 | ***Figure 2.1 - High Level System Design*** |
 
 The Digital Ocean server has Apache and PostgreSQL installed. A python library called Flask was used to create a REST api. Java was used to create the Android application. As shown in Figure 3.1, once users sign up and login they can choose their classroom and setup a scan for the duration of that class. The scans will occur in the background so the users can close the app and use their phone normally. The scans can be paused or canceled in case the users needs to change their location. Finally once the scans are complete, then each user can upload their local dataset to the server.
+
+For my analysis, the table of scan records if first downloaded from my server. Then it is preprocessed in before being used to train the location classifiers. Before testing the prediction accuracy of the classification models, we analyze how much data we have in terms of both scan records and complete scans. We also are able to visualize the WiFi fingerprints for each location.
+
+The graphs shown in this report represent only a small portion of all the graphs generated. All the graphs are stored on github with the following URL: [rkhullar.github.io/csci870/][M]
 
 |      ![app-setup][app1]       |          ![app-push][app2]           |
 | :---------------------------: | :----------------------------------: |
@@ -69,7 +73,7 @@ The Digital Ocean server has Apache and PostgreSQL installed. A python library c
 | :--------------------------------------: |
 | ***Figure 2.2 - Entity Relation Diagram*** |
 
-One WiFi scan or sample results in one or more scan records. Each scan record contains information about the mac address to one access point, the signal strength to that access point, the location, the unix time stamp, and the user who performed the scan. The locations are stored as a separate table with building, floor, and room description.
+One WiFi scan or sample results in one or more scan records. Each scan record contains the the mac address for a single access point, the signal strength to that access point, the location of the scan, the UNIX time stamp, and the user who performed the scan. The locations are stored as a separate table with building, floor, and room description.
 
 In order to reduce redundancy a table of unique access points is maintained as well as one for unique locations. The actor table contains information for all people in the system including normal users, administrators, and new unverified signups. Figure 2.2 shows the simplified entity relation diagram.
 
@@ -230,6 +234,8 @@ The signal strengths picked up by each type of mobile device may have a fixed of
 [G4]: http://www.scipy-lectures.org/advanced/scikit-learn/
 [R4]: http://jmlr.csail.mit.edu/papers/v12/pedregosa11a.html
 [R5]: https://www.isa.org/standards-publications/isa-publications/intech-magazine/2002/november/db-vs-dbm/
+
+[M]: https://rkhullar.github.io/csci870/
 
 [reu13]: https://rkhullar.github.io/csci870/images/report/reu-2013.png
 [reu15]: https://rkhullar.github.io/csci870/images/report/reu-2015.png
