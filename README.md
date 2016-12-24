@@ -199,11 +199,16 @@ In order to easily balance the dataset, raspberry pi’s should be placed in eac
 |                   | Notifications        |                      |
 
 ## References
-1. Kj&aelig;rgaard et al. Indoor Positioning Using GPS Revisited. In *Proceedings of the 8th International Conference on Pervasive Computing*, Helsinki, Finland. Springer-Verlag, 2010. 38-56
-
+1. Kjærgaard et al. "Indoor Positioning Using GPS Revisited," *Proceedings of the 8th International Conference on Pervasive Computing*, Helsinki, Finland. Springer-Verlag, 2010. 38-56
+2. N. Kothari, B. Kannan, E. Glasgwow, M. Dias, "Robust Indoor Localization on a Commercial Smart Phone," *Procedia Computer Science*,  2012. 1114-1120
+3. N. Gutierrez, C. Belmonte, J. Hanvey, R. Espejo, Z. Dong, "Indoor localization for mobile devices," *Proceedings of the 11th IEEE International Conference on Networking, Sensing and Control*, Miami, FL, 2014. 173-178.
+4. [Scikit-learn: Machine Learning in Python][R3], Pedregosa et al., JMLR 12, pp. 2825-2830, 2011.
 
 [R1]: http://dx.doi.org/10.1007/978-3-642-12654-3_3
-[R2]: http://www.scipy-lectures.org/advanced/scikit-learn/
+[R2]: http://www.sciencedirect.com/science/article/pii/S1877050912005157
+[R3]: http://ieeexplore.ieee.org/document/6819620/
+[G4]: http://www.scipy-lectures.org/advanced/scikit-learn/
+[R4]: http://jmlr.csail.mit.edu/papers/v12/pedregosa11a.html
 
 [reu13]: https://rkhullar.github.io/csci870/images/report/reu-2013.png
 [reu15]: https://rkhullar.github.io/csci870/images/report/reu-2015.png
