@@ -29,8 +29,6 @@ Unfortunately localization using GPS is ineffective indoors and in highly metrop
 
 Indoor Localization may be utilized similarly to outdoor localization. This includes commercial applications such as real-time maps to help people navigate within malls or museums, and more technical applications such as guiding drones through indoor environments or locating cars inside tunnels. An indoor positioning system will open a new market of applications.
 
-Indoor Localization may be utilized similarly to outdoor localization. This includes commercial applications such as real-time maps to help people navigate within malls or museums, and more technical applications such as guiding drones through indoor environments or locating cars inside tunnels. An indoor positioning system will open a new market of applications.
-
 <div style="page-break-after: always;"></div>
 
 |        ![REU 2013][reu13]         |         ![REU 2015][reu15]         |
@@ -40,49 +38,41 @@ Indoor Localization may be utilized similarly to outdoor localization. This incl
 ### Related Work
 Indoor Localization has been attempted through the use of Wi-Fi signal strength and Sensor fusion. Kothari et al (2012) [2] have successfully used dead reckoning and Wi-Fi signal strength fingerprinting to find the location of a smartphone. Dead reckoning was their method of using the accelerometer, gyroscope, compass and a particle filter in order to track walking and thereby track location. Both of these methods are prone to large errors. Wi-Fi signal strength is affected by obstacles and by the myriad of other Wi-Fi signals in an urban environment, while the accelerometer and gyroscope sensors are likely to generate random noise in the data.
 
-Thanks to the National Science Foundation's Research Experience Undergraduate (REU) program, research fellows have been able to study indoor localization at NYIT. As shown in Figure 1.1, students in the summer of 2013 chose three access points on a single floor and measured signal strengths from twenty six spots evenly distributed in the hallways.
+Thanks to the National Science Foundation's Research Experience Undergraduate (REU) program, research fellows have been able to study indoor localization at NYIT. As shown in Figure 1.1, students in the summer of 2013 chose three access points on a single floor and measured signal strengths from twenty six spots evenly distributed in the hallways. [3]
 
 In Summer 2015 a student from Cooper Union and I were two of the REU fellows. We attempted to correlate energy consumption of a Nexus 5 to physical distance from an access point. We setup one router as a fixed access point and designed an Android application that records the current and voltage of the phone while pinging the router. We took ten samples at sixty points in a large classroom, however we were unable to find any significant correlation as shown in Figure 1.2. 
 
 In Summer 2016 two fellows studied multifloor localization with four consecutive floors in NYIT's main building. They were able to distinguish between thirty locations in their dataset with high accuracy. In all three REU studies the process of data collection proved difficult. The third project had a sample size of around 300 WiFi scans. After realizing this I was inspired to create a framework to help automate the process of gathering samples.
-
-### Machine Learning
-|   ![svm-linear][svm-linear]   |       ![svm-poly][svm-poly]       |   ![svm-radial][svm-radial]   |
-| :---------------------------: | :-------------------------------: | :---------------------------: |
-| ***Figure 2.1 - Linear SVM*** | ***Figure 2.2 - Polynomial SVM*** | ***Figure 2.3 - Radial SVM*** |
-
-In this study we use the linear support vector machine classifier to perform location prediction. As shown above lines are gnerated to divide the hyperplane into labeled classes. Figure 2.3 shows an example of radial classifcation, but this usually leads to overfitting. [2]
 
 <div style="page-break-after: always;"></div>
 
 ## Implementation
 |               ![frw][frw]                |
 | :--------------------------------------: |
-| ***Figure 3.1 - High Level System Design*** |
+| ***Figure 2.1 - High Level System Design*** |
+
+The Digital Ocean server has Apache and PostgreSQL installed. A python library called Flask was used to create a REST api. Java was used to create the Android application. As shown in Figure 3.1, once users sign up and login they can choose their classroom and setup a scan for the duration of that class. The scans will occur in the background so the users can close the app and use their phone normally. The scans can be paused or canceled in case the users needs to change their location. Finally once the scans are complete, then each user can upload their local dataset to the server.
 
 |      ![app-setup][app1]       |          ![app-push][app2]           |
 | :---------------------------: | :----------------------------------: |
-| ***Figure 4.1 - Setup Scan*** | ***Figure 4.2 - Push Scan Results*** |
-
-The Digital Ocean server has Apache and PostgreSQL installed. A python library called Flask was used to create a REST api. Java was used to create the Android application. As shown in Figure 4.1, once users sign up and login they can choose their classroom and setup a scan for the duration of that class. The scans will occur in the background so the users can close the app and use their phone normally. The scans can be paused or canceled in case the users needs to change their location. Finally once the scans are complete, then each user can upload their local dataset to the server.
+| ***Figure 3.1 - Setup Scan*** | ***Figure 3.2 - Push Scan Results*** |
 
 ### Database
-One WiFi scan or sample results in one or more scan records. Each scan record contains information about the mac address to one access point, the signal strength to that access point, the location (building, floor, room), the unix time stamp, and the user who performed the scan.
-
-In order to reduce redundancy a table of unique access points is maintained as well as one for unique locations. The actor table contains information for all people in the system including normal users, administrators, and new unverified signups. Figure 3.2 shows the simplified entity relation diagram.
 
 |               ![erd][erd]                |
 | :--------------------------------------: |
-| ***Figure 3.2 - Entity Relation Diagram*** |
+| ***Figure 2.2 - Entity Relation Diagram*** |
+
+One WiFi scan or sample results in one or more scan records. Each scan record contains information about the mac address to one access point, the signal strength to that access point, the location, the unix time stamp, and the user who performed the scan. The locations are stored as a separate table with building, floor, and room description.
+
+In order to reduce redundancy a table of unique access points is maintained as well as one for unique locations. The actor table contains information for all people in the system including normal users, administrators, and new unverified signups. Figure 2.2 shows the simplified entity relation diagram.
 
 ### Preprocessing
 |               ![pre][pre]               |
 | :-------------------------------------: |
-| ***Figure 3.3 - Preprocessing Module*** |
+| ***Figure 2.3 - Preprocessing Module*** |
 
-First the table of scan records is downloaded from the server by an administrator. The program groups each record by location and hour. Groups that do not have at least 1000 records are ignored. Each passing group is further grouped by the WiFi access point into blocks. Each block must contain at least 100 records. Then all the passing access points become columns and the passing records are combined by their timestamps into complete scans. The day of week and hour are also extracted from each timestamp. The new table serves as input for the machine learning algorithms.
-
-<div style="page-break-after: always;"></div>
+Figure 2.3 shows how the dataset is prepared for machine learning. First the table of scan records is downloaded from the server by an administrator. The program groups each record by location and hour. Groups that do not have at least 1000 records are ignored. Each passing group is further grouped by the WiFi access point into blocks. Each block must contain at least 100 records. Then all the passing access points become columns and the passing records are combined by their timestamps into complete scans. The day of week and hour are also extracted from each timestamp.
 
 #### Input
 | UXT  | BSSID | Signal Strength | Location |
@@ -97,6 +87,13 @@ First the table of scan records is downloaded from the server by an administrato
 | :-----: | :------: | :--: | :--: | :--: | :------: |
 | dow(T1) | hour(T1) | *W*  | *X*  | *-*  |    L1    |
 | dow(T2) | hour(T2) | *-*  | *Y*  | *Z*  |    L2    |
+
+### Machine Learning
+|   ![svm-linear][svm-linear]   |       ![svm-poly][svm-poly]       |   ![svm-radial][svm-radial]   |
+| :---------------------------: | :-------------------------------: | :---------------------------: |
+| ***Figure 4.1 - Linear SVM*** | ***Figure 4.2 - Polynomial SVM*** | ***Figure 4.3 - Radial SVM*** |
+
+In this study we use the linear support vector machine classifier to perform location prediction. As shown in Figure 4.1 lines are generated to divide the hyperplane into labeled classes. Figure 4.3 shows an example of radial classification, but this usually leads to overfitting. Another countermeasure to this problem is to use *k* fold cross validation. The entire dataset of samples is randomly divided into *k* evenly sized blocks. Each block is used as testing data once while all the other blocks are used as training data. In this way *k* classifiers are actually trained and tested. [4]
 
 <div style="page-break-after: always;"></div>
 
@@ -127,17 +124,11 @@ Forty three access points passed the intitial filter which means there are that 
 
 <div style="page-break-after: always;"></div>
 
-|         ![location-hour][cntLT]          |
-| :--------------------------------------: |
-| ***Figure 5.4 - Scan Records grouped by Location and Hour*** |
-
-<div style="page-break-after: always;"></div>
-
 |          ![location-wap][cntF]           |
 | :--------------------------------------: |
-| ***Figure 5.5 - Filtered Scans grouped by Location*** |
+| ***Figure 5.4 - Filtered Scans grouped by Location*** |
 
-Before preprocessing there were 17 locations that passed the initial filter. After preprocessing only 14 locations are available to train the classifiers. Figure 5.5 shows how many scans there are for earch of those 14 locations. L01 through L05 have at least 3000 scans and the rest have under 1500 scans.
+Before preprocessing there were 17 locations that passed the initial filter. After preprocessing only 14 locations are available to train the classifiers. Figure 5.4 shows how many scans there are for earch of those 14 locations. L01 through L05 have at least 3000 scans and the rest have under 1500 scans.
 
 <div style="page-break-after: always;"></div>
 
@@ -146,7 +137,7 @@ Before preprocessing there were 17 locations that passed the initial filter. Aft
 | :--------------------------------------: |
 | ***Figure 6 - Overall Distribution of Signal Strengths*** |
 
-The best and worst signal strength's recorded in my dataset were -20 dB and -95 dB respectively. The signal strength is normally distributed with mean of -70 dB.
+Figure 6 shows that the best and worst signal strength's recorded in my dataset were -20 dB and -95 dB respectively. The signal strength is normally distributed with mean of -70 dB.
 
 <div style="page-break-after: always;"></div>
 
@@ -163,9 +154,7 @@ The best and worst signal strength's recorded in my dataset were -20 dB and -95 
 | :--------------------------------------: |
 | ***Figure 7.5 - Scan Density per Location and Access Point*** |
 
-Figures 7.1 through 7.4  show that WiFi scan fingerpints for individaul locations are similar regardless of time, and that they are different for unique locations. The last figure shows how many samples are in each location and access point group. Each row can be interpreted as the fingerpring for one location as well.
-
-<div style="page-break-after: always;"></div>
+Figures 7.1 through 7.4  show that WiFi scan fingerpints for individual locations are similar regardless of time, and that they are different for unique locations. Figure 7.5 shows how many samples are in each location and access point group. Each row can be interpreted as the fingerprint for one location as well.
 
 <div style="page-break-after: always;"></div>
 
@@ -183,7 +172,7 @@ Figures 7.1 through 7.4  show that WiFi scan fingerpints for individaul location
 | :--------------------------------------: | :--------------------------------------: |
 | ***Figure 8.4- Performance with 11 WAPs*** | ***Figure 8.5 - Performance with 11 WAPs and Time*** |
 
-The figures above compare the location predicators that were trained from my dataset. Since 43 access points passed the inital filter there are a total of 45 features that can be used. Two of them are the day of week and hour of day which are extracted from the timestamp for a scan. By using all the access points the location can be predicted with 99% accuracy. Most of the false predictions come from classifying scans from L10 as L07.
+Figures 8.1 through 8.5 compare the location predictors that were trained from my dataset. Since 43 access points passed the inital filter there are a total of 45 features that can be used. Two of them are the day of week and hour of day, which are extracted from the timestamp for a scan. By using all the access points the location can be predicted with 99% accuracy. Most of the false predictions come from classifying scans from L10 as L07.
 
 If only the most common access point is utilized then nearly all of the locations for each scan are predicted incorrectly as L05. The exceptions are samples from L02 and L05 which are still predicted correctly at least 90% of the time. By using the most common access point along with day of week and hour, the prediction accuracy significantly improves from 37% to 84%. By using the top eleven most common access points along with time, the prediction accuracy becomes 100%. Without time the accuracy is still less than when using time with only one access point.
 
@@ -193,6 +182,12 @@ If only the most common access point is utilized then nearly all of the location
 | :--------------------------------------: |
 | ***Figure 9 - Prediction Accuracy vs Number of WAP Features*** |
 
+Figure 9 shows how the prediction accuracy changes with the number of access points used. Since forty three waps were used, there are eighty seven classifiers in total. The red line starts by using the most common access point. The green line start by only using the day of week and hour of day. Ideally using no access points should yield an accuracy of $$N^{-1}$$ where $$N$$ represents the number of locations to predict from. That would be the same as randomly choosing one location.
+
+Since the classifier were trained and tested using 10 fold cross validation, there actually 10 accuracies for each one. The figure shows the average and and standard deviation for each classifier. The error bars on the green line are much larger then in the red line, which means that the scores for each individual classifier are much more consistent when only using the access points as features.
+
+## Conclusion
+
 Prediction accuracy is significantly improved by including time features in the classification algorithm. With my dataset 100% accuracy can be achieved by using time and 11 access points. Without time the 28 most common access points are required to get close to the same accuracy. However as shown in Figures 5.1 and Figure 5.2, my dataset is highly unbalanced with regard to both time and location. That might be the reason we see such high improvement by using time as a feature.
 
 ## Future Work
@@ -201,7 +196,7 @@ The Android application should be modified to record the phone’s model number.
 
 In order to easily balance the dataset, raspberry pi’s can be placed in the perimeter of each room and be programed to automatically perform WiFi scans at a set time interval. When creating the location classifiers, the scans from the pi's should be used as training data. The scans from the mobile devices can be used as testing data. It would be interesting to see how accurate the predictors would be in that situation.
 
-Also the signal strengths picked up by each type of mobile device may have a fixed offset to those picked up by the pi's. If that is the case then the training data would not need to come from phones at all and using one kind of device would suffice. Before predicting location with a scan from a phone, the signal strengths received would simply be offset appropriately.
+The signal strengths picked up by each type of mobile device may have a fixed offset to those picked up by the pi's. If that is the case then the training data would not need to come from phones at all and using one kind of device would suffice. Before predicting location with a scan from a phone, the signal strengths received would simply be offset appropriately.
 
 ## Learning Outcomes
 | Server            | Android              | Machine Learning     |
@@ -251,7 +246,7 @@ Also the signal strengths picked up by each type of mobile device may have a fix
 [box3]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_DL3_704_at_6PM.png
 [box4]: https://rkhullar.github.io/csci870/figures/boxplots/LT/EGGC_DL3_704_at_7PM.png
 
-[mtx1]: https://rkhullar.github.io/csci870/figures/matrices/W/-1.png
+[mtx1]: https://rkhullar.github.io/csci870/images/report/all_waps.png
 [mtx2]: https://rkhullar.github.io/csci870/figures/matrices/W/01.png
 [mtx3]: https://rkhullar.github.io/csci870/figures/matrices/WT/01.png
 [mtx4]: https://rkhullar.github.io/csci870/figures/matrices/W/11.png
