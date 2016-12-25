@@ -295,3 +295,9 @@
 1. created boxplot for filtered location samples
 2. improved confusion matrices again
 3. added scan distribution for location and wap
+
+## 2016-12-23
+1. report
+
+## 2016-12-24
+1. adding bootstrap to website
