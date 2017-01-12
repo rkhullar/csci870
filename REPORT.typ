@@ -1,3 +1,8 @@
+---
+title: Indoor Localization Framework with WiFi Fingerprinting
+author: Rajan Khullar
+---
+
 <img src=http://www.nyit.edu/files/communications_and_marketing/DIGITAL_LOGO_Engineering_RGB_HORIZ.png width="179" height="63" />
 
 <br>
@@ -61,7 +66,7 @@ The Digital Ocean server has Apache and PostgreSQL installed. A python library c
 
 For my analysis, the table of scan records if first downloaded from my server. Then it is preprocessed before being used to train the location classifiers. Before testing the prediction accuracy of the classification models, we analyze how much data we have in terms of both scan records and complete scans. We are also able to visualize the WiFi fingerprints for each location.
 
-The graphs shown in this report represent only a small portion of all the graphs generated. All the graphs are stored on github with the following URL: [rkhullar.github.io/csci870/][M]
+The graphs shown in this report represent only a small portion of all the graphs generated. All the graphs are available on github through the following URL: [rkhullar.github.io/csci870/][M]
 
 |      ![app-setup][app1]       |          ![app-push][app2]           |
 | :---------------------------: | :----------------------------------: |
@@ -200,7 +205,7 @@ Since the classifier were trained and tested using 10 fold cross validation, the
 
 ## Conclusion
 
-Prediction accuracy is significantly improved by including time features in the classification algorithm. With my dataset 100% accuracy can be achieved by using time and 11 access points. Without time the 28 most common access points are required to get close to the same accuracy. However as shown in Figures 5.1 and Figure 5.2, my dataset is highly unbalanced with regard to both time and location. That might be the reason we see such high improvement by using time as a feature.
+Prediction accuracy is significantly improved by including time features in the classification algorithm. With my dataset 100% accuracy can be achieved by using time and 11 access points. Without time the 28 most common access points are required to get close to the same accuracy. However as shown in Figures 5.1 and 5.2, my dataset is highly unbalanced with regard to both time and location. That might be the reason we see such high improvement by using time as a feature.
 
 ## Future Work
 
