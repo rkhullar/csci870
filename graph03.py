@@ -38,7 +38,7 @@ def boxplot_helper(xs, ws, title=None, fname=None):
     if title:
         plt.title(title)
     plt.xlabel('WiFi Access Point')
-    plt.ylabel('Signal Strength (dB)')
+    plt.ylabel('Signal Strength (dBm)')
     plt.tight_layout()
     if fname:
         fig.savefig(fname)
